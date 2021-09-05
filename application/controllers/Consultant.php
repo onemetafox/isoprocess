@@ -2498,7 +2498,7 @@ public function record_read($id = NULL)
 					break;
 			}
 		}
-        if (count($temp) > 0){
+        if (count((array)$temp) > 0){
             $this->db->where('id', $temp->id);
             $result = $this->db->update('process_risk_rating', $data);
         }else{
@@ -2541,7 +2541,7 @@ public function record_read($id = NULL)
                             WHERE
                                 a.process_id = ".$id." having name is not NULL";
 		$temp_value = $this->db->query($sql)->row();
-		if (count($temp_value) > 0){
+		if (count((array)$temp_value) > 0){
 			$sql = "update process_risk_rating set ".strtolower($type)."_value = '".$temp_value->name."' where process_id = ".$id;
 			$this->db->query($sql);
 			echo json_encode(array('value'=>$temp_value->name));
@@ -4674,7 +4674,7 @@ WHERE
 				$this->db->where('type', 'Food');
 				$this->db->where('risk_id', $data['risk_id']);
 				$tmp_value = @$this->db->get('rating_matrix')->row();
-				if (count($tmp_value) > 0) {
+				if (count((array)$tmp_value) > 0) {
 					$tmp_data['food_like'] = $tmp_value->like_id;
 					$tmp_data['food_conse'] = $tmp_value->conse_id;
 					$tmp_data['food_value'] = $tmp_value->value;
@@ -4682,7 +4682,7 @@ WHERE
 				$this->db->where('type', 'Environmental');
 				$this->db->where('risk_id', $data['risk_id']);
 				$tmp_value = @$this->db->get('rating_matrix')->row();
-				if (count($tmp_value) > 0) {
+				if (count((array)$tmp_value) > 0) {
 					$tmp_data['environmental_like'] = $tmp_value->like_id;
 					$tmp_data['environmental_conse'] = $tmp_value->conse_id;
 					$tmp_data['environmental_value'] = $tmp_value->value;
@@ -4690,7 +4690,7 @@ WHERE
 				$this->db->where('type', 'TACCP');
 				$this->db->where('risk_id', $data['risk_id']);
 				$tmp_value = @$this->db->get('rating_matrix')->row();
-				if (count($tmp_value) > 0) {
+				if (count((array)$tmp_value) > 0) {
 					$tmp_data['taccp_like'] = $tmp_value->like_id;
 					$tmp_data['taccp_conse'] = $tmp_value->conse_id;
 					$tmp_data['taccp_value'] = $tmp_value->value;
@@ -4698,7 +4698,7 @@ WHERE
 				$this->db->where('type', 'Quality');
 				$this->db->where('risk_id', $data['risk_id']);
 				$tmp_value = @$this->db->get('rating_matrix')->row();
-				if (count($tmp_value) > 0) {
+				if (count((array)$tmp_value) > 0) {
 					$tmp_data['quality_like'] = $tmp_value->like_id;
 					$tmp_data['quality_conse'] = $tmp_value->conse_id;
 					$tmp_data['quality_value'] = $tmp_value->value;
@@ -4706,7 +4706,7 @@ WHERE
 				$this->db->where('type', 'Safety');
 				$this->db->where('risk_id', $data['risk_id']);
 				$tmp_value = @$this->db->get('rating_matrix')->row();
-				if (count($tmp_value) > 0) {
+				if (count((array)$tmp_value) > 0) {
 					$tmp_data['safety_like'] = $tmp_value->like_id;
 					$tmp_data['safety_conse'] = $tmp_value->conse_id;
 					$tmp_data['safety_value'] = $tmp_value->value;
@@ -4714,7 +4714,7 @@ WHERE
 				$this->db->where('type', 'VACCP');
 				$this->db->where('risk_id', $data['risk_id']);
 				$tmp_value = @$this->db->get('rating_matrix')->row();
-				if (count($tmp_value) > 0) {
+				if (count((array)$tmp_value) > 0) {
 					$tmp_data['vaccp_like'] = $tmp_value->like_id;
 					$tmp_data['vaccp_conse'] = $tmp_value->conse_id;
 					$tmp_data['vaccp_value'] = $tmp_value->value;
@@ -4752,7 +4752,7 @@ WHERE
 							FROM
 								risk_value a where company_id = " . $consultant_id . " and type = " . $temp_type . " having name is not NULL";
 					$temp_value = $this->db->query($sql)->row();
-					if (count($temp_value) > 0) {
+					if (count((array)$temp_value) > 0) {
 						$sql = "update process_risk_rating set " . strtolower($row) . "_value = '" . $temp_value->name . "' where process_id = " . $items->id;
 						$this->db->query($sql);
 					}
@@ -4788,9 +4788,17 @@ WHERE
 		$data['assess_type'] = explode(",",$type);
 		$data['outsource_id'] = $id;
 
-		$sql = "select process.* from process where process.outsource_id = ".$id." and process.del_flag = 0";
+		// $sql = "select process.* from process where process.outsource_id = ".$id." and process.del_flag = 0";
+		// $data['processes'] = $this->db->query($sql)->result();
+		// $sql = "select a.* from process_risk_rating a left join process b on a.process_id = b.id where b.id = ".$id;
+		// $data['ratings'] = $this->db->query($sql)->result();
+		// $sql = "select * from likelihood where company_id = ".$consultant_id." and type != 'strategic' and del_flag = 0 order by reg_date";
+		// $data['likelihood'] = $this->db->query($sql)->result();
+		// $sql = "select * from consequence where company_id = ".$consultant_id." and type != 'strategic' and del_flag = 0 order by reg_date";
+		// $data['consequence'] = $this->db->query($sql)->result();
+		$sql = "select process.*,process_step.name process_step_name from process LEFT join process_step on process_step.id = process.process_step where process.outsource_id = ".$id." and process.del_flag = 0";
 		$data['processes'] = $this->db->query($sql)->result();
-		$sql = "select a.* from process_risk_rating a left join process b on a.process_id = b.id where b.risk_id = ".$id;
+		$sql = "select a.* from process_risk_rating a left join process b on a.process_id = b.id where b.outsource_id = ".$id;
 		$data['ratings'] = $this->db->query($sql)->result();
 		$sql = "select * from likelihood where company_id = ".$consultant_id." and type != 'strategic' and del_flag = 0 order by reg_date";
 		$data['likelihood'] = $this->db->query($sql)->result();
@@ -7610,6 +7618,7 @@ WHERE
 			$this->db->join("risk","process.risk_id = risk.id","left");
 			$this->db->join("frequency","frequency.frequency_id = control_list.frequency","left");
 			$this->db->where('risk.company_id', $company_id);
+			$this->db->where('risk.status', '0');
 			if ($user_type != "consultant"){
 				$employee_id = $this->session->userdata('employee_id');
 				if ($user_type == "process_owner"){
@@ -7646,6 +7655,7 @@ WHERE
 			$this->db->join("risk","process.risk_id = risk.id","left");
 			$this->db->join("frequency","frequency.frequency_id = control_list.frequency","left");
 			$this->db->where('risk.company_id', $company_id);
+			$this->db->where('risk.status', '0');
 			if ($user_type != "consultant"){
 				$employee_id = $this->session->userdata('employee_id');
 				if ($user_type == "process_owner"){

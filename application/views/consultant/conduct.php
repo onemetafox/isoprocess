@@ -153,33 +153,34 @@ $process_owner=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`=
 									<td><?=$standalone->review_date?></td>
 									<td>
 										<?php
-										if ($standalone->type == 0){
+										// if ($standalone->type == 0){
 											if ($standalone->due + $standalone->days > 0) {
 												echo "<span class='label bg-success'>Due In ".($standalone->due+$standalone->days)." days</span>";
-												echo '&nbsp;<label class="label bg-info cursor" onclick="javascript:onActiveOrInactive(' . $standalone->id . ', ' . ($standalone->active == 1 ? 0 : 1) . ');">' . ($standalone->active == 1 ? 'Inactive' : 'Active') . '</label>';
+												echo '&nbsp;<label class="label bg-info cursor" onclick="javascript:onActiveOrInactive(' . $standalone->id . ', ' . ($standalone->active == 1 ? 0 : 1) . ');">' . ($standalone->active == 1 ? 'Inactivate' : 'Deactivate') . '</label>';
 											}else if ($standalone->due + $standalone->days < 0){
 												echo "<span class='label bg-danger'>Past Due ".abs($standalone->due+$standalone->days)." days</span>";
-												echo '&nbsp;<label class="label bg-info cursor" onclick="javascript:onActiveOrInactive(' . $standalone->id . ', ' . ($standalone->active == 1 ? 0 : 1) . ');">' . ($standalone->active == 1 ? 'Inactive' : 'Active') . '</label>';
+												echo '&nbsp;<label class="label bg-info cursor" onclick="javascript:onActiveOrInactive(' . $standalone->id . ', ' . ($standalone->active == 1 ? 0 : 1) . ');">' . ($standalone->active == 1 ? 'Inactivate' : 'Deactivate') . '</label>';
 											}else{
 												echo "<span class='label bg-success'>Success</span>";
 											}
-										}else if ($standalone->type == 1){
-											if (((strtotime($standalone->review_date) - strtotime($standalone->now_date))/3600)+$standalone->days > 0){
-												echo "<span class='label bg-success'>Due In ".ceil(((strtotime($standalone->review_date) - strtotime($standalone->now_date))/3600)+$standalone->days)." hours</span>";
-											}else if (((strtotime($standalone->review_date) - strtotime($standalone->now_date))/3600)+$standalone->days < 0){
-												echo "<span class='label bg-danger'>Past Due ".abs(ceil(((strtotime($standalone->review_date) - strtotime($standalone->now_date))/3600)+$standalone->days))." hours</span>";
-											}
-										}else{
-											if (((strtotime($standalone->review_date) - strtotime($standalone->now_date))/60)+$standalone->days > 0){
-												echo "<span class='label bg-success'>Due In ".ceil(((strtotime($standalone->review_date) - strtotime($standalone->now_date))/60)+$standalone->days)." minutes</span>";
-											}else if (((strtotime($standalone->review_date) - strtotime($standalone->now_date))/60)+$standalone->days < 0){
-												echo "<span class='label bg-danger'>Past Due ".abs(ceil(((strtotime($standalone->review_date) - strtotime($standalone->now_date))/60)+$standalone->days))." minutes</span>";
-											}
-										}
+										// }else if ($standalone->type == 1){
+										// 	if (((strtotime($standalone->review_date) - strtotime($standalone->now_date))/3600)+$standalone->days > 0){
+										// 		echo "<span class='label bg-success'>Due In ".ceil(((strtotime($standalone->review_date) - strtotime($standalone->now_date))/3600)+$standalone->days)." hours</span>";
+										// 	}else if (((strtotime($standalone->review_date) - strtotime($standalone->now_date))/3600)+$standalone->days < 0){
+										// 		echo "<span class='label bg-danger'>Past Due ".abs(ceil(((strtotime($standalone->review_date) - strtotime($standalone->now_date))/3600)+$standalone->days))." hours</span>";
+										// 	}
+										// }else{
+										// 	if (((strtotime($standalone->review_date) - strtotime($standalone->now_date))/60)+$standalone->days > 0){
+										// 		echo "<span class='label bg-success'>Due In ".ceil(((strtotime($standalone->review_date) - strtotime($standalone->now_date))/60)+$standalone->days)." minutes</span>";
+										// 	}else if (((strtotime($standalone->review_date) - strtotime($standalone->now_date))/60)+$standalone->days < 0){
+										// 		echo "<span class='label bg-danger'>Past Due ".abs(ceil(((strtotime($standalone->review_date) - strtotime($standalone->now_date))/60)+$standalone->days))." minutes</span>";
+										// 	}
+										// }
 										?>
 									</td>
 									<td>
-										<?php if ($standalone->status == 0):?>
+										<!-- <?php /*if ($standalone->status == 0):*/?> -->
+										<?php if (true):?>
 											<a href="<?php echo base_url(); ?>index.php/Consultant/manage_control/<?=$standalone->id?>" class="btn btn-primary btn-sm" style="color: white;" title="Manage">Manage</a>
 											<!-- <a href="<?php echo base_url(); ?>index.php/Consultant/history_control/<?=$standalone->process_id?>" class="btn btn-primary btn-sm" style="color: white;" title="History">History</a> -->
 											<a onclick="close_control(<?=$standalone->id?>)" class="btn btn-primary btn-sm" style="color: white;" title="Close">Close</a>
