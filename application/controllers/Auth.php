@@ -8,15 +8,17 @@ class Auth extends MY_Controller
 		$this->mHeader['menu_title']    = 'login';
         $this->mHeader['otp_status']    = $this->settings->otp_verification ? true:false;
 		$param = $this->input->post('login');
-        $this->login_limit->remove_penalty();
 
+        $this->login_limit->remove_penalty();
 		if ($param) {
+            
             /*=-=-= limit login attempt start -=-=-*/
-            $this->login_limit->check_user_valid();
+            
+            // $this->login_limit->check_user_valid();
             /*=-=-= limit login attempt end -=-=-*/
 
             /*=-=-= verification on/off start -=-=-*/
-
+            
 		    if ($this->settings->otp_verification){
 
                 $user_OTP       = $this->input->post('code');
@@ -181,7 +183,7 @@ class Auth extends MY_Controller
                     }
                 }
             }else{
-
+                
                 $validation = array(
                     array(
                         'field' => 'login[username]',
@@ -198,18 +200,20 @@ class Auth extends MY_Controller
                 if (!$this->form_validation->run()){
                     $this->render('login');
                 }else {
-
+                    
                     $type = $this->input->post('usertype');
                     $username = $param['username'];
                     $password = $param['password'];
                     $attempt  = 0;
+                    
                     /*=-=-= After password hashed start -=-=-*/
                     unset($param['password']);
                     /*=-=-= After password hashed end -=-=-*/
                     
                     if($type == "admin"){
+
                         $user = $this->Auth_model->login($param, $type);
-                        ;
+                        
                         if($user && verifyHashedPassword( $password, $user->password )){
                             $user->type = $type;
                             $this->session->set_userdata('user', $user);
@@ -227,8 +231,7 @@ class Auth extends MY_Controller
 
                     }
                     else if($type == 'consultant' || $type == "executive"){
-                        // print_r($type);
-                        // die;
+                        
                         $user = $this->Auth_model->login($param, $type);
                         if($user && verifyHashedPassword( $password, $user->password )){
                             if($user->is_active == 0) {
@@ -253,7 +256,7 @@ class Auth extends MY_Controller
                                 'is_password_updated' => $user->isPasswordUptd
                             ));
                             /*=-=- refresh attempts =-=-*/
-                            $this->login_limit->refresh_attempts();
+                            // $this->login_limit->refresh_attempts();
                         }else{
                             $user = false;
                         }

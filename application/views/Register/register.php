@@ -244,12 +244,13 @@
 
 			</div>
 
-			<div class="form-group">
+			<!-- <div class="form-group">
 
-		<script src='https://www.google.com/recaptcha/api.js'></script>
+				<script src='https://www.google.com/recaptcha/api.js'></script>
 
-		<div class="g-recaptcha" data-sitekey="6LeMZPkUAAAAAOY59BjLyKtYXFOH3YU4QNGKWSw4"></div> 
-		<div id="errormessage" style="color: red; margin: 5px 0 0 0px" ></div> </div>
+				<div class="g-recaptcha" data-sitekey="6LeMZPkUAAAAAOY59BjLyKtYXFOH3YU4QNGKWSw4"></div> 
+				<div id="errormessage" style="color: red; margin: 5px 0 0 0px" ></div> 
+			</div> -->
 
 
 			<div class="form-group">
@@ -276,11 +277,11 @@
 
 <script type="text/javascript">
 	function signup(argument) {
-		if(grecaptcha.getResponse() == "") { 
-                 jQuery("#errormessage").text("Please Fill The Google Captcha");
-              }
-              else{
+		// if(grecaptcha.getResponse() == "") { 
+  //                jQuery("#errormessage").text("Please Fill The Google Captcha");
+  //             }
+  //             else{
               			document.login_form.submit();
-              } 
+              // } 
 	}
 </script>

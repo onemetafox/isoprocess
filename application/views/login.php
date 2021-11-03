@@ -351,11 +351,11 @@
 						</label>
 
 					</div>
-					<div class="custom-capcha">
+					<!-- <div class="custom-capcha">
 						<script src='https://www.google.com/recaptcha/api.js'></script> 
 						<div class="g-recaptcha" data-sitekey="6LeMZPkUAAAAAOY59BjLyKtYXFOH3YU4QNGKWSw4"></div> 
 						<div id="errormessage"></div> 
-					</div>
+					</div> -->
 				</div>
 				
 
@@ -392,14 +392,14 @@
 <script>
 	
 	function login() {
-		if(grecaptcha.getResponse() == "") 
-		{ 
-			jQuery("#errormessage").text("Please Fill The Google Captcha");
-		}
-		else
-		{
+		// if(grecaptcha.getResponse() == "") 
+		// { 
+		// 	jQuery("#errormessage").text("Please Fill The Google Captcha");
+		// }
+		// else
+		// {
 			$("#login_form").submit();
-		} 
+		// } 
 
 	}
 	$(function() {

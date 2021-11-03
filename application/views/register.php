@@ -174,13 +174,14 @@
 
 							</div>
 
-						 <small id="emailHelp" class="form-text text-muted"><br>Use number, length limit(8),letter(small & uppercase).</small>
- <div class="form-group">
+						 	<small id="emailHelp" class="form-text text-muted"><br>Use number, length limit(8),letter(small & uppercase).</small>
+ 							<!-- <div class="form-group">
 
-		<script src='https://www.google.com/recaptcha/api.js'></script>
+								<script src='https://www.google.com/recaptcha/api.js'></script>
 
-		<div class="g-recaptcha" data-sitekey="6LfmY_kUAAAAAGcKtCJTPVZMxvaNTzfexqcU3efl"></div> 
-		<div id="errormessage"></div> </div>
+								<div class="g-recaptcha" data-sitekey="6LfmY_kUAAAAAGcKtCJTPVZMxvaNTzfexqcU3efl"></div> 
+								<div id="errormessage"></div> 
+							</div> -->
 
 							<div class="form-group">
 
@@ -225,25 +226,17 @@
 	<!-- /page container -->
 
 <script type="text/javascript">
-
-	
-
 console.clear();
-
-
-
-
-
 </script>
 
 <script type="text/javascript">
 	function signup(argument) {
-		if(grecaptcha.getResponse() == "") { 
-                 jQuery("#errormessage").text("Please Fill The Google Captcha");
-              }
-              else{
-              			document.sign_form.submit();
-              } 
+		// if(grecaptcha.getResponse() == "") { 
+		// 	jQuery("#errormessage").text("Please Fill The Google Captcha");
+		// }
+		// else{
+			document.sign_form.submit();
+		// } 
 	}
 </script>
 

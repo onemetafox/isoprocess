@@ -173,27 +173,27 @@
                     </div>
                     <table class="table datatable-basic table-bordered datatable-swot">
                         <thead>
-                        <tr>
-                            <th rowspan="3">No</th>
-                            <th rowspan="3">Process Step</th>
-                            <?php foreach ($assess_type as $row): ?>
-                                <th rowspan="3">Potential Haz <?=$row?></th>
-                            <?php endforeach; ?>
-                            <th colspan="<?=count($assess_type)*3?>">Risk Assessment</th>
-                            <th rowspan="3" style="padding-left: 100px;padding-right: 100px;">Action</th>
-                        </tr>
-                        <tr>
-                            <?php foreach ($assess_type as $row): ?>
-                                <th colspan="3"><?=$row?></th>
-                            <?php endforeach; ?>
-                        </tr>
-                        <tr>
-                            <?php foreach ($assess_type as $row): ?>
-                                <th>Likelihood</th>
-                                <th>Consequence</th>
-                                <th>RIsk Rating</th>
-                            <?php endforeach; ?>
-                        </tr>
+                            <tr>
+                                <th rowspan="3">No</th>
+                                <th rowspan="3">Process Step</th>
+                                <?php foreach ($assess_type as $row): ?>
+                                    <th rowspan="3">Potential Haz <?=$row?></th>
+                                <?php endforeach; ?>
+                                <th colspan="<?=count($assess_type)*3?>">Risk Assessment</th>
+                                <th rowspan="3" style="padding-left: 100px;padding-right: 100px;">Action</th>
+                            </tr>
+                            <tr>
+                                <?php foreach ($assess_type as $row): ?>
+                                    <th colspan="3"><?=$row?></th>
+                                <?php endforeach; ?>
+                            </tr>
+                            <tr>
+                                <?php foreach ($assess_type as $row): ?>
+                                    <th>Likelihood</th>
+                                    <th>Consequence</th>
+                                    <th>RIsk Rating</th>
+                                <?php endforeach; ?>
+                            </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($processes as $row): ?>
