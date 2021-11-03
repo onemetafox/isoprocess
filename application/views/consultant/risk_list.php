@@ -243,7 +243,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <label>Hazard Name</label>
+                                                <label>Hazard Source</label>
                                                 <input type="text" placeholder="Risk Name" name="name" class="form-control">
                                             </div>
                                         </div>

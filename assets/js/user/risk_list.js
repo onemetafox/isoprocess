@@ -37,7 +37,7 @@ $(function() {
                             return Number(info.page) * Number(info.length) + Number(pos.row) + 1;
                         }
                     }, 
-                    { "sTitle" : "Hazard Name", "mData": "name", "sWidth": 180 },
+                    { "sTitle" : "Hazard Source", "mData": "name", "sWidth": 180 },
                     { "sTitle" : "Assessment Type", "mData": "assess_type", "sWidth": 120 },
                     { "sTitle" : "Description", "mData": "description", "sWidth": 350 },
                     { "sTitle" : "Detail and Technical Data", "mData": "detail", "sWidth": 150 },
