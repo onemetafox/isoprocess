@@ -7650,12 +7650,13 @@ WHERE
 		$data['employees_email'] = $this->db->query("SELECT * FROM `employees` WHERE `consultant_id`='$company_id' &&  `employee_email`!=''")->result();
 		if ($company_id) {
 			$data['title'] = "MONITORING ACTIVITY";
-			$this->db->select("control_list.*,frequency.frequency_name,frequency.days,frequency.type, DATEDIFF(control_list.review_date, IF (`control_list`.active <> 1, `control_list`.active_at, now())) due, IF (`control_list`.active <> 1, `control_list`.active_at, now()) now_date");
+			$this->db->select("risk.name hazard_name, process.potential_hazard, control_list.*,frequency.frequency_name,frequency.days,frequency.type, DATEDIFF(control_list.review_date, IF (`control_list`.active <> 1, `control_list`.active_at, now())) due, IF (`control_list`.active <> 1, `control_list`.active_at, now()) now_date");
 			$this->db->join("process","process.id = control_list.process_id","left");
 			$this->db->join("risk","process.risk_id = risk.id","left");
 			$this->db->join("frequency","frequency.frequency_id = control_list.frequency","left");
 			$this->db->where('risk.company_id', $company_id);
 			$this->db->where('risk.status', '0');
+			$this->db->where('risk.del_flag', '0');
 			if ($user_type != "consultant"){
 				$employee_id = $this->session->userdata('employee_id');
 				if ($user_type == "process_owner"){

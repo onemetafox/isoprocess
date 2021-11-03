@@ -127,7 +127,9 @@
 							</tr>
 								<tr>
 								    <th>No</th>
-								    <th>Name</th>
+								    <th>Control Name </th>
+									<th>Hazard Source</th>
+									<th>Potential Hazard</th>
 								    <th>Frequency</th>
                                     <th>Process Owner</th>
 									<th>Responsible Party</th>
@@ -139,14 +141,16 @@
 							<tbody>
 								<?php $count=1;
                                  foreach ($standalone_data as $standalone) { ?>
-<?php 
-$respo=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->responsible_party'")->row()->employee_name;
-$process_owner=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->sme'")->row()->employee_name;
-?>
+								<?php 
+								$respo=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->responsible_party'")->row()->employee_name;
+								$process_owner=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->sme'")->row()->employee_name;
+								?>
 	
 								<tr>
 								    <td><?=$count?></td>
 								    <td><?=$standalone->name?></td>
+									<td><?=$standalone->hazard_name?></td>
+									<td><?=$standalone->potential_hazard?></td>
 									<td><?=$standalone->frequency_name?></td>
                                     <td><?=$process_owner?></td>
 									<td><?=$respo?></td>
