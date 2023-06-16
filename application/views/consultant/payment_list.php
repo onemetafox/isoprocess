@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?=$title?></title>
-	<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+<!--	<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">-->
 	<link href="<?=base_url(); ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
 	<link href="<?=base_url(); ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<link href="<?=base_url(); ?>assets/css/core.css" rel="stylesheet" type="text/css">
@@ -39,7 +39,6 @@
 	<?php $this->load->view('consultant/main_header.php'); ?>
 	<!-- /main navbar -->
 
-
 	<!-- Page container -->
 	<div class="page-container">
 
@@ -60,20 +59,19 @@
 						<div class="page-title">
 							<h4><?php
 							if ($this->session->userdata('consultant_id')) {
-								$consultant_id = $this->session->userdata('consultant_id');
-								$audito1 = $this->db->query("select * from `consultant` where `consultant_id`='$consultant_id'")->row();
+								$consultant_id= $this->session->userdata('consultant_id');
+	                            $logo1=$this->db->query("select * from `consultant` where `consultant_id`='$consultant_id'")->row();
 
-								$dlogo = $this->db->query("select * from `default_setting` where `id`='1'")->row()->logo;
+	                            $dlogo=$this->db->query("select * from `default_setting` where `id`='1'")->row()->logo;
 
-								if ($audito1->logo == '1') {
-									$audito = $dlogo;
-								} else {
-									$audito = $audito1->logo;
-								}
+	                            if ($logo1->logo=='1') {
+	                            	$logo=$dlogo;
+	                            }else{
+	                            	 $logo=$logo1->logo;
+	                            }
 							}
 							?>
-								<img src="<?php echo base_url(); ?>uploads/logo/<?=$audito?>" style="height:50px;">
-								<span class="text-semibold"><?=$title?></span>
+								<img src="<?php echo base_url(); ?>uploads/logo/<?=$logo?>" style="height:50px;"> <span class="text-semibold"><?=$title?></span>
                             <!--  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#modal_theme_primary">New Plan <i class="icon-lan2 position-right"></i></button> -->
 							</h4>
 						</div>
@@ -100,49 +98,65 @@
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							<span class="text-semibold">Thank you!</span>Plan Successfully created.. 
 				        </div>
-                    <?php   } ?>
+                    <?php $this->session->unset_userdata('message');  } ?>
                      
                         <?php if($this->session->flashdata('message')=='failed') { ?>
                       	 <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							<span class="text-semibold">Oppps!</span>Something Went Wrong Please try again.
 				        </div>
-                      <?php   } ?>
+                      <?php  $this->session->unset_userdata('message'); } ?>
                       <?php if($this->session->flashdata('message')=='success_del') { ?>
                       	  <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							Plan Successfully Deleted.. 
 				        </div>
-                      <?php   } ?>
+                      <?php  $this->session->unset_userdata('message'); } ?>
 
                       <?php if($this->session->flashdata('message')=='update_success') { ?>
                       	  <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							Plan Successfully Updated.. 
 				        </div>
-                      <?php   } ?>
+                      <?php $this->session->unset_userdata('message');  } ?>
 					<!-- Basic datatable -->
 					<div class="panel panel-flat" style="overflow:auto;">
 						<table class="table datatable-basic" >
 							<thead>
-								<tr>
-								    <th>No</th>
-									<th>Pay Date</th>
-									<th>Description</th>
-									<th>Amount</th>
-									<th>Status</th>
-								</tr>
+							<tr>
+								<th>No</th>
+								<th>Pay Date</th>
+								<th>Description</th>
+								<th>Amount</th>
+								<th>Status</th>
+							</tr>
 							</thead>
 							<tbody>
-								<?php foreach($payments as $item) : ?>
-									<tr>
-										<td>1</td>
-										<td>2</td>
-										<td>3</td>
-										<td>4</td>
-										<td>5</td>
-									</tr>
-								<?php endforeach; ?>
+							<?php $count=1;
+							$consultant_id = $this->session->userdata('consultant_id');
+							$consultant = @$this->db->query("SELECT * FROM `consultant` WHERE `consultant_id`='$consultant_id'")->row();
+
+							foreach ($payment as $payments) { ?>
+								<?php
+								$rowdata=@$this->db->query("SELECT * FROM `consultant` WHERE `consultant_id`='$payments->consultant_id'")->row();
+
+								$plandata=@$this->db->query("SELECT * FROM `plan` WHERE `plan_id`='$payments->purchase_plan_id'")->row();
+
+								?>
+								<tr>
+									<td><?php echo $count; ?></td>
+									<td><?php echo $payments->date_time; ?></td>
+									<td><?php echo $plandata->plan_name; ?></td>
+									<td><?php echo $payments->total_amount; ?></td>
+									<td><?=$payments->payment_status?></td>
+								</tr>
+								<?php $count++; } ?>
+							<tr>
+								<td colspan="2"></td>
+								<td colspan="1">Your account will be expire in <font style="color:red;"><?php echo $consultant->expired ; ?></font></td>
+								<td colspan="1"></td>
+								<td colspan="1"><font style="color:red;">Pending</font></td>
+							</tr>
 							</tbody>
 						</table>
 					</div>

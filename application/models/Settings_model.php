@@ -10,6 +10,13 @@ class Settings_model extends CI_Model {
         return $res;
     }
 
+   #--------------- Email for expired subscription------------------------
+     function getEmailTemplate_1($where){
+        $result = $this->db->get_where('subscription_email_template', $where);
+        $res=$result->row_array();
+        return $res;
+    }
 
+   #-----------------------------------------------------------------------
 
 }

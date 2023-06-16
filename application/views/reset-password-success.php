@@ -42,9 +42,10 @@
 								<div class="icon-object border-warning-400 text-warning-400"><i class="icon-envelop"></i></div>
 								<h5 class="content-group-lg">Success<small class="display-block" style="color: red;font-weight:700;font-size:20px;">
 							           <?php echo validation_errors();
-                                        if ($this->session->flashdata('message')) {
-                                        echo $this->session->flashdata('message');
-                                       }
+											if ($this->session->flashdata('message')) {
+												echo $this->session->flashdata('message');
+												$this->session->unset_userdata('message');
+											}
 							           ?>
 							    </small></h5>
 							</div>

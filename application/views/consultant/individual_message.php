@@ -70,7 +70,6 @@
                             <?php
                             if ($this->session->userdata('consultant_id')) {
                                 $consultant_id= $this->session->userdata('consultant_id');
-                                $user_type= $this->session->userdata('user_type');
                                 $logo1=$this->db->query("select * from `consultant` where `consultant_id`='$consultant_id'")->row();
 
                                 $dlogo=$this->db->query("select * from `default_setting` where `id`='1'")->row()->logo;
@@ -129,26 +128,22 @@
                         <tbody>
                         <?php $count=1;
                         foreach ($individual_message as $messages) {
+
                             if ($messages->from_role=='consultant') {
-                                if ($user_type == "consultant"){
-                                    $from_users=$this->session->userdata('username');
-                                }else{
-                                    $from_users=@$this->db->query("SELECT * FROM `consultant` WHERE `consultant_id`='$consultant_id'")->row()->username;
-                                }
+                                $from_users=$this->session->userdata('username');
                             }else{
                                 $from_users=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$messages->from_user'")->row()->employee_name;
                             }
+
                             if ($messages->to_role=='consultant' || $messages->to_user=='0') {
-                                if ($user_type =="consultant"){
-                                    $tousers=$this->session->userdata('username');
-                                }else{
-                                    $consultant_id= $this->session->userdata('consultant_id1');
-                                    $from_users=@$this->db->query("SELECT * FROM `consultant` WHERE `consultant_id`='$consultant_id'")->row()->username;
-                                }
+                                $tousers=$this->session->userdata('username');
                             }else{
                                 $tousers=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$messages->to_user'")->row()->employee_name;
                             }
+
+
                             ?>
+
 
                             <tr>
                                 <td><?=$count?></td>
@@ -156,6 +151,8 @@
                                 <td><?=$messages->title?></td>
                                 <td><?=$from_users?></td>
                                 <td><?=$tousers?></td>
+
+
                                 <td>
                                     <a href="<?php echo base_url(); ?>index.php/Consultant/show_individual_message/<?=$messages->id?>" class="btn btn-primary">View</a>
                                 </td>
@@ -257,6 +254,9 @@
             </div>
             <div class="modal-body">
                 <form action="<?php echo base_url();?>index.php/Consultant/mails_to_indi" method="post">
+
+
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">

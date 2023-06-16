@@ -93,6 +93,25 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <span class="">INITIATOR / AUDITOR:</span>
+                                        </td>
+                                        <td>
+                                            <span class="">
+                                                <?php
+                                                if($standalone_data->auditor_id == 0) {
+                                                    echo 'TBD';
+                                                } else if($standalone_data->auditor_id == -1) {
+                                                    echo 'N/A';
+                                                } else {
+                                                    $auditor = $this->db->query("select * from `employees` where `employee_id`='$standalone_data->auditor_id'")->row();
+                                                    echo $auditor->employee_name;
+                                                }
+                                                ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <span class="">TRIGGER:
                                             </span>
                                         </td>
@@ -104,6 +123,15 @@
                                                 ?>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="">Audit Criteria:</span>
+                                        </td>
+                                        <td>
+                                            <span class=""><?=$standalone_data->audit_criteria?></span>
+                                        </td>
+                                    </tr>
+
                                     <tr>
                                         <td>
                                             <span class="">DATE OF OCCURRANCE:</span>
@@ -129,6 +157,15 @@
                                         </td>
                                         <td>
                                             <span class=""><?=$standalone_data->product?></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="">STANDARD:
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class=""><?=$standalone_data->standard?></span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -165,6 +202,42 @@
                                         </td>
                                         <td>
                                             <span class=""><?=$standalone_data->shift?></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="">COMPANY NAME:
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class=""><?=$standalone_data->company_name?></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="">SHIP TO ADDRESS:
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class=""><?=$standalone_data->company_address?></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="">SHIP TO CITY:
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class=""><?=$standalone_data->city?></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="">STATE:
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class=""><?=$standalone_data->state?></span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -277,63 +350,35 @@
 
                                             <?php
                                             $consultant_id = $this->session->userdata('consultant_id');
-                                            $employee_id = $this->session->userdata('employee_id');
-                                            $user_type = $this->session->userdata('user_type');
                                             foreach ($message as $messages) { ?>
-                                                <?php if ($user_type == "consultant"):?>
+
+                                                <?php
+                                                if (($messages->sender_id == $consultant_id) && ($messages->sender_role == 'Consultant')) { ?>
+
+
+                                                    <li class="media reversed" style="margin-right: 10px;">
+                                                        <div class="media-body" >
+                                                            <div class="media-content"><?=$messages->message?>.</div>
+                                                            <span class="media-annotation display-block mt-10"><?php  echo $this->session->userdata('username'); ?>  (Consultant Owner)<i class="icon-user position-right text-muted"></i></span>
+                                                        </div>
+
+                                                    </li>
+
+                                                <?php } else{?>
                                                     <?php
-                                                    if (($messages->sender_id == $consultant_id) && ($messages->sender_role == 'Consultant')) { ?>
-                                                        <li class="media reversed" style="margin-right: 10px;">
-                                                            <div class="media-body" >
-                                                                <div class="media-content"><?=$messages->message?>.</div>
-                                                                <span class="media-annotation display-block mt-10"><?php  echo $this->session->userdata('username'); ?>  (Consultant Owner)<i class="icon-user position-right text-muted"></i></span>
-                                                            </div>
-                                                        </li>
-                                                    <?php } else{?>
-                                                        <?php
-                                                        $user=@$this->db->query("select * from `employees` where `employee_id`='$messages->sender_id'")->row();
-                                                        $name=$user->employee_name;
-                                                        ?>
-                                                        <li class="media" style="margin-left: 10px;">
-                                                            <div class="media-body">
-                                                                <div class="media-content"><?=$messages->message?></div>
-                                                                <span class="media-annotation display-block mt-10"> <i class="icon-user position-right text-muted"></i> <?=$name?> (<?=$messages->sender_role?>) </span>
-                                                            </div>
-                                                        </li>
-                                                    <?php }?>
-                                                <?php else:?>
-                                                    <?php
-                                                    if (($messages->sender_id == $employee_id) && ($messages->sender_role == $user_type)) {
-                                                        $user=@$this->db->query("select * from `employees` where `employee_id`='$messages->sender_id'")->row();
-                                                        $name=$user->employee_name;
-                                                        ?>
-                                                        <li class="media reversed" style="margin-right: 10px;">
-                                                            <div class="media-body" >
-                                                                <div class="media-content"><?=$messages->message?>.</div>
-                                                                <span class="media-annotation display-block mt-10"><?=$name?>  (<?=$messages->sender_role?>)<i class="icon-user position-right text-muted"></i></span>
-                                                            </div>
-                                                        </li>
-                                                    <?php } else{ ?>
-                                                        <?php
-                                                        if($messages->sender_role == 'Consultant') {
-                                                            $user=@$this->db->query("select * from `consultant` where `consultant_id`='$messages->sender_id'")->row();
-                                                            $name = $user->consultant_name;
-                                                            $role = 'Consultant Owner';
-                                                        } else {
-                                                            $user=@$this->db->query("select * from `employees` where `employee_id`='$messages->sender_id'")->row();
-                                                            $name=$user->employee_name;
-                                                            $role = $messages->sender_role;
-                                                        }
-                                                        ?>
-                                                        <li class="media" style="margin-left: 10px;">
-                                                            <div class="media-body">
-                                                                <div class="media-content"><?=$messages->message?></div>
-                                                                <span class="media-annotation display-block mt-10"> <i class="icon-user position-right text-muted"></i> <?=$name?> (<?=$role?>) </span>
-                                                            </div>
-                                                        </li>
-                                                    <?php }?>
-                                                <?php endif;?>
+                                                    $user=@$this->db->query("select * from `employees` where `employee_id`='$messages->sender_id'")->row();
+                                                    $name=$user->employee_name;
+                                                    ?>
+                                                    <li class="media" style="margin-left: 10px;">
+                                                        <div class="media-body">
+                                                            <div class="media-content"><?=$messages->message?></div>
+                                                            <span class="media-annotation display-block mt-10"> <i class="icon-user position-right text-muted"></i> <?=$name?> (<?=$messages->sender_role?>) </span>
+                                                        </div>
+                                                    </li>
+                                                <?php }?>
+
                                             <?php  }?>
+
                                         </ul>
 
                                     </div>

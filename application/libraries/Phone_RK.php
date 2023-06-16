@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *  ==============================================================================
  */
 require __DIR__ . '/GeoLocate.php';
-use Brick\PhoneNumber\PhoneNumber;
+//use Brick\PhoneNumber\PhoneNumber;
 use Brick\PhoneNumber\PhoneNumberParseException;
 
 // Include the bundled autoload from the Twilio PHP Helper Library
@@ -32,7 +32,7 @@ class Phone_RK
         $geo->locate();
         $region_code    = !empty($geo->regionCode) ? $geo->regionCode:'US';
         try {
-            $number = PhoneNumber::parse($phoneNumber,$region_code);
+            $number = Brick\PhoneNumber\PhoneNumber::parse($phoneNumber,$region_code);
             if (!$number->isValidNumber()) {
                 return $this->response;
             }

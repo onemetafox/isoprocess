@@ -43,18 +43,19 @@
 								<h5 class="content-group-lg">Email Send<small class="display-block" style="color: red;font-weight:700;font-size:20px;">
 							           <?php echo validation_errors();
                                         if ($this->session->flashdata('message')) {
-                                        echo $this->session->flashdata('message');
-                                       }
+											echo $this->session->flashdata('message');
+											$this->session->unset_userdata('message');
+                                       	}
 							           ?>
 							    </small></h5>
 							</div>
 							<div class="form-group has-feedback has-feedback-left">
-								
-							  <p style="text-align: -webkit-center;">Your New <?= $forget_method;?> Instructions sent to registered Email Address.Please check your mail.</p>
+
+                                <p style="text-align: -webkit-center;">Your New <?= $forget_method;?> Instructions sent to registered Email Address.Please check your mail.</p>
                                 <p style="text-align: -webkit-center;">Check your Spam Folder if mail does not arrive in your inbox.</p>
 							</div>
 							<div class="form-group">
-								<a href="<?=base_url();?>" class="btn bg-blue btn-block btn-lg">Back To Login Page <i class="icon-arrow-left14 position-right"></i></a>
+								<a href="<?php echo base_url(); ?>" class="btn bg-blue btn-block btn-lg">Back To Login Page <i class="icon-arrow-left14 position-right"></i></a>
 							</div>
 						</div>
 					</form>

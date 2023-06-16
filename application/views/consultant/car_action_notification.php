@@ -121,11 +121,83 @@
                                 
 <?php 
 $respo=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->process_owner'")->row()->employee_name;
-$line_worker=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->line_worker'")->row()->employee_name;
-$monitoring_type=@$this->db->query("SELECT * FROM `type_of_monitoring` WHERE `type_id`='$standalone->monitoring_type'")->row()->type_of_monitoring;
-$process=@$this->db->query("SELECT * FROM `process` WHERE `id`='$standalone->process'")->row()->name;
+$auditor=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->auditor_id'")->row()->employee_name;
+$audit_type=@$this->db->query("SELECT * FROM `type_of_audit` WHERE `type_id`='$standalone->audit_type'")->row()->type_of_audit;
+$process=@$this->db->query("SELECT * FROM `process_list` WHERE `process_id`='$standalone->process'")->row()->process_name;
 
 $trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$standalone->trigger_id'")->row()->trigger_name;
+$clause_name=@$this->db->query("SELECT * FROM `clause` WHERE `id`='$standalone->clause'")->row()->name;
+$clause_name1=@$this->db->query("SELECT * FROM `clause` WHERE `id`='$standalone->clause1'")->row()->name;
+$clause_name2=@$this->db->query("SELECT * FROM `clause` WHERE `id`='$standalone->clause2'")->row()->name;
+switch ($standalone->clause){
+	case -1:
+		$clause_name = "Input Step";
+		break;
+	case -2:
+		$clause_name = "Activity";
+		break;
+	case -3:
+		$clause_name = "Output";
+		break;
+	case -4:
+		$clause_name = "Control";
+		break;
+	case -5:
+		$clause_name = "Resource";
+		break;
+	case -6:
+		$clause_name = "Effectiveness";
+		break;
+}
+if ($standalone->clause == 'Not Applicable'){
+	$clause_name = $standalone->clause;
+}
+switch ($standalone->clause1){
+	case -1:
+		$clause_name1 = "Input Step";
+		break;
+	case -2:
+		$clause_name1 = "Activity";
+		break;
+	case -3:
+		$clause_name1 = "Output";
+		break;
+	case -4:
+		$clause_name1 = "Control";
+		break;
+	case -5:
+		$clause_name1 = "Resource";
+		break;
+	case -6:
+		$clause_name1 = "Effectiveness";
+		break;
+}
+if ($standalone->clause1 == 'Not Applicable'){
+	$clause_name1 = $standalone->clause1;
+}
+switch ($standalone->clause2){
+	case -1:
+		$clause_name2 = "Input Step";
+		break;
+	case -2:
+		$clause_name2 = "Activity";
+		break;
+	case -3:
+		$clause_name2 = "Output";
+		break;
+	case -4:
+		$clause_name2 = "Control";
+		break;
+	case -5:
+		$clause_name2 = "Resource";
+		break;
+	case -6:
+		$clause_name2 = "Effectiveness";
+		break;
+}
+if ($standalone->clause2 == 'Not Applicable'){
+	$clause_name2 = $standalone->clause2;
+}
 ?>
 	                            <tr>
 									<td colspan="2" align="center"><h1>CAR ACTION NOTIFICATION</h1></td>
@@ -134,25 +206,25 @@ $trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$st
 								    <td>Incident Identification Number</td>
 									<td><?=$standalone->unique_id?></td>
 								</tr>
-<!--<tr>
-	<td>Type of Monitoring:</td>
-	<td><?/*=$monitoring_type*/?></td>
+<tr>
+	<td>Type of Audit:</td>
+	<td><?=$audit_type?></td>
 </tr>
 <tr>
 	<td>Process:</td>
-	<td><?/*=$process*/?></td>
-</tr>-->
+	<td><?=$process?></td>
+</tr>
 <tr>
-	<td>Line Worker:</td>
+	<td>Auditee:</td>
 	<td>
-		<?php if ($standalone->line_worker == "0"): ?>
+		<?php if ($standalone->auditor_id == "0"): ?>
 			TBD
 		<?php endif; ?>
-		<?php if ($standalone->line_worker == "-1"): ?>
+		<?php if ($standalone->auditor_id == "-1"): ?>
 			N/A
 		<?php endif; ?>
-		<?php if ($standalone->line_worker != "0" && $standalone->line_worker != "1"): ?>
-			<?=$line_worker?>
+		<?php if ($standalone->auditor_id != "0" && $standalone->auditor_id != "1"): ?>
+			<?=$auditor?>
 		<?php endif; ?>
 	</td>
 </tr>
@@ -163,8 +235,13 @@ $trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$st
 </tr>
 
 								<tr>
-								   <td>Trigger:</td>
-									<td><?=$trigger_name?> </td>
+								   <td>Audit Criteria/Trigger:</td>
+									<td><?=$standalone->audit_criteria?> | <?=$trigger_name?> </td>
+								</tr>
+
+								<tr>
+									<td>Grade of Non-conformity:</td>
+									<td><?=$standalone->grade_nonconform?> </td>
 								</tr>
 
 								<tr>
@@ -181,6 +258,30 @@ $trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$st
 									<td><?=$standalone->process_step?></td>
 								</tr>
 								<tr>
+								      <td>Standard</td>
+									<td><?=$standalone->standard?></td>
+								</tr>
+								<tr>
+									<td>Standard1</td>
+									<td><?=$standalone->standard1?></td>
+								</tr>
+								<tr>
+									<td>Standard2</td>
+									<td><?=$standalone->standard2?></td>
+								</tr>
+								<tr>
+									<td>Clause</td>
+									<td><?=$clause_name?></td>
+								</tr>
+								<tr>
+									<td>Clause1</td>
+									<td><?=$clause_name1?></td>
+								</tr>
+								<tr>
+									<td>Clause2</td>
+									<td><?=$clause_name2?></td>
+								</tr>
+								<tr>
 								    <td>Regulatory Requirement:</td>
 									<td><?=$standalone->regulatory_requirement?></td>
 								</tr>
@@ -194,6 +295,20 @@ $trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$st
 								  <td>SHIFT</td>
 									<td><?=$standalone->shift?></td>
 								</tr>
+								<tr>
+								    <td rowspan="3">Where did the complaint occur (Location)? </td>
+									<td><?=$standalone->company_name?></td>
+								</tr>
+								<tr>
+									<td><?=$standalone->company_address?></td>
+								</tr>
+								<tr>
+									
+									<td><?=$standalone->city?>   |   <?=$standalone->state?> </td>
+								</tr>
+								
+								 
+
 								 <tr>
 								    <td>When did the complaint occur?   </td>
 									<td><?=$standalone->occur_date?></td>

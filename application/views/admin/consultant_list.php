@@ -42,7 +42,7 @@
 
 <body class="navbar-top">
 	<!-- Main navbar -->
-	<?php $this->load->view('admin/main_header.php'); ?>
+	<?php $this->load->view('Admin/main_header.php'); ?>
 	<!-- /main navbar -->
 
 
@@ -53,7 +53,7 @@
 		<div class="page-content">
 
 			<!-- Main sidebar -->
-			<?php $this->load->view('admin/sidebar'); ?>
+			<?php $this->load->view('Admin/sidebar'); ?>
 			<!-- /main sidebar -->
 
 
@@ -65,7 +65,7 @@
 					<div class="page-header-content">
 						<div class="page-title">
 							<h4><i class="icon-lan2 position-left"></i> <span class="text-semibold"><?=$title?></span>
-								<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#modal_theme_primary_add">New Company <i class="icon-lan2 position-right"></i></button>
+								<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#modal_theme_primary_add">New Company<i class="icon-lan2 position-right"></i></button>
 							</h4>
 						</div>
 					</div>
@@ -90,35 +90,33 @@
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							<span class="text-semibold">Thank you!</span>Plan Successfully created.. 
 				        </div>
-                    <?php   } ?>
+                    <?php  $this->session->unset_userdata('message'); } ?>
                      
                         <?php if($this->session->flashdata('message')=='failed') { ?>
                       	 <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							<span class="text-semibold">Oppps!</span>Something Went Wrong Please try again.
 				        </div>
-                      <?php   } ?>
+                      <?php $this->session->unset_userdata('message');  } ?>
                       <?php if($this->session->flashdata('message')=='success_del') { ?>
                       	  <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-							Company Successfully Deleted..
+							consultant Successfully Deleted.. 
 				        </div>
-                      <?php   } ?>
+                      <?php $this->session->unset_userdata('message');  } ?>
 
                       <?php if($this->session->flashdata('message')=='update_success') { ?>
                       	  <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-							Company Successfully Updated..
+							consultant Successfully Updated.. 
 				        </div>
-                      <?php   } ?>
-
+                      <?php  $this->session->unset_userdata('message'); } ?>
                     <?php if($this->session->flashdata('phone_response')) { ?>
                         <div class="alert alert-danger alert-styled-right alert-arrow-right alert-bordered">
                             <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                             <?= $this->session->flashdata('phone_response')['message'] ?>
                         </div>
-                    <?php   } ?>
-
+                    <?php  $this->session->unset_userdata('phone_response'); } ?>
 
 					<!-- Basic datatable -->
 					<div class="panel panel-flat" style="overflow:auto;">
@@ -158,7 +156,6 @@
 										}
 										?>
 									</td>
-
 									<td><input type="checkbox" data-toggle="toggle" <?= ($consultants->is_active == 0) ? '' : 'checked' ?> data-style="ios" data-id="<?=$consultants->consultant_id?>" class="active-deactive" data-on="Active" data-off="Deactive"></td>
 
 									<td>
@@ -175,7 +172,7 @@
 					<!-- /basic datatable -->
 
 					<!-- Footer -->
-					<?php $this->load->view('admin/footer'); ?>
+					<?php $this->load->view('Admin/footer'); ?>
 					<!-- /footer -->
 
 				</div>
@@ -191,10 +188,10 @@
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h6 class="modal-title"><i class="icon-home2 position-right"></i> Edit  Company</h6>
+					<h6 class="modal-title"><i class="icon-home2 position-right"></i> Edit Consultant</h6>
 				</div>
 				<div class="modal-body">
-					<form action="<?php echo base_url();?>index.php/admin/edit_consultant"  method="post">
+					<form action="<?php echo base_url();?>index.php/Admin/edit_consultant"  method="post">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group has-feedback">
@@ -233,7 +230,7 @@
 							<div class="col-md-12">
 								<div class="form-group has-feedback">
 									<label>Password: </label>
-									<input type="password" class="form-control" name="password" id="password" placeholder="Password">
+									<input type="password" class="form-control"  name="password" id="password" placeholder="Password">
 									<input type="hidden"  class="form-control" name="consultant_id11" id="consultant_id11">
 									<div class="form-control-feedback">
 										<i class="icon-key text-muted"></i>
@@ -245,7 +242,7 @@
                             <div class="col-md-12">
                                 <div class="form-group has-feedback">
                                     <label>Phone: </label>
-                                    <input type="text"  class="form-control" name="phone" id="phone" placeholder="+12345678910">
+                                    <input type="text"  class="form-control" name="phone" id="phone" placeholder="Phone">
                                     <div class="form-control-feedback">
                                         <i class="icon-mobile2 text-muted"></i>
                                     </div>
@@ -316,10 +313,10 @@
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h6 class="modal-title"><i class="icon-home2 position-right"></i> Add  Company</h6>
+					<h6 class="modal-title"><i class="icon-home2 position-right"></i> Add Company</h6>
 				</div>
 				<div class="modal-body">
-					<form action="<?php echo base_url();?>index.php/admin/add_consultant"  method="post">
+					<form action="<?php echo base_url();?>index.php/Admin/add_consultant"  method="post">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group has-feedback">
@@ -354,7 +351,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row" >
+						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group has-feedback">
 									<label>Password: </label>
@@ -370,14 +367,13 @@
                             <div class="col-md-12">
                                 <div class="form-group has-feedback">
                                     <label>Phone: </label>
-                                    <input type="text" class="form-control" name="phone" placeholder="+12345678910">
+                                    <input type="text"  class="form-control" name="phone" placeholder="Phone">
                                     <div class="form-control-feedback">
                                         <i class="icon-mobile2 text-muted"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 						<div class="row" >
 							<div class="col-md-12">
 								<div class="form-group has-feedback">
@@ -396,6 +392,9 @@
 										}?>
 									</select>
 									<!--<input type="text" placeholder="Plan" class="form-control" name="plan" id="plan">-->
+									<div class="form-control-feedback">
+										<i class="icon-list text-muted"></i>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -415,7 +414,7 @@
                             <div class="col-md-12">
                                 <div class="form-group has-feedback">
                                     <label>OTP Verification Status: </label>
-                                    <select name="otp_status" class="form-control">
+                                    <select name="otp_status" id="otp_status" class="form-control">
                                         <option value="0"<?= ($this->settings->otp_verification == 0 ? ' selected':'')?>>Disabled</option>
                                         <option value="1"<?= ($this->settings->otp_verification == 1 ? ' selected':'')?>>Enabled</option>
                                     </select>
@@ -440,7 +439,7 @@
 			var id = $(this).attr('id');
 			var dialog = bootbox.dialog({
 				title: 'Confirmation',
-				message: "<h4>Are You Sure want to delete ?</h4> <br><p>Warning ! you will be loss All records of deleted Company..</p>",
+				message: "<h4>Are You Sure want to delete ?</h4> <br><p>Warning ! you will be loss All records of deleted Consultant..</p>",
 				size: 'small',
 				buttons: {
 					cancel: {
@@ -455,12 +454,13 @@
 						label: "OK",
 						className: 'btn-success',
 						callback: function(){
-							window.location.href="<?php echo base_url();?>index.php/admin/delete_consultant/"+id;
+							window.location.href="<?php echo base_url();?>index.php/Admin/delete_consultant/"+id;
 						}
 					}
 				}
 			});
 		});
+
 
 
 		// On Change Toogle Switch Active/Deactive button
@@ -503,12 +503,16 @@
 						label: "OK",
 						className: 'btn-success',
 						callback: function(){
-							window.location.href="<?php echo base_url();?>index.php/admin/update_status/"+id+'?is_active='+checkedValue;
+							window.location.href="<?php echo base_url();?>index.php/Admin/update_status/"+id+'?is_active='+checkedValue;
 						}
 					}
 				}
 			});
 		});
+
+
+
+
 
 
 		var today = new Date();
@@ -529,7 +533,7 @@
 			$('#modal_theme_primary1').modal('show');
 			$.ajax({
 				type: "POST",
-				url: "<?php echo base_url(); ?>index.php/admin/findcomp",
+				url: "<?php echo base_url(); ?>index.php/Admin/findcomp",
 				data:{ 'id' : val},
 				success: function(data) {
 					var datas = $.parseJSON(data);
@@ -549,7 +553,7 @@
 		}
 	</script>
 
-<?php $this->load->view('common/update-password-popup'); ?>
+	<?php $this->load->view('common/update-password-popup'); ?>
 
 	<!-- /page container -->
 </body>

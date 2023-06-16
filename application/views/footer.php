@@ -18,17 +18,16 @@
 				<div class="col-sm-4 col-xs-4 col-md-4">
 					<h2 class="ftrTitle">Quick Links</h2>
 					<ul class="Footer_Menu">
-						<li><a href="<?php echo base_url('index.php/welcome')?>">Home </a></li>
-						<li><a href="<?php echo base_url('index.php/welcome/aboutus')?>">About Us </a></li>
-						<li><a href="<?php echo base_url('index.php/welcome/login')?>">Login </a></li>
-						<li><a href="<?php echo base_url('index.php/welcome/register')?>">Sign Up</a></li>
+						<li><a href="<?php echo base_url('index.php/welcome'); ?>">Home </a></li>
+						<li><a href="<?php echo base_url('index.php/welcome/aboutus'); ?>">About Us </a></li>
+						<li><a href="#">Smart Solutions </a></li>
 					</ul>
 					<ul class="Footer_Menu">
 						<li><a href="https://fsscverificationsoftware.com/">Verification Software</a></li>
-						<li><a href="http://isoprocessbasedauditexperts.com">Process Auditing Software</a></li>
-						<li><a href="https://contractsigningsoftware.com">Contract Signing Software</a></li>
-						<li><a href="http://isoimplementationsoftware.com">Implementation Software</a></li>
-						<li><a href="#">Virtual Academy</a></li>
+						<li><a href="https://isogapauditsoftware.com/">Gap Audit Software</a></li>
+						<li><a href="https://contractsigningsoftware.com/">Contract Signing Software</a></li>
+						<li><a href="http://isoimplementationsoftware.com/welcome">Implementation Software</a></li>
+						<li><a href="https://www.gosmartacademy.com/">Virtual Academy</a></li>
 					</ul>
 				</div>
 				<div class="col-sm-6 col-xs-6 col-md-6">
@@ -42,7 +41,8 @@
 						<p>P.O. Box 10135<br/>4501 McCann Rd.<br/>Longview,<br/> TX 75605</p>
 					</div>
 					<div class="contactRow phoneIcon">
-						<p><strong>Phone</strong> 1-903-700-8111</p>
+						<!-- <p><strong>Phone</strong> 1-903-700-8111</p> -->
+						<p><strong>Phone</strong> 1-(430)272-2107</p>
 					</div>
 				</div>
 
@@ -55,7 +55,8 @@
 						<p> P.O. Box 190,<br/>Kingston 5,<br/>Jamaica W.I.</p>
 					</div>
 					<div class="contactRow phoneIcon">
-						<p><strong>Phone</strong> 1-876-860-711</p>
+						<!-- <p><strong>Phone</strong> 1-876-860-711</p> -->
+						<p><strong>Phone</strong> 1-(430)272-2107</p>
 					</div>
 					
 				</div>

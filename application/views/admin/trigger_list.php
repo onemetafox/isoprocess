@@ -85,27 +85,27 @@
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							<span class="text-semibold">Thank you!</span>Trigger Successfully created.. 
 				        </div>
-                    <?php   } ?>
+                    <?php  $this->session->unset_userdata('message'); } ?>
                      
                         <?php if($this->session->flashdata('message')=='failed') { ?>
                       	 <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							<span class="text-semibold">Oppps!</span>Something Went Wrong Please try again.
 				        </div>
-                      <?php   } ?>
+                      <?php $this->session->unset_userdata('message');  } ?>
                       <?php if($this->session->flashdata('message')=='success_del') { ?>
                       	  <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							Trigger Successfully Deleted.. 
 				        </div>
-                      <?php   } ?>
+                      <?php  $this->session->unset_userdata('message'); } ?>
 
                       <?php if($this->session->flashdata('message')=='update_success') { ?>
                       	  <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							Trigger Successfully Updated.. 
 				        </div>
-                      <?php   } ?>
+                      <?php  $this->session->unset_userdata('message'); } ?>
 					<!-- Basic datatable -->
 					<div class="panel panel-flat">
 						<table class="table datatable-basic">

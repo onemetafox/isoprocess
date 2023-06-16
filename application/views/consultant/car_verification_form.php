@@ -89,12 +89,12 @@
 
 								<?php
 								$respo=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->process_owner'")->row()->employee_name;
-								$line_worker=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->line_worker'")->row()->employee_name;
-								$monitoring_type=@$this->db->query("SELECT * FROM `type_of_monitoring` WHERE `type_id`='$standalone_data->monitoring_type'")->row()->type_of_monitoring;
+								$auditor=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->auditor_id'")->row()->employee_name;
+								$audit_type=@$this->db->query("SELECT * FROM `type_of_audit` WHERE `type_id`='$standalone_data->audit_type'")->row()->type_of_audit;
 
-								$process=@$this->db->query("SELECT * FROM `process` WHERE `id`='$standalone_data->process'")->row()->name;
+								$process=@$this->db->query("SELECT * FROM `process_list` WHERE `process_id`='$standalone_data->process'")->row()->process_name;
 								$trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$standalone_data->trigger_id'")->row()->trigger_name;
-								$employee_email=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->line_worker'")->row()->employee_email;
+								$employee_email=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->auditor_id'")->row()->employee_email;
 								?>
 
 								<table class="table table-lg table-bordered">
@@ -227,6 +227,28 @@
 
 	</div>
 	<!-- /page container -->
+<script type="text/javascript">
+	function find(val){
+		if (val==0) {
+			         $("#cust_name").val('');
+                     $("#address").val('');
+                     $("#city").val('');
+                     $("#state").val('');
+		}
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>index.php/consultant/findcust",
+                    data:{ 'id' : val},
+                      success: function(data) {
+                      var datas = $.parseJSON(data)
+                     $("#cust_name").val(datas.name);
+                     $("#address").val(datas.address);
+                     $("#city").val(datas.city);
+                     $("#state").val(datas.state);
+                    }
+                  });
+    }
+</script>
 
 
 

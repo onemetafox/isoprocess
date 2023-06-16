@@ -230,7 +230,7 @@ $(function() {
     //
 
     $(".file-input-ajax").fileinput({
-        //uploadUrl: "http://localhost", // server upload action
+        uploadUrl: "http://localhost", // server upload action
         uploadAsync: true,
         maxFileCount: 5,
         initialPreview: [],

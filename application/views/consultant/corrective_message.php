@@ -118,7 +118,9 @@
                             <th>ID</th>
                             <th>Date</th>
                             <th>Process Owner</th>
+                            <th>Auditee</th>
                             <th>Trigger</th>
+                            <th>Audit Criteria</th>
                             <th>Machine</th>
                             <th>Non-Conformity Description</th>
                             <th>Action </th>
@@ -134,7 +136,15 @@
 
                                 <td><?=date('Y-m-d', strtotime($messages->create_at))?></td>
                                 <td><?=$messages->process_owner_name?></td>
+                                <td>
+                                    <?php if($messages->auditor_id == 0): ?>
+                                        TBD
+                                    <?php else: ?>
+                                        <?=$messages->auditee_name?>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?=$messages->trigger_name?></td>
+                                <td><?=$messages->audit_criteria?></td>
                                 <td><?=$messages->mashine_clause?></td>
                                 <td><?=$messages->prob_desc?></td>
                                 <td>

@@ -20673,6 +20673,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 	 * @since 4.5.000 (2009-01-02)
 	 */
 	protected function setBuffer($data) {
+		ini_set('memory_limit', '512M');
 		$this->bufferlen += strlen($data);
 		$this->buffer .= $data;
 	}

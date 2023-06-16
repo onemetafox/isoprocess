@@ -1,0 +1,300 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{ padding:0px; margin:0px;}
+body{ padding:0px; margin:0px; font-family: 'Poppins', sans-serif; font-size:14px; color:#1c1c1c; font-weight:400;}
+ul,li,h1,h2,h3,h5,h6,ol,a{ padding:0px; margin:0px; list-style-type:none; }
+a{ font-size:14px; color:#000;}
+a:hover{ color:#fff; list-style:none; text-decoration:none; box-shadow:0px 3px 5px rgba(0,0,0,0.1);}
+p{ font-size:14px; font-weight:400; } 
+label {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.Header .navbar-inverse {
+    background-color: #ffffff;
+    margin-bottom: 0px;
+    border-radius: 0px;
+    padding: 24px 0px;
+    height: 100px;
+    border: 1px solid #000;
+}
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 0px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+.navbar-inverse {
+    background-color: #222;
+    border-color: transparent !important;
+}
+.Header nav li{ position:relative; }
+.navbar-inverse .navbar-nav>li>a {
+    color: #1c1c1c;
+    font-size: 13px;
+    -webkit-transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750);
+}
+.Login {
+    border: 2px solid #1c1c1c;
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    width: 160px;
+    text-align: center;
+    margin-left: 40px;
+	overflow:hidden;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: rgba(255,255,255,0.7);
+    background-color: transparent;
+}
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+    color: #1c1c1c;
+    background-color: transparent;
+    box-shadow: unset;
+}
+.navbar-inverse .navbar-brand:focus, .navbar-inverse .navbar-brand:hover {
+    color: #fff;
+    background-color: transparent;
+    box-shadow: unset;
+}
+.Submenu {
+    width: auto;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    padding-top: 25px;
+	
+}
+.Submenu li {}
+.Submenu li a {
+        line-height: 28px;
+    color: #fff;
+    font-size: 14px;
+    list-style: none !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+    padding: 8px 15px;
+    background: #4cb6f2;
+    display: block;transition: ease-in-out 0.5s;
+}
+.Submenu li a:hover{background: #245ca5; }
+.navbar-nav li:hover .Submenu{ display:block; }
+
+.LoginBox {
+    background-image: linear-gradient(#7575ed, #925cf2);
+    width: 100%;
+    padding: 100px 15px;
+}
+.LoginInner {
+    width: 450px;
+    background: #fff;
+    margin: 0 auto;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.LoginInner input[type="text"] {
+    border: 1px solid #e1e4e5;
+    width: 80%;
+    padding: 10px 12px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.LoginImg {
+    margin-bottom: 30px;
+}
+.LoginInner a {
+    background-image: linear-gradient(#7575ed, #925cf2);
+    width: 80%;
+    display: block;
+    padding: 8px;
+    font-size: 18px;
+    margin: auto;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.LoginInner h1 {
+    font-size: 30px;
+    margin-top: 21px;
+}
+
+.checkcontainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 80%;
+    margin: auto;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+/* Hide the browser's default checkbox */
+.checkcontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkcontainer:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkcontainer input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkcontainer input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkcontainer .checkmark:after {
+    left: 10px;
+    top: 7px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.LoginInner a:hover {
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.3);
+}
+.SubText {
+    font-size: 13px;
+    color: #1c1c1c;
+    display: block;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.Footer_Menu li {
+    display: inline-block;
+}
+.Footer_Menu li a {
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #8a8a8a;
+}
+.Footer_Menu li a:hover {
+    color: #1c1c1c;
+    box-shadow: none;
+}
+.Social_Menu li {
+    display: inline-block;
+    margin: 30px 5px;
+}
+.Social_Menu {
+    float: right;
+}
+.Footer_Menu {
+    float: right;
+}
+.Border_Top {
+    border-top: 1px solid #ccc;
+    padding-top: 40px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+}
+.Login:hover {
+    color: #fff !important;
+}
+
+/* Shutter Out Horizontal */
+.hvr-shutter-out-horizontal {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  background: #fff;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.hvr-shutter-out-horizontal:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #2098D1;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: 50%;
+  transform-origin: 50%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-shutter-out-horizontal:hover, .hvr-shutter-out-horizontal:focus, .hvr-shutter-out-horizontal:active {
+  color: white;
+}
+.hvr-shutter-out-horizontal:hover:before, .hvr-shutter-out-horizontal:focus:before, .hvr-shutter-out-horizontal:active:before {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+
+
+/* Bounce In */
+.hvr-bounce-in {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+.hvr-bounce-in:hover, .hvr-bounce-in:focus, .hvr-bounce-in:active {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+}

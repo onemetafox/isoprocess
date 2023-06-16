@@ -1,60 +1,221 @@
-<style type="text/css">
-	.thumb-rounded, .thumb-rounded .caption-overflow, .thumb-rounded img {
-		border-radius: 0%!important;
-	}
-</style>
+<?php require_once('./config.php'); ?>
+<?php $this->load->view('header');?>
+<section class="innerPageBanner aboutPageBanner">
 
-<section class="LoginBox">
-	<form action="<?= base_url('auth/payment_option') ?>" class="login-form" method="post" style="padding: 20px 20px;">
-		<div class="panel" style="margin-bottom: 0px;">
-			<div class="panel-body">
-				<div class="thumb thumb-rounded">
-					<img src="<?= base_url(IMG_URL . 'company.jpg') ?>" alt="" />
-					<div class="caption-overflow">
-						<span>
-							<a href="#" class="btn border-white text-white btn-flat btn-icon btn-rounded btn-xs"><i class="icon-collaboration"></i></a>
-							<a href="#" class="btn border-white text-white btn-flat btn-icon btn-rounded btn-xs ml-5"><i class="icon-question7"></i></a>
-						</span>
-					</div>
-				</div>
-				<h6 class="content-group text-center text-semibold no-margin-top">
-					<small class="display-block" style="color: green; font-size: 20px; font-weight: 700;">Payment</small>
-				</h6>
-				<div class="form-group has-feedback">
-					<input type="hidden" class="form-control" name="total_amount" value="<?= $plan->total_amount ?>" />
-					<input type="hidden" class="form-control" name="consultant_id" value="<?= $company->consultant_id ?>" />
-					<input type="hidden" class="form-control" name="plan_id" value="<?= $company->plan_id ?>" />
-					<input type="text" class="form-control text-center" name="total" value="You have to pay <?= $plan->total_amount ?> $" style="font-weight: 500;" readonly />
-				</div>
-				<div class="row">
-    	            <div class="col-md-6">
-						<div class="radio">
-							<label>
-								<input type="radio" name="usertype" class="control-info" value="employee" checked>
-								Stripe Payment
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<a class="btn btn-primary stripe-button-el clickme">
-							<span style="display: block;"><i class="icon-reply position-left"></i> Previous</span>
-						</a>
-					</div>
-					<div class="col-md-6">
-						<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<?= $stripe['publishable_key']; ?>" data-description="Access for a year" data-amount="<?= ($plan->total_amount) * 100 ?>" data-locale="auto"></script>
-					</div>
-				</div>
-			</div>
+	<div class="container">
+
+		<div class="pageTitleBox wow fadeInUp">
+
+			<h1>Payment</h1>
+
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's
+
+				standard dummy text.</p>
+
 		</div>
-	</form>
+
+	</div>
+
 </section>
 
-<script>
-	$(".clickme").click(function() {
-		if(confirm("Are you sure you want to navigate away from this page?"))
-			history.go(-1);
-		return false;
-	});
-</script>
+<!--innerPageBanner-->
+
+
+
+<section class="Paymet_Section">
+
+<div class="container">
+
+<div class="PaymentInner wow zoomIn">
+
+  <img src="<?php echo base_url()?>assets/home/Images/payImg.png">
+
+  <h1>Payment</h1>
+
+  <label class="checontainer" style="padding:0;">You must pay $<?php echo !empty($plan)?$plan->total_amount:''?></label>
+
+  <label class="checontainer">stripe payment 
+
+  <input type="radio" checked="checked" name="radio">
+
+  <span class="checkmark"></span>
+
+</label>
+    <label class="checontainer" style="padding:0;">
+        <input id ='agree' type="checkbox" style="float : left; margin-top: 6px;  position: relative; opacity: 5"
+               onclick="if(this.checked){document.getElementById('div_card').style.removeProperty('display');
+                   } else {document.getElementById('div_card').setAttribute('style', 'display:none')}"
+        >
+        <div style="margin-left : 25px; ">I Agree with <a target="_blank" href = "<?php echo base_url("index.php/auth/terms")?>"
+            style = "font-size: 17px; font-style: italic; text-decoration: underline; color: #a307a5;">Terms</a>
+            for QCIL
+        </div>
+    </label>
+
+<div class="CardBtn" id = 'div_card' style="display: none">
+
+    <button id="checkout-button" style = "font-weight: 400; font-family: 'Poppins', sans-serif; background-color: #4c96f3; border: none; width: 100px; height: 46px; border-radius: 5px; color: white; margin-right: 40px;">Pay</button>
+    <a href="<?php echo base_url('index.php/auth/reg_pay_plans')?>" class="Previous"><i class="fa fa-reply" aria-hidden="true"></i> Previous</a>
+
+    <script>
+        var handler = StripeCheckout.configure({
+            key: "<?php echo $stripe['publishable_key'];?>",
+            token: function(token) {
+                document.getElementById('checkout-button').style.backgroundColor = "gray";
+                document.getElementById('checkout-button').setAttribute('disabled', 'disabled');
+                $.ajax({
+                    type : 'POST',
+                    url : "<?php echo base_url('index.php/auth/sendNotification')?>"
+                });
+            }
+        });
+
+        document.getElementById('checkout-button').addEventListener('click', function(e) {
+            // Open Checkout with further options
+            handler.open({
+                name: 'Name of Product',
+                description: 'Access for a year',
+                amount: '<?php echo $plan->total_amount?>'
+            });
+            e.preventDefault();
+        });
+
+
+
+        // Close Checkout on page navigation
+        window.addEventListener('popstate', function() {
+            handler.close();
+        });
+    </script>
+
+
+ <!-- Modal -->
+
+  <div class="modal fade" id="myModal" role="dialog">
+
+    <div class="modal-dialog">
+
+    
+
+      <!-- Modal content-->
+
+      <div class="modal-content ModelInner">
+
+        <div class="modal-header">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+
+        <div class="modal-body">
+
+         <div class="PaymentMethod">
+
+  <div class="Payment_Wrapper PaymentMethod">
+
+   <h1>Payment Details</h1>
+
+   <div class="Payment_Wrapper_inner">
+
+   <div class="form-group">
+
+    <div class="col-sm-12"><label>CARD NUMBER</label>
+
+      <input type="text" placeholder="Valid Card Number"></div>
+
+   </div>
+
+   
+
+   <div class="row matop">
+
+   <div class="col-sm-6">
+
+    <div class="col-sm-12"> <label>EXPIRY DATE</label></div>
+
+      <div class="nil">
+
+    <div class="col-sm-6">
+
+        <input type="text" placeholder="Month">
+
+   </div>
+
+   <div class="col-sm-6">
+
+     <input type="text" placeholder="Year">
+
+   </div>
+
+   </div>
+
+  </div><!--col-sm-6-->
+
+   
+
+   <div class="col-sm-6">
+
+    <div class="col-sm-12"><label>CV CODE</label>
+
+     <input type="text" placeholder="CV"></div>
+
+   </div>
+
+   
+
+   </div>
+
+   <div class="col-sm-6 checkboxMin">
+
+    <label class="CheckBoxs">Remember Me
+
+  <input type="checkbox" checked="checked">
+
+  <span class="checkmark"></span>
+
+</label>
+
+   </div>
+
+   <div class="col-sm-12"><a class="Pay_btn">Pay $<?php echo $plan->price?></a></div>
+
+   </div><!--Payment_Wrapper_inner-->
+
+  
+
+</div><!--Payment_Wrapper-->
+
+    
+
+</div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          
+
+        </div>
+
+      </div>
+
+      
+
+    </div>
+
+  </div>
+
+
+
+</div><!--CardBtn-->
+
+
+
+</div><!--PaymentInner-->
+
+
+
+</div><!--container-->
+
+</section><!--Pricing_Section-->
+<?php $this->load->view('footer');?>

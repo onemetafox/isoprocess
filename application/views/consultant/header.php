@@ -31,6 +31,7 @@
 	<script type="text/javascript" src="<?=base_url(); ?>assets/js/core/app.js"></script>
 	<!-- <script type="text/javascript" src="<?=base_url(); ?>assets/js/pages/dashboard.js"></script> -->
 	<script type="text/javascript" src="<?=base_url(); ?>assets/js/pages/layout_fixed_custom.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js"></script>
 	<!-- /theme JS files -->
 
 

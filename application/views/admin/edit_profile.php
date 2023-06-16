@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title><?=$title ?? ''?></title>
+	<title><?=$title?></title>
 <!--	<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">-->
 	
 	<link href="<?=base_url(); ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
@@ -41,7 +41,7 @@
 <body class="navbar-top">
 
 	<!-- Main navbar -->
-	<?php $this->load->view('admin/main_header')?>
+	<?php $this->load->view('Admin/main_header')?>
 	<!-- /main navbar -->
 
 
@@ -52,7 +52,7 @@
 		<div class="page-content">
 
 			<!-- Main sidebar -->
-			<?php $this->load->view('admin/sidebar')?>
+			<?php $this->load->view('Admin/sidebar')?>
 			<!-- /main sidebar -->
 
 
@@ -82,13 +82,13 @@
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							Profile Successfully Updated.. 
 				        </div>
-                      <?php   } ?>
+                      <?php  $this->session->unset_userdata('message'); } ?>
                     <?php if($this->session->flashdata('phone_response')) { ?>
                         <div class="alert alert-danger alert-styled-right alert-arrow-right alert-bordered">
                             <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                             <?= $this->session->flashdata('phone_response')['message'] ?>
                         </div>
-                    <?php   } ?>
+                    <?php  $this->session->unset_userdata('phone_response'); } ?>
 					<!-- Form horizontal -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
@@ -100,7 +100,7 @@
 						</div>
 
 						<div class="panel-body">
-							<form class="form-horizontal" action="<?php echo base_url();?>index.php/admin/update_profile" method="post" enctype="multipart/form-data">
+							<form class="form-horizontal" action="<?php echo base_url();?>index.php/Admin/update_profile" method="post" enctype="multipart/form-data">
 								<fieldset class="content-group">
 									<legend class="text-bold">Edit Profile</legend>
 									<div class="form-group">
@@ -112,7 +112,7 @@
 						           <div class="form-group">
 										<label class="control-label col-lg-2">Email</label>
 										<div class="col-lg-10">
-											<input type="email" class="form-control" name="email" value="<?=$profile->email?>" readonly>
+											<input type="email" class="form-control" name="email" value="<?=$profile->email?>">
 										</div>
 									</div>
                                     <div class="form-group">
@@ -129,12 +129,13 @@
 						</div>
 					</div>
 					<!-- /form horizontal -->
+
                     <?php if($this->session->flashdata('password')) { $password_message = $this->session->flashdata('password'); ?>
                         <div class="alert alert-<?= ($password_message['success'] ? 'success':'danger') ?> alert-styled-right alert-arrow-right alert-bordered">
                             <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                             <?= $password_message['message'] ?>
                         </div>
-                    <?php   } ?>
+                    <?php  $this->session->unset_userdata('password'); } ?>
                     <!-- Form horizontal -->
                     <div class="panel panel-flat">
                         <div class="panel-heading">
@@ -146,7 +147,7 @@
                         </div>
 
                         <div class="panel-body">
-                            <form class="form-horizontal" action="<?php echo base_url();?>index.php/admin/update_password" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?php echo base_url();?>index.php/Admin/update_password" method="post" enctype="multipart/form-data">
                                 <fieldset class="content-group">
                                     <legend class="text-bold">Update Password</legend>
                                     <div class="form-group">
@@ -175,10 +176,9 @@
                         </div>
                     </div>
                     <!-- /form horizontal -->
-
 					
 					<!-- Footer -->
-						<?php $this->load->view('admin/footer')?>
+						<?php $this->load->view('Admin/footer')?>
 					<!-- /footer -->
 
 				</div>

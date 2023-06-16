@@ -51,14 +51,14 @@ $autoload['packages'] = array();
 |
 | Prototype:
 |
-|	$autoload['libraries'] = array('database', 'email', 'session');
+|	$autoload['libraries'] = array('database', 'email', 'session','form_validation','twill_RK','phone_RK');
 |
 | You can also supply an alternative library name to be assigned
 | in the controller:
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'email', 'session', 'form_validation', 'upload','twill_RK','phone_RK','login_Limit');
+$autoload['libraries'] = array('database', 'email', 'session','form_validation','twill_RK','phone_RK');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'file', 'string', 'time','rk_functions');
+$autoload['helper'] = array('url', 'file','rk_functions');
 
 /*
 | -------------------------------------------------------------------
@@ -132,47 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array(
-    'OTPVerification',
-	'Auth_model',
-	'Company_model',
-	'Plan_model',
-	'Consultant_model',
-	'Employees_model',
-	'Payment_model',
-	'Purchase_plan_model',
-	'Admin_model',
-	'Default_logo_model',
-	'Process_model',
-	'Control_list_model',
-	'Risk_model',
-	'Corrective_action_data_model',
-	'Library_model',
-	'Invoice_model',
-	'Invoice_item_model',
-	'Customer_model',
-	'Supplier_model',
-	'Ims_manuorder_model',
-	'Ims_manuorder_consume_material_model',
-	'Ims_manuorder_work_order_model',
-	'Ims_plan_product_model',
-	'Ims_plan_material_model',
-	'Ims_bill_model',
-	'Ims_bill_material_model',
-	'Ims_routing_model',
-	'Ims_routing_operation_model',
-	'Ims_warehouse_model',
-	'Ims_warehouse_material_model',
-	'Ims_material_model',
-	'Ims_product_model',
-	'Ims_category_model',
-	'Ims_supplier_model',
-	'Ims_customer_model',
-	'Ims_workcenter_model',
-	'Ims_warehouse_model',
-	'Ims_purchase_order_model',
-	'Ims_purchase_order_material_model',
-	'Ims_ship_order_product_model',
-	'Ims_ship_order_model',
-	'Authmodel'
-);
+$autoload['model'] = array();

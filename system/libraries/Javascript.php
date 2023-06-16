@@ -651,7 +651,7 @@ class CI_Javascript {
 		}
 
 		if ($relative === TRUE OR strpos($external_file, 'http://') === 0 OR strpos($external_file, 'https://') === 0)
-		{	
+		{
 			$str = $this->_open_script($external_file);
 		}
 		elseif (strpos($this->_javascript_location, 'http://') !== FALSE)

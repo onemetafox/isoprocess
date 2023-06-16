@@ -89,6 +89,7 @@
 							      		
 							      	</select>
 								 <a title="Download" type="button" class="btn btn-primary btn-sm "  onclick="printDiv('ptn')" ><i class="icon-download " aria-hidden="true"></i></a>
+                            <a title="Mail" id="mails" href="mailto:<?=$admin_emails?>" class="btn btn-primary"><i class="icon-envelope "  aria-hidden="true"></i></a>
 							</div>
 							</h4>
 						</div>

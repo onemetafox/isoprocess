@@ -120,30 +120,30 @@
 						</div>
 						<div class="panel-body">
 							<form class="form-horizontal" method="post" action="<?php echo  base_url(); ?>index.php/consultant/add_corrective_action_data" enctype="multipart/form-data">
-								<input type="hidden" id = "monitoring_id" name="monitoring_id" value="<?=$monitoring_id?>">
-								<!--<fieldset>
+								<input type="hidden" id = "checklist_id" name="checklist_id" value="<?=$checklist_id?>">
+								<fieldset>
 									<div class="row" style="margin-top: 24px;">
 
 										<div class="col-md-6" >
-											<span class="help-block">Type of Monitoring:</span>
+											<span class="help-block">Type of Audit:</span>
 
-											<select name="monitoring_type" id="monitoring_type" class="form-control ">
-												<?php /*foreach ($monitoring_type as $item) { */?>
-													<option  value="<?/*=$item->type_id*/?>"><?/*=$item->type_of_monitoring*/?></option>
-												<?php /*} */?>
+											<select name="audit_type" id="audit_type" class="form-control " onchange="getProcessData();">
+												<?php foreach ($audit_type as $item) { ?>
+													<option  value="<?=$item->type_id?>" <?php if ($selected_item->type_id == $item->type_id): ?>selected<?php endif; ?>><?=$item->type_of_audit?></option>
+												<?php } ?>
 											</select>
 										</div>
 										<div class="col-md-6">
 											<span class="help-block">Process:</span>
 
 											<select name="process" id="process" class="form-control">
-												<?php /*foreach ($process as $item) { */?>
-													<option  value="<?/*=$item->id*/?>" <?php /*if ($selected_item->process_name == $item->name): */?>selected<?php /*endif; */?>><?/*=$item->name*/?></option>
-												<?php /*} */?>
+												<?php foreach ($process as $item) { ?>
+													<option  value="<?=$item->process_id?>" <?php if ($selected_item->process_name == $item->process_id): ?>selected<?php endif; ?>><?=$item->process_name?></option>
+												<?php } ?>
 											</select>
 										</div>
 									</div>
-								</fieldset>-->
+								</fieldset>
 
 								<fieldset class="content-group">
 
@@ -152,16 +152,16 @@
 										<div class="col-lg-12">
 											<div class="row">
 												<div class="col-md-4">
-												    <span class="help-block">Line Worker:</span>
-													   <select name="line_worker" class="form-control " required>
+												    <span class="help-block">Auditee:</span>
+													   <select name="auditor_id" class="form-control " required>
 						                                    <option value="0">TBD</option>
 						                                    <option value="-1">N/A</option>
-						                                     <?php foreach ($employees as $employee) { ?>
-						                                       <option value="<?=$employee->employee_id?>"><?=$employee->employee_name?></option>
+						                                     <?php foreach ($auditees as $employee) { ?>
+						                                       <option value="<?=$employee->employee_id?>" <?php if ($selected_item->sme == $employee->employee_id): ?>selected<?php endif; ?>><?=$employee->employee_name?></option>
 						                                     <?php } ?>
 													   </select>
 												</div>
-
+											
 												<div class="col-md-4">
 											    	<span class="help-block">TRIGGER:</span>
 													<div class="col-md-8">
@@ -172,31 +172,93 @@
 														<a data-toggle="modal" data-target="#triggers" class="btn btn-primary">MANAGE</a>
 													</div>
 												</div>
+
 												<div class="col-md-4">
-													<span class="help-block">CUSTOMER REQUIREMENT:</span>
+													<span class="help-block">Grade of Non-conformity:</span>
 													<div class="col-md-8">
-														<select class="form-control" name="customer_requirment" id="customer_requirment" required>
+														<select class="form-control" name="grade_nonconform" id="grade_nonconform" required>
 														</select>
 													</div>
 													<div class="col-md-4">
-														<a data-toggle="modal" data-target="#customer_requirments" class="btn btn-primary">MANAGE</a>
+														<a data-toggle="modal" data-target="#grade_nonconforms" class="btn btn-primary">MANAGE</a>
 													</div>
+
 												</div>
+
 											</div>
 											<div class="row" style="margin-top: 24px;">
 												<div class="col-md-4">
 											    	<span class="help-block">DATE OF OCCURRANCE:</span>
 													<input type="date" class="form-control" name="occur_date" value="<?=date('Y-m-d');?>" required>
 												</div>
+												
+												 <div class="col-md-4">
+											    	<span class="help-block">AUDIT CRITERIA:</span>
+													 <div class="col-md-8">
+													 	<select class="form-control" name="audit_criteria" id="audit_criteria" required>
+													    </select>
+													 </div>
+													 <div class="col-md-4">
+													 	<a data-toggle="modal" data-target="#criterias" class="btn btn-primary">MANAGE</a>
+													 </div>
+												</div>
+
+												 <div class="col-md-4">
+											    	<span class="help-block">CUSTOMER REQUIREMENT:</span>
+													 <div class="col-md-8">
+													 	<select class="form-control" name="customer_requirment" id="customer_requirment" required>
+													    </select>
+													 </div>
+													 <div class="col-md-4">
+													 	<a data-toggle="modal" data-target="#customer_requirments" class="btn btn-primary">MANAGE</a>
+													 </div>
+												</div>
+											</div>
+											<div class="row" style="margin-top: 24px;">
 												<div class="col-md-4">
-													<span class="help-block">PRODUCT :</span>
+													<span class="help-block">AUDIT CRITERIA:</span>
 													<div class="col-md-8">
-														<select class="form-control" name="product" id="product" required>
+														<select class="form-control" name="audit_criteria2" id="audit_criteria2" required>
 														</select>
 													</div>
 													<div class="col-md-4">
-														<a data-toggle="modal" data-target="#products" class="btn btn-primary">MANAGE</a>
+														<a data-toggle="modal" data-target="#criterias2" class="btn btn-primary">MANAGE</a>
 													</div>
+												</div>
+
+												<div class="col-md-4">
+													<span class="help-block">AUDIT CRITERIA:</span>
+													<div class="col-md-8">
+														<select class="form-control" name="audit_criteria3" id="audit_criteria3" required>
+														</select>
+													</div>
+													<div class="col-md-4">
+														<a data-toggle="modal" data-target="#criterias3" class="btn btn-primary">MANAGE</a>
+													</div>
+												</div>
+
+												<div class="col-md-4">
+													<span class="help-block">AUDIT CRITERIA:</span>
+													<div class="col-md-8">
+														<select class="form-control" name="audit_criteria4" id="audit_criteria4" required>
+														</select>
+													</div>
+													<div class="col-md-4">
+														<a data-toggle="modal" data-target="#criterias4" class="btn btn-primary">MANAGE</a>
+													</div>
+												</div>
+											</div>
+											<div class="row" style="margin-top: 24px;">
+
+												<div class="col-md-4">
+											    <span class="help-block">PRODUCT :</span>
+													 <div class="col-md-8">
+													 	<select class="form-control" name="product" id="product" required>
+													    </select>
+													 </div>
+													 <div class="col-md-4">
+													 	<a data-toggle="modal" data-target="#products" class="btn btn-primary">MANAGE</a>
+													 </div>
 												</div>
 												<div class="col-md-4">
 													<span class="help-block">Process Step :</span>
@@ -208,8 +270,6 @@
 														<a data-toggle="modal" data-target="#process_steps" class="btn btn-primary">MANAGE</a>
 													</div>
 												</div>
-											</div>
-											<div class="row" style="margin-top: 24px;">
 											    <div class="col-md-4">
 											    	<span class="help-block">REGULATORY REQUIREMENT:</span>
 													 <div class="col-md-8">
@@ -220,28 +280,82 @@
 													 	<a data-toggle="modal" data-target="#regulatory_requirements" class="btn btn-primary">MANAGE</a>
 													 </div>
 												</div>
-												<div class="col-md-4">
-													<span class="help-block">POLICY/PROCEDURE/RECORDS:</span>
-													<div class="col-md-8">
-														<select class="form-control" name="policy" id="policy" required>
-														</select>
-													</div>
-													<div class="col-md-4">
-														<a data-toggle="modal" data-target="#policys" class="btn btn-primary">MANAGE</a>
+											</div>
+											<div class="row" style="margin-top: 24px;">
+											   <div class="col-md-4">
+											    <span class="help-block">STANDARD :</span>
+													 <div class="col-md-8">
+													 	<select class="form-control" name="standard" id="standard" required>
+													    </select>
+													 </div>
+													 <div class="col-md-4">
+													 	<a data-toggle="modal" data-target="#standards" class="btn btn-primary">MANAGE</a>
+													 </div>
+													 <div >
+														 <span class="help-block">CLAUSE :</span>
+
+														 <div class="col-md-8" style="margin-top: 5px;">
+															 <select class="form-control" name="clause" id="clause" required>
+																	 <?php foreach ($clauses as $clause) { ?>
+																		 <option value="<?=$clause->id?>"><?=$clause->name?></option>
+																	 <?php } ?>
+															 </select>
+														 </div>
+														 <div class="col-md-4" style="margin-top: 5px;">
+															 <a data-toggle="modal" data-target="#clauses" class="btn btn-primary">MANAGE</a>
+														 </div>
 													</div>
 												</div>
 												<div class="col-md-4">
-													<span class="help-block">MACHINE:</span>
+													<span class="help-block">STANDARD :</span>
 													<div class="col-md-8">
-														<select class="form-control" name="mashine_clause" id="mashines" required>
+														<select class="form-control" name="standard1" id="standard1" required>
 														</select>
 													</div>
 													<div class="col-md-4">
-														<a data-toggle="modal" data-target="#mashine" class="btn btn-primary">MANAGE</a>
+														<a data-toggle="modal" data-target="#standards" class="btn btn-primary">MANAGE</a>
+													</div>
+													<div >
+														<span class="help-block">CLAUSE :</span>
+
+														<div class="col-md-8" style="margin-top: 5px;">
+															<select class="form-control" name="clause1" id="clause1" required>
+																<?php foreach ($clauses as $clause) { ?>
+																	<option value="<?=$clause->id?>"><?=$clause->name?></option>
+																<?php } ?>
+															</select>
+													 </div>
+														<div class="col-md-4" style="margin-top: 5px;">
+															<a data-toggle="modal" data-target="#clauses" class="btn btn-primary">MANAGE</a>
+												</div>
+													</div>
+												</div>
+											    <div class="col-md-4">
+													<span class="help-block">STANDARD :</span>
+													 <div class="col-md-8">
+														<select class="form-control" name="standard2" id="standard2" required>
+													    </select>
+													 </div>
+													 <div class="col-md-4">
+														<a data-toggle="modal" data-target="#standards" class="btn btn-primary">MANAGE</a>
+													</div>
+													<div >
+														<span class="help-block">CLAUSE :</span>
+														<div class="col-md-8" style="margin-top: 5px;">
+															<select class="form-control" name="clause2" id="clause2" required>
+																<?php foreach ($clauses as $clause) { ?>
+																	<option value="<?=$clause->id?>"><?=$clause->name?></option>
+																<?php } ?>
+															</select>
+														</div>
+														<div class="col-md-4" style="margin-top: 5px;">
+															<a data-toggle="modal" data-target="#clauses" class="btn btn-primary">MANAGE</a>
+													 </div>
 													</div>
 												</div>
 											</div>
 											<div class="row" style="margin-top: 24px;">
+											
 											    <div class="col-md-4">
 											    	<span class="help-block">SHIFT:</span>
 													 <div class="col-md-8">
@@ -252,6 +366,62 @@
 													 	<a data-toggle="modal" data-target="#shifts" class="btn btn-primary">MANAGE</a>
 													 </div>
 												</div>
+												<div class="col-md-4">
+											    	<span class="help-block">POLICY/PROCEDURE/RECORDS:</span>
+													 <div class="col-md-8">
+													 	<select class="form-control" name="policy" id="policy" required>
+													    </select>
+													 </div>
+													 <div class="col-md-4">
+													 	<a data-toggle="modal" data-target="#policys" class="btn btn-primary">MANAGE</a>
+													 </div>
+												</div>
+
+
+												<div class="col-md-4">
+											    	<span class="help-block">MACHINE:</span>
+													 <div class="col-md-8">
+													 	<select class="form-control" name="mashine_clause" id="mashines" required>
+													    </select>
+													 </div>
+													 <div class="col-md-4">
+													 	<a data-toggle="modal" data-target="#mashine" class="btn btn-primary">MANAGE</a>
+													 </div>
+												</div>
+											</div>
+											<div class="row" style="margin-top: 24px;">
+												<div class="col-md-6">
+											    	<span class="help-block">COMPANY NAME:</span>
+
+						                               
+						                                <input type="text" list="showlist" name="company_name" id="compt" class="form-control" oninput ="find(this.value);">
+														  <datalist id="showlist"></datalist>
+
+                                                    
+                                                        <input type="hidden" name="company_id" id="cust_id">
+						                                <input type="hidden" name="cust_name" id="cust_name">
+												</div>
+												<div class="col-md-6">
+											    	<span class="help-block">COMPANY ADDRESS:</span>
+													<input type="text" class="form-control" id="address" name="company_address" required>
+												</div>
+											</div>
+											<div class="row" style="margin-top: 24px;">
+												<div class="col-md-4">
+											    	<span class="help-block">CITY:</span>
+													<input type="text" class="form-control" id="city" name="city" required>
+												</div>
+												<div class="col-md-4">
+											    	<span class="help-block">STATE:</span>
+													<input type="text" class="form-control" id="state" name="state" required>
+												</div>
+
+												<div class="col-md-4">
+											    	<a class="btn btn-primary" style="top: 36px;" onclick="findcomp();">
+											    	  INTERNAL
+											    	</a>
+												</div>
+
 											</div>
 											<div class="row" style="margin-top: 24px;">
 												<div class="col-md-12">
@@ -259,6 +429,7 @@
 													<textarea class="form-control" name="prob_desc" required><?=$selected_item->note?></textarea>
 												</div>
 											</div>
+
 											<div class="row" style="margin-top: 24px;">
 												<div class="col-md-6">
 											    	<span class="help-block">CORRECTION:</span>
@@ -269,7 +440,9 @@
 													<textarea class="form-control" name="business_impact" required></textarea>
 												</div>
 											</div>
+
 											<div class="row" style="margin-top: 24px;">
+												
 												<div class="col-md-6">
 											    	<span class="help-block">ROOT CAUSE:</span>
 													<textarea class="form-control" name="root_cause" required>TBD</textarea>
@@ -281,7 +454,10 @@
 													<input type="file" name="corrective_plan_doc">
 												</div>
 											</div>
+
+
 											<div class="row" style="margin-top: 24px;">
+												
 												<div class="col-md-6">
 											    	<span class="help-block">CORRECTIVE ACTION:</span>
 													<textarea class="form-control" name="corrective_action" required>TBD</textarea>
@@ -293,6 +469,7 @@
 													<input type="file" name="verification_doc">
 												</div>
 											</div>
+
 											<div class="row" style="margin-top: 24px;">
 												<div class="col-md-6">
 											    	<span class="help-block">TYPE:</span>
@@ -310,7 +487,7 @@
 												<div class="col-md-6">
 											    	<span class="help-block">Process Owner:</span>
 													    <select name="responsible_party" class="form-control" onchange="findresponsible(this.value);" required>
-						                                     <?php foreach ($employees as $employee) { ?>
+						                                     <?php foreach ($process_owners as $employee) { ?>
 						                                       <option value="<?=$employee->employee_id?>" <?php if ($selected_item->process_owner == $employee->employee_id): ?>selected<?php endif; ?>><?=$employee->employee_name?></option>
 						                                     <?php } ?>
 						                                </select>
@@ -326,7 +503,7 @@
 								<div class="text-right">
 									<input type="submit" id="save" class="btn btn-primary" value="Save" name="save">
 									<input type="reset" id="reset" class="btn btn-danger" value="Reset" name="Reset">
-
+									
 								</div>
 							</form>
 						</div>
@@ -350,16 +527,79 @@
 	<!-- /page container -->
 
 
+<script>
+	function onChangeProcess(){
+		var process = $("#process").val();
+
+		$.ajax({
+			type: "POST",
+			url: "<?php echo base_url(); ?>index.php/Company/get_audit_area",
+			data:{'process' : process},
+			success: function(data) {
+
+				$('#area').html(data);
+
+			}
+		});
+
+	}
+
+</script>
 
 
+<script type="text/javascript">
+	function find(val){
+		if (val==0) {
+			         $("#cust_name").val('');
+                     $("#address").val('');
+                     $("#city").val('');
+                     $("#state").val('');
+		}
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>index.php/Consultant/findcust",
+                    data:{ 'company' : val},
+                      success: function(data) {
+                      	console.log(data);
+                      // var datas = $.parseJSON(data)
 
+                       $("#showlist").html(data);
+                     // $("#cust_name").val(datas.name);
+                     // $("#address").val(datas.address);
+                     // $("#city").val(datas.city);
+                     // $("#state").val(datas.state);
+                    }
+                  });
+    }
+</script>
 
+<script type="text/javascript">
+	function findcomp(){
 
-
-
-
-
-
+	 var val=1;
+		// if (val==0) {
+		// 	         $("#cust_name").val('');
+  //                    $("#address").val('');
+  //                    $("#city").val('');
+  //                    $("#state").val('');
+		// }
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>index.php/consultant/findcomp",
+                    data:{ 'company' : val},
+                        success: function(data) {
+                      	console.log(data);
+                        var datas = $.parseJSON(data);
+                    $("#compt").val(datas.consultant_name);
+                     $("#cust_name").val(datas.consultant_name);
+                     $("#address").val(datas.address);
+                     $("#city").val(datas.city);
+                     $("#state").val(datas.state);
+                     $("#company_id").val(datas.consultant_id);
+                    }
+                  });
+    }
+</script>
 
 
 
@@ -382,11 +622,22 @@
 </script>
 
 
+<script type="text/javascript">
+	
+//console.clear();
 
 
+</script>
+<!-- <script>
+    shortcut.add("ctrl+s", function() {
 
+        $("#save").click()
+    });   
+    shortcut.add("ctrl+r", function() {
 
-
+        $("#reset").click()
+    }); 
+</script> -->
 
 
 
@@ -424,7 +675,7 @@
 									       	  </tr>
 									       	  </thead>
 									       	  <tbody id="mashineslist">
-
+									       	  	
 									       	  </tbody>
 									       </table>
 									     </div>
@@ -439,8 +690,8 @@
 					</div>
 <!-- /primary modal -->
 <script type="text/javascript">
-	function add_mashine() {
-	var newmashine = $('#newmashine').val();
+	function add_mashine() { 
+	var newmashine = $('#newmashine').val(); 
 	if (newmashine.length==0) {
      $('#mashineerr').html('* this field is required');
  	}else{
@@ -449,16 +700,16 @@
                     url: "<?php echo base_url(); ?>index.php/consultant/add_mashine",
                     data:{'name' : newmashine},
                     success: function(data) {
-
+                    	
                     $('#mashines').html(data);
-                    $('#newmashine').val('');
+                    $('#newmashine').val(''); 
                     }
                   });
-	}
+	}          
   }
 
-  $(document).ready(function () {
-
+  $(document).ready(function () { 
+   
               $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>index.php/consultant/all_mashine",
@@ -472,7 +723,7 @@
 
   });
 
-  $(document).ready(function () {
+  $(document).ready(function () { 
               $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>index.php/consultant/all_mashine_table",
@@ -484,6 +735,17 @@
   });
 
 
+	function getProcessData() {
+		var type_of_audit = $("#audit_type").val();
+		$.ajax({
+			type: "POST",
+			url: "<?php echo base_url(); ?>index.php/Consultant/get_process_for_type",
+			data:{'type_of_audit' : type_of_audit},
+			success: function(data) {
+				$('#process').html(data);
+			}
+		});
+	}
 
   function callmashine(){
   	$.ajax({
@@ -527,12 +789,20 @@
 
 <?php $this->load->view('consultant/manage/regulatory_requirement'); ?>
 <?php $this->load->view('consultant/manage/customer_requirment'); ?>
+<!---->
+<?php $this->load->view('consultant/manage/standard'); ?>
 <?php $this->load->view('consultant/manage/process_step'); ?>
+<?php $this->load->view('consultant/manage/clause'); ?>
 <?php $this->load->view('consultant/manage/policy'); ?>
+<?php $this->load->view('consultant/manage/criteria'); ?>
+<?php $this->load->view('consultant/manage/criteria2'); ?>
+<?php $this->load->view('consultant/manage/criteria3'); ?>
+<?php $this->load->view('consultant/manage/criteria4'); ?>
 <?php $this->load->view('consultant/manage/product'); ?>
 <!---->
 <?php $this->load->view('consultant/manage/shift'); ?>
 <?php $this->load->view('consultant/manage/trigger'); ?>
+<?php $this->load->view('consultant/manage/grade_of_nonconform'); ?>
 
 </body>
 </html>

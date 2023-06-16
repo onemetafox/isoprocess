@@ -1,3 +1,4 @@
+<?php $this->load->view('header');?>
 <style type="text/css">
     /*=-=- shift card design =-=-*/
     .shift-card-holder {
@@ -104,7 +105,7 @@
     .login-object{
         display: flex;
         justify-content: center;
-        width: 100%;
+        width: 80%;
         margin: 0 auto 10px;
     }
     .login-object .box-text{
@@ -120,7 +121,7 @@
     }
     .LoginInner button{
         background-image: linear-gradient(#7575ed, #925cf2);
-        width: 100%;
+        width: 80%;
         display: block;
         padding: 8px;
         font-size: 21px;
@@ -130,25 +131,25 @@
         margin-bottom: 20px;
         border: 0;
     }
-    .LoginInner{padding: 0}
 </style>
 
 <section class="LoginBox">
-   <form name="login_form" action="<?php echo base_url('auth/verification'); ?>" method="post">
+   <form name="login_form" action="<?php echo base_url(); ?>index.php/Auth/verification" method="post">
 	   	<div class="LoginInner wow zoomIn">
 		    <div class="form-group">
 			     <div class="col-sm-12 LoginImg">
-					  <img src="<?php echo base_url('assets/images/home/userimg.png'); ?>">
+					  <img src="<?php echo base_url()?>assets/home/Images/userimg.png">
 					  <small class="display-block" style="display: block;margin-top: 3px;color: red;font-weight:700;font-size:20px;">
 					    <?php echo validation_errors();
-			                   if ($this->session->flashdata('message')) {
-			                    echo $this->session->flashdata('message');
-			                   }
+                                if ($this->session->flashdata('message')) {
+                                    echo $this->session->flashdata('message');
+                                    $this->session->unset_userdata('message');
+                                }
 					    ?>
 					  </small>
 			     </div>
-                <input type="hidden" name="login[username]" value="<?=$username?>">
-                <input type="hidden" name="login[password]" value="<?=$password?>">
+                <input type="hidden" name="username" value="<?=$username?>">
+                <input type="hidden" name="password" value="<?=$password?>">
                 <input type="hidden" name="usertype" value="<?=$user_type?>">
 		    </div>
             <div class="">
@@ -197,12 +198,13 @@
 	   </div><!--LoginInner-->
    </form>
 </section><!--LoginBox-->
+<?php $this->load->view('footer');?>
 <script type="text/javascript">
 	$("#password").password('toggle');
 </script>
 <script type="text/javascript">
 function login(){
-    
+    document.login_form.submit();
 if(grecaptcha.getResponse() == "") { 
                  jQuery("#errormessage").text("Please Fill The Google Captcha");
               }

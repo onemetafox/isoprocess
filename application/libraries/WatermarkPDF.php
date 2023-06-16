@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once dirname(__FILE__) . '/fpdf/fpdf.php';
+require_once dirname(__FILE__) . '/fpdf181/fpdf.php';
 require_once dirname(__FILE__) . '/FPDI/fpdi.php';
 
 class PDF_Rotate extends FPDI {

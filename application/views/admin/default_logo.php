@@ -87,7 +87,7 @@ console.clear();
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							Default Logo Successfully Updated.. 
 				        </div>
-                      <?php   } ?>
+                      <?php  $this->session->unset_userdata('message'); } ?>
 					<!-- Form horizontal -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">

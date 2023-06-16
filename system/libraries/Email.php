@@ -1035,7 +1035,7 @@ class CI_Email {
 		if (function_exists('idn_to_ascii') && strpos($email, '@'))
 		{
 			list($account, $domain) = explode('@', $email, 2);
-			$domain = is_php('5.4')
+			$domain = defined('INTL_IDNA_VARIANT_UTS46')
 				? idn_to_ascii($domain, 0, INTL_IDNA_VARIANT_UTS46)
 				: idn_to_ascii($domain);
 			$email = $account.'@'.$domain;
@@ -1853,7 +1853,7 @@ class CI_Email {
 	 */
 	protected function _validate_email_for_shell(&$email)
 	{
-		if (function_exists('idn_to_ascii') && defined('INTL_IDNA_VARIANT_UTS46') &&  strpos($email, '@'))
+		if (function_exists('idn_to_ascii') && strpos($email, '@'))
 		{
 			list($account, $domain) = explode('@', $email, 2);
 			$domain = is_php('5.4')

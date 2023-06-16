@@ -37,7 +37,7 @@
 
 <body class="navbar-top">
 	<!-- Main navbar -->
-	<?php $this->load->view('admin/main_header.php'); ?>
+	<?php $this->load->view('Admin/main_header.php'); ?>
 	<!-- /main navbar -->
 
 
@@ -48,7 +48,7 @@
 		<div class="page-content">
 
 			<!-- Main sidebar -->
-			<?php $this->load->view('admin/sidebar'); ?>
+			<?php $this->load->view('Admin/sidebar'); ?>
 			<!-- /main sidebar -->
 
 
@@ -85,27 +85,27 @@
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							<span class="text-semibold">Thank you!</span>Plan Successfully created.. 
 				        </div>
-                    <?php   } ?>
+                    <?php $this->session->unset_userdata('message');  } ?>
                      
                         <?php if($this->session->flashdata('message')=='failed') { ?>
                       	 <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							<span class="text-semibold">Oppps!</span>Something Went Wrong Please try again.
 				        </div>
-                      <?php   } ?>
+                      <?php $this->session->unset_userdata('message');  } ?>
                       <?php if($this->session->flashdata('message')=='success_del') { ?>
                       	  <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							Plan Successfully Deleted.. 
 				        </div>
-                      <?php   } ?>
+                      <?php  $this->session->unset_userdata('message'); } ?>
 
                       <?php if($this->session->flashdata('message')=='update_success') { ?>
                       	  <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
 							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
 							Plan Successfully Updated.. 
 				        </div>
-                      <?php   } ?>
+                      <?php  $this->session->unset_userdata('message'); } ?>
 					<!-- Basic datatable -->
 					<div class="panel panel-flat" style="overflow:auto;">
 						<table class="table datatable-basic">
@@ -144,7 +144,7 @@
 					<!-- /basic datatable -->
 
 					<!-- Footer -->
-					<?php $this->load->view('admin/footer'); ?>
+					<?php $this->load->view('Admin/footer'); ?>
 					<!-- /footer -->
 
 				</div>
@@ -163,7 +163,7 @@
 									<h6 class="modal-title"><i class="icon-lan2 position-right"></i> Edit  Plan</h6>
 								</div>
 								<div class="modal-body">
-								<form action="<?php echo base_url();?>index.php/admin/edit_plan"  method="post">
+								<form action="<?php echo base_url();?>index.php/Admin/edit_plan"  method="post">
 								       <div class="row">
 									     <div class="col-md-12">
 									     	<div class="form-group has-feedback">
@@ -232,7 +232,7 @@
             label: "OK",
             className: 'btn-success',
             callback: function(){
-               window.location.href="<?php echo base_url();?>index.php/admin/delete_plan/"+id;
+               window.location.href="<?php echo base_url();?>index.php/Admin/delete_plan/"+id;
             }
         }
      }
@@ -245,7 +245,7 @@
 		 $('#modal_theme_primary1').modal('show'); 
                $.ajax({
                     type: "POST",
-                    url: "<?php echo base_url(); ?>index.php/admin/findplan",
+                    url: "<?php echo base_url(); ?>index.php/Admin/findplan",
                     data:{ 'id' : val},
                       success: function(data) {
                       var datas = $.parseJSON(data)
@@ -266,7 +266,7 @@
                   });
     }
 </script>
-<?php $this->load->view('common/update-password-popup'); ?>
+	<?php $this->load->view('common/update-password-popup'); ?>
 	<!-- /page container -->
 </body>
 
@@ -280,7 +280,7 @@
 									<h6 class="modal-title"> New Plan</h6>
 								</div>
 								<div class="modal-body">
-								<form action="<?php echo base_url();?>index.php/admin/add_plan"  method="post">
+								<form action="<?php echo base_url();?>index.php/Admin/add_plan"  method="post">
 								       <div class="row">
 									     <div class="col-md-12">
 									     	<div class="form-group has-feedback">

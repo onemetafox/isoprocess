@@ -1,3 +1,4 @@
+<?php $this->load->view('header');?>
 <style type="text/css">
     #wrapper {
         font-family: Lato;
@@ -82,10 +83,10 @@
 
 </style>
 <section class="LoginBox">
-   <form name="login_form" action="<?=base_url('auth/login');?>" method="post">
+   <form name="login_form" action="<?=base_url();?>index.php/Auth/login" method="post">
        <div style="display: none;">
-           <input type="hidden" name="login[u]" value="<?=$username?>">
-           <input type="hidden" name="login[p]" value="<?=$password?>">
+           <input type="hidden" name="u" value="<?=$username?>">
+           <input type="hidden" name="p" value="<?=$password?>">
            <input type="hidden" name="u_t" value="<?=$user_type?>">
        </div>
        <div id="wrapper">
@@ -107,7 +108,13 @@
        </div>
    </form>
 </section><!--LoginBox-->
-
+<?php $this->load->view('footer');?>
+<script type="text/javascript">
+	$(function() {
+		$("#password").password('toggle');
+	});
+	$("#password").password('toggle');
+</script>
 <script type="text/javascript">
     function f() {
         window.location.reload();
@@ -115,7 +122,7 @@
     $(function() {
         'use strict';
         $('.close').click(function () {
-            window.location.href = '<?=base_url('auth/login');?>'
+            window.location.href = '<?=base_url();?>index.php/Welcome/login'
         });
         var body = $('body');
 
@@ -159,4 +166,13 @@
         body.on('click', 'input', onFocus);
 
     })
+	function login(){
+        document.login_form.submit();
+		/*if(grecaptcha.getResponse() == "") {
+                 jQuery("#errormessage").text("Please Fill The Google Captcha");
+              }
+              else{
+
+              }*/
+	}
 </script>

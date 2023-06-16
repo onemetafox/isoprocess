@@ -564,10 +564,20 @@ class FPDI extends FPDF_TPL
 
     			reset ($value[1]);
 
-    			while (list($k, $v) = each($value[1])) {
-    				$this->_straightOut($k . ' ');
-    				$this->_writeValue($v);
-    			}
+//    			while (list($k, $v) = each($value[1])) {
+//    				$this->_straightOut($k . ' ');
+//    				$this->_writeValue($v);
+//    			}
+                while(TRUE){
+                    $k = key($value[1]);
+                    if($k === null)
+                        break;
+                    $v = current($value[1]);
+                    $this->_straightOut($k . ' ');
+                    $this->_writeValue($v);
+                    next($value[1]);
+                    break;
+                }
 
     			$this->_straightOut('>>');
     			break;

@@ -42,15 +42,15 @@
 								<div class="icon-object border-warning-400 text-warning-400"><i class="icon-envelop"></i></div>
 								<h5 class="content-group-lg">Success<small class="display-block" style="color: red;font-weight:700;font-size:20px;">
 							           <?php echo validation_errors();
-                                        if ($this->session->flashdata('message')) {
-                                        echo $this->session->flashdata('message');
-                                       }
+											if ($this->session->flashdata('message')) {
+												echo $this->session->flashdata('message');
+												$this->session->unset_userdata('message');
+											}
 							           ?>
 							    </small></h5>
 							</div>
 							<div class="form-group has-feedback has-feedback-left">
-								
-							  <p style="text-align: -webkit-center;">Your username is changed and you are all logged in.</p>
+							  <p style="text-align: -webkit-center;">Your username is changed and you are ready to logged in.</p>
 							</div>
 							<div class="form-group">
 								<a href="<?=base_url();?>" class="btn bg-blue btn-block btn-lg">Back To Login Page <i class="icon-arrow-left14 position-right"></i></a>

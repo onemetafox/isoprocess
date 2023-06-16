@@ -23,7 +23,7 @@ class Twill_RK
 
     /*=-=-= Live Account Credentials -=-=-*/
     private $account_sid_live   = 'AC8aa28cf11da6af828155fe1d0aa0e543';
-    private $auth_token_live    = 'd28cf16b6d7de6d9d40ca224977bb01a';
+    private $auth_token_live    = '8b20e2b103093ee5d5c447a7ca20d399';
 
     /*=-=-= A Twilio number you own with SMS capabilities -=-=-*/
     private $from_mobile        = '+12058801305';//'+19382226875';

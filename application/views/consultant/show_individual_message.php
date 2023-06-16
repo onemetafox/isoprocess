@@ -67,78 +67,57 @@
 
                     <div class="panel-body">
                         <div class="row">
+
                             <div class="col-md-12" id="ptn">
                                 <!-- Basic layout -->
+
                                 <div class="panel panel-flat">
+
+
                                     <div class="panel-body">
                                         <ul class="media-list chat-list content-group">
+
                                             <?php
                                             $consultant_id = $this->session->userdata('consultant_id');
-                                            $user_type = $this->session->userdata('user_type');
-                                            $employee_id = $this->session->userdata('employee_id');
                                             foreach ($message as $messages) { ?>
-                                                <?php if ($user_type == "consultant"):?>
+
+                                                <?php
+                                                if ($messages->from_role=='consultant') { ?>
+
+
+                                                    <li class="media reversed" style="margin-right: 10px;">
+                                                        <div class="media-body" >
+                                                            <div class="media-content"><?=$messages->message?>.</div>
+                                                            <span class="media-annotation display-block mt-10"><?php  echo $this->session->userdata('username'); ?>  (Consultant Owner)<i class="icon-user position-right text-muted"></i></span>
+                                                        </div>
+
+                                                    </li>
+
+                                                <?php } else{?>
                                                     <?php
-                                                    if ($messages->from_role=='consultant') { ?>
-                                                        <li class="media reversed" style="margin-right: 10px;">
-                                                            <div class="media-body" >
-                                                                <div class="media-content"><?=$messages->message?>.</div>
-                                                                <span class="media-annotation display-block mt-10"><?php  echo $this->session->userdata('username'); ?>  (Consultant Owner)<i class="icon-user position-right text-muted"></i></span>
-                                                            </div>
-                                                        </li>
-                                                    <?php } else{?>
-                                                        <?php
-                                                        $user=@$this->db->query("select * from `employees` where `employee_id`='$messages->from_user'")->row();
-                                                        $name=$user->employee_name;
-                                                        ?>
-                                                        <li class="media" style="margin-left: 10px;">
-                                                            <div class="media-body">
-                                                                <div class="media-content"><?=$messages->message?></div>
-                                                                <span class="media-annotation display-block mt-10"> <i class="icon-user position-right text-muted"></i> <?=$name?>  </span>
-                                                            </div>
-                                                        </li>
-                                                    <?php }?>
-                                                <?php else:?>
-                                                    <?php
-                                                    if (@$messages->from_role=='consultant') { ?>
-                                                        <li class="media " style="margin-right: 10px;">
-                                                            <div class="media-body" >
-                                                                <div class="media-content"><?=@$messages->message?>.</div>
-                                        <span class="media-annotation display-block mt-10"><?php
-                                            $consultant_id = $this->session->userdata('consultant_id');
-                                            echo $from_users=@$this->db->query("SELECT * FROM `consultant` WHERE `consultant_id`='$consultant_id'")->row()->username; ?>  (Consultant Owner)<i class="icon-user position-right text-muted"></i></span>
-                                                            </div>
-                                                        </li>
-                                                        <?php
-                                                    } elseif($messages->from_user==$employee_id){?>
-                                                        <?php
-                                                        $user=@$this->db->query("select * from `employees` where `employee_id`='$messages->from_user'")->row();
-                                                        $name=$user->employee_name;
-                                                        ?>
-                                                        <li class="media reversed" style="margin-left: 10px;">
-                                                            <div class="media-body">
-                                                                <div class="media-content"><?=@$messages->message?></div>
-                                                                <span class="media-annotation display-block mt-10"> <i class="icon-user position-right text-muted"></i> <?=$name?>  </span>
-                                                            </div>
-                                                        </li>
-                                                    <?php } else{?>
-                                                        <?php
-                                                        $user=@$this->db->query("select * from `employees` where `employee_id`='$messages->from_user'")->row();
-                                                        $name=$user->employee_name;
-                                                        ?>
-                                                        <li class="media" style="margin-left: 10px;">
-                                                            <div class="media-body">
-                                                                <div class="media-content"><?=@$messages->message?></div>
-                                                                <span class="media-annotation display-block mt-10"> <i class="icon-user position-right text-muted"></i> <?=$name?>  </span>
-                                                            </div>
-                                                        </li>
-                                                    <?php } ?>
-                                                <?php endif;?>
+
+                                                    $user=@$this->db->query("select * from `employees` where `employee_id`='$messages->from_user'")->row();
+                                                    $name=$user->employee_name;
+
+
+                                                    ?>
+                                                    <li class="media" style="margin-left: 10px;">
+                                                        <div class="media-body">
+                                                            <div class="media-content"><?=$messages->message?></div>
+                                                            <span class="media-annotation display-block mt-10"> <i class="icon-user position-right text-muted"></i> <?=$name?>  </span>
+                                                        </div>
+                                                    </li>
+
+                                                <?php }?>
+
                                             <?php  }?>
                                         </ul>
+
+
                                         <form action="<?php echo base_url();?>index.php/Consultant/mails_to_indi_data" method="post">
                                             <textarea  class="form-control content-group" rows="3" cols="1" name="message" placeholder="Enter your message..."></textarea>
                                             <input type="hidden" name="title" value="<?=$title_msz->title?>">
+
                                             <input type="hidden" name="to_user" value="<?=$title_msz->to_user?>">
                                             <input type="hidden" name="data_id" value="<?=$title_msz->id?>">
 

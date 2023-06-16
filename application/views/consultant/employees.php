@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--suppress SqlDialectInspection -->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -26,13 +25,10 @@
     <script type="text/javascript" src="<?=base_url(); ?>assets/js/plugins/forms/styling/uniform.min.js"></script>
     <script type="text/javascript" src="<?=base_url(); ?>assets/js/plugins/forms/styling/switch.min.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/core/app.js"></script>
-    <!-- <script type="text/javascript" src="<?=base_url(); ?>assets/js/pages/datatables_basic.js"></script> -->
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
     <script type="text/javascript">
         $(function() {
-            // Style checkboxes and radios
             $('.styled').uniform();
         });
 
@@ -78,7 +74,6 @@
         <?php $this->load->view('consultant/sidebar'); ?>
         <!-- /main sidebar -->
 
-
         <!-- Main content -->
         <div class="content-wrapper">
 
@@ -95,7 +90,7 @@
 
                                 if ($logo1->logo=='1') {
                                     $logo=$dlogo;
-                                }else{
+                                } else {
                                     $logo=$logo1->logo;
                                 }
                             }
@@ -115,7 +110,6 @@
                                 <?php if ($d1!=$d2 &&  $d2>$d1) { ?>
                                     <a href="<?php echo base_url(); ?>index.php/Auth/update_process" class="btn bg-brown"> <i class="icon-wrench" title="Main pages"></i>  <span> Upgrade Plan</span></a>
                                 <?php } ?>
-
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_theme_primary">New Employee <i class="icon-user role-right"></i></button>
                             </div>
                         </h4>
@@ -128,9 +122,7 @@
                         <li>Manage</li>
                         <li><a href="#"><?=$title?></a></li>
                     </ul>
-
                     <ul class="breadcrumb-elements">
-
                     </ul>
                 </div>
             </div>
@@ -139,42 +131,48 @@
 
             <!-- Content area -->
             <div class="content">
+                <?php if($this->session->flashdata('message')=='pwd_error') { ?>
+                    <div class="alert alert-warning alert-styled-left alert-arrow-right alpha-teal alert-bordered">
+                        <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                        <span class="text-semibold">Oppps!</span> Password is not strong.
+                    </div>
+                <?php $this->session->unset_userdata('message'); } ?>
                 <?php if($this->session->flashdata('message')=='failed') { ?>
                     <div class="alert alert-warning alert-styled-left alert-arrow-right alpha-teal alert-bordered">
                         <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                         <span class="text-semibold">Oppps!</span> You have Maximum Limit reached .
                     </div>
-                <?php } ?>
+                <?php $this->session->unset_userdata('message'); } ?>
                 <?php if($this->session->flashdata('message')=='success_del') { ?>
                     <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
                         <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                         Employee Successfully Deleted..
                     </div>
-                <?php   } ?>
+                <?php  $this->session->unset_userdata('message'); } ?>
                 <?php if($this->session->flashdata('message')=='update_success') { ?>
                     <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
                         <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                         Employee Successfully Updated..
                     </div>
-                <?php   } ?>
+                <?php $this->session->unset_userdata('message');  } ?>
                 <?php if($this->session->flashdata('message')=='error') { ?>
                     <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
                         <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                         <span class="text-semibold">Oppps!</span> Something Went Wrong Please try again.
                     </div>
-                <?php   } ?>
+                <?php  $this->session->unset_userdata('message'); } ?>
                 <?php if($this->session->flashdata('message')=='live_err') { ?>
                     <div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
                         <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                         <span class="text-semibold">Oppps!</span> Access denied. Already exist.
                     </div>
-                <?php   } ?>
+                <?php  $this->session->unset_userdata('message'); } ?>
                 <?php if($this->session->flashdata('phone_response')) { ?>
                     <div class="alert alert-danger alert-styled-right alert-arrow-right alert-bordered">
                         <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                         <?= $this->session->flashdata('phone_response')['message'] ?>
                     </div>
-                <?php   } ?>
+                <?php  $this->session->unset_userdata('phone_response'); } ?>
 
                 <div class="panel panel-body border-top-danger text-center">
                     <h6 class="no-margin text-semibold">Account Status</h6>
@@ -191,6 +189,54 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <input type="text" placeholder="Search By Full Name" class="form-control" name="search_name" id="search_name" value="<?=$search_name?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="margin-left: 10px;">
+                                    <div class="form-group">
+<!--                                        <div class="btn-group bootstrap-select dropdown">-->
+                                            <select id="usertype_sel" name="usertype_sel" class="form-control bootstrap-select" onchange="filterUserType();">
+                                                <option value="0"
+                                                    <?php
+                                                        $usertype_sel = $this->input->post('usertype_sel');
+                                                        if($usertype_sel == 0) {
+                                                    ?>
+                                                    selected
+                                                <?php } ?>
+                                                    >ALL</option>
+                                                <option value="1"
+                                                    <?php
+                                                    $usertype_sel = $this->input->post('usertype_sel');
+                                                    if($usertype_sel == 1) {
+                                                        ?>
+                                                        selected
+                                                    <?php } ?>
+                                                    >Lead Auditor</option>
+                                                <option value="2"
+                                                    <?php
+                                                    $usertype_sel = $this->input->post('usertype_sel');
+                                                    if($usertype_sel == 2) {
+                                                        ?>
+                                                        selected
+                                                    <?php } ?>
+                                                    >Auditor</option>
+                                                <option value="3"
+                                                    <?php
+                                                    $usertype_sel = $this->input->post('usertype_sel');
+                                                    if($usertype_sel == 3) {
+                                                        ?>
+                                                        selected
+                                                    <?php } ?>
+                                                    >Process Owner</option>
+                                                <option value="4"
+                                                    <?php
+                                                    $usertype_sel = $this->input->post('usertype_sel');
+                                                    if($usertype_sel == 4) {
+                                                        ?>
+                                                        selected
+                                                    <?php } ?>
+                                                    >Auditee</option>
+                                            </select>
+<!--                                        </div>-->
                                     </div>
                                 </div>
                                 <div class="col-md-2" style="margin-left: 10px;">
@@ -213,7 +259,7 @@
                             <th>Full Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th style="width:15%">User Type</th>
+                            <th>User Type</th>
                             <th>Username</th>
                             <th>Password</th>
                             <th>Action</th>
@@ -227,7 +273,7 @@
                                 <td><?=$employee->employee_name?></td>
                                 <td><?=$employee->employee_email?></td>
                                 <td><?=$employee->role?></td>
-                                <td style="width:15%"><?=$employee->type_name?></td>
+                                <td><?=$employee->type_name?></td>
                                 <td><?=$employee->username?></td>
                                 <td><?=$employee->password?></td>
                                 <td>
@@ -343,37 +389,21 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback" style="margin-left: 15px;" id="checked_div">
-<!--                                <label class="checkbox" style="padding-left: 30px;">-->
-<!--                                    <input type="checkbox" class="styled permisions" name="edit_executive" id="edit_executive" value="1">-->
-<!--                                    Executive-->
-<!--                                </label>-->
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="edit_process_owner_sme" id="edit_process_owner_sme" value="2">
-                                    Process Owner/SME
+                                <label class="checkbox" style="padding-left: 30px;" id="lead_audit_checker">
+                                    <input type="checkbox" class="styled permisions" name="edit_lead_auditor" id="edit_lead_auditor" value="1">
+                                    Lead Auditor
                                 </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="edit_employee" id="edit_employee" value="3">
-                                    Risk Monitor
+                                <label class="checkbox" style="padding-left: 30px;" id="audit_checker">
+                                    <input type="checkbox" class="styled permisions" name="edit_auditor" id="edit_auditor" value="2">
+                                    Auditor
                                 </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="edit_pm_mo_sv" id="edit_pm_mo_sv" value="4">
-                                    Production Manager/Monitor/Supervisor
+                                <label class="checkbox" style="padding-left: 30px;" id="process_owner_checker">
+                                    <input type="checkbox" class="styled permisions" name="edit_process_owner" id="edit_process_owner" value="3">
+                                    Process Owner
                                 </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="edit_procurement" id="edit_procurement" value="5">
-                                    Procurement
-                                </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="edit_warehousing" id="edit_warehousing" value="6">
-                                    Warehousing
-                                </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="edit_sales" id="edit_sales" value="7">
-                                    Sales
-                                </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="edit_manufacturing" id="edit_manufacturing" value="8">
-                                    Manufacturing
+                                <label class="checkbox" style="padding-left: 30px;" id="auditee_checker">
+                                    <input type="checkbox" class="styled permisions" name="edit_auditee" id="edit_auditee" value="4">
+                                    Auditee
                                 </label>
                             </div>
                             <span id="edit_type_err" style="color:red;"></span>
@@ -395,8 +425,6 @@
 <script type="text/javascript">
     $(document).ready(function() {
         setFocusEnd("search_name");
-
-        $('.bootstrap-select').selectpicker();
     });
 
     $('body').on('click','.delete' ,function(e){
@@ -428,7 +456,7 @@
                                 } else {
                                     var dialog = bootbox.dialog({
                                         title: 'Warning',
-                                        message: "This employee has been assigned to risk.",
+                                        message: "This employee has been assigned to audit.",
                                         size: 'small',
                                         buttons: {
                                             cancel: {
@@ -453,8 +481,8 @@
         $('#modal_theme_primary1').modal('show');
         $.ajax({
             type: "POST",
-            url: "<?= base_url('consultant/finduser') ?>",
-            data:{ 'id' : val },
+            url: "<?php echo base_url(); ?>index.php/Consultant/finduser",
+            data:{ 'id' : val},
             success: function(data) {
                 var datas = $.parseJSON(data);
                 $("#edit_name").val(datas.employee_name);
@@ -471,29 +499,17 @@
                 var user_types = datas.type_ids.split(",");
                 for(var i=0; i<user_types.length; i++) {
                     if(user_types[i] == '1') {
-                        $("#uniform-edit_executive > span").addClass("checked");
-                        $("#edit_executive").prop("checked", true);
+                        $("#uniform-edit_lead_auditor > span").addClass("checked");
+                        $("#edit_lead_auditor").prop("checked", true);
                     } else if(user_types[i] == '2') {
-                        $("#uniform-edit_process_owner_sme > span").addClass("checked");
-                        $("#edit_process_owner_sme").prop("checked", true);
+                        $("#uniform-edit_auditor > span").addClass("checked");
+                        $("#edit_auditor").prop("checked", true);
                     } else if(user_types[i] == '3') {
-                        $("#uniform-edit_employee > span").addClass("checked");
-                        $("#edit_employee").prop("checked", true);
+                        $("#uniform-edit_process_owner > span").addClass("checked");
+                        $("#edit_process_owner").prop("checked", true);
                     } else if(user_types[i] == '4') {
-                        $("#uniform-edit_pm_mo_sv > span").addClass("checked");
-                        $("#edit_pm_mo_sv").prop("checked", true);
-                    } else if(user_types[i] == '5') {
-                        $("#uniform-edit_procurement > span").addClass("checked");
-                        $("#edit_procurement").prop("checked", true);
-                    } else if(user_types[i] == '6') {
-                        $("#uniform-edit_warehousing > span").addClass("checked");
-                        $("#edit_warehousing").prop("checked", true);
-                    } else if(user_types[i] == '7') {
-                        $("#uniform-edit_sales > span").addClass("checked");
-                        $("#edit_sales").prop("checked", true);
-                    } else if(user_types[i] == '8') {
-                        $("#uniform-edit_manufacturing > span").addClass("checked");
-                        $("#edit_manufacturing").prop("checked", true);
+                        $("#uniform-edit_auditee > span").addClass("checked");
+                        $("#edit_auditee").prop("checked", true);
                     }
                 }
             }
@@ -508,7 +524,7 @@
             $('#name_err').html('');
             $('#email_err').html('* this field is required');
             return false;
-        } else if ($("#add_role").val() == null) {
+        } else if($("#add_role").val().length == 0) {
             $('#name_err').html('');
             $('#email_err').html('');
             $('#role_err').html('* this field is required');
@@ -526,18 +542,15 @@
             $('#username_err').html('');
             $('#password_err').html('* this field is required');
             return false;
-        } else if(!$('#executive').is(":checked") && !$('#process_owner_sme').is(":checked") && !$('#employee').is(":checked") &&
-            !$('#pm_mo_sv').is(":checked") && !$('#procurement').is(":checked") && !$('#warehousing').is(":checked") &&
-            !$('#sales').is(":checked") && !$('#manufacturing').is(":checked")){
+        } else if(!$("#lead_auditor").is(":checked") && !$("#auditor").is(":checked") && !$("#process_owner").is(":checked") && !$("#auditee").is(":checked")) {
             $('#name_err').html('');
             $('#email_err').html('');
             $('#role_err').html('');
             $('#username_err').html('');
+            $('#password_err').html('');
             $('#type_err').html('* this field is required');
             return false;
-        }
-        else {
-            $("input[name='add_role']").val($("#add_role").val());
+        } else {
             document.add_employee.submit();
         }
     }
@@ -550,7 +563,7 @@
             $('#edit_name_err').html('');
             $('#edit_email_err').html('* this field is required');
             return false;
-        } else if($("#edit_role").val() == null) {
+        } else if($("#edit_role").val().length == 0) {
             $('#edit_name_err').html('');
             $('#edit_email_err').html('');
             $('#edit_role_err').html('* this field is required');
@@ -561,21 +574,29 @@
             $('#edit_role_err').html('');
             $('#edit_username_err').html('* this field is required');
             return false;
-        } else if(!$('#edit_executive').is(":checked") && !$('#edit_process_owner_sme').is(":checked") && !$('#edit_employee').is(":checked") &&
-            !$('#edit_pm_mo_sv').is(":checked") && !$('#edit_procurement').is(":checked") && !$('#edit_warehousing').is(":checked") &&
-            !$('#edit_sales').is(":checked") && !$('#edit_manufacturing').is(":checked")){
+        } /*else if($("#edit_password").val().length == 0) {
             $('#edit_name_err').html('');
             $('#edit_email_err').html('');
             $('#edit_role_err').html('');
             $('#edit_username_err').html('');
+            $('#edit_password_err').html('* this field is required');
+            return false;
+        } */else if(!$("#edit_lead_auditor").is(":checked") && !$("#edit_auditor").is(":checked") && !$("#edit_process_owner").is(":checked") && !$("#edit_auditee").is(":checked")) {
+            $('#edit_name_err').html('');
+            $('#edit_email_err').html('');
+            $('#edit_role_err').html('');
+            $('#edit_username_err').html('');
+            $('#edit_password_err').html('');
             $('#edit_type_err').html('* this field is required');
             return false;
-        }
-        else {
-            $("input[name='edit_role']").val($("#edit_role").val());
+        } else {
             document.edit_employee.submit();
         }
     }
+</script>
+
+<script type="text/javascript">
+    //console.clear();
 </script>
 
 </body>
@@ -588,7 +609,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h6 class="modal-title"><i class="icon-user role-right"></i> New Employee</h6>
             </div>
-            <form action="<?= base_url('consultant/add_employee') ?>" method="post" name="add_employee">
+            <form action="<?php echo base_url();?>index.php/Consultant/add_employee" method="post" name="add_employee">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -622,7 +643,7 @@
                                 <div class="form-control-feedback">
                                     <i class="icon-mobile text-muted"></i>
                                 </div>
-                                <span id="add_phone_err" style="color:red;"></span>
+                                <span id="email_err" style="color:red;"></span>
                             </div>
                         </div>
                     </div>
@@ -662,47 +683,29 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback" style="margin-left: 15px;">
-<!--                                <label class="checkbox" style="padding-left: 30px;">-->
-<!--                                    <input type="checkbox" class="styled permisions" name="executive" id="executive" value="1">-->
-<!--                                    Executive-->
-<!--                                </label>-->
                                 <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="process_owner_sme" id="process_owner_sme" value="2">
-                                    Process Owner/SME
+                                    <input type="checkbox" class="styled permisions" name="lead_auditor" id="lead_auditor" value="1">
+                                    Lead Auditor
                                 </label>
                                 <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="employee" id="employee" value="3">
-                                    Risk Monitor
+                                    <input type="checkbox" class="styled permisions" name="auditor" id="auditor" value="2">
+                                    Auditor
                                 </label>
                                 <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="pm_mo_sv" id="pm_mo_sv" value="4">
-                                    Production Manager/Monitor/Supervisor
+                                    <input type="checkbox" class="styled permisions" name="process_owner" id="process_owner" value="3">
+                                    Process Owner
                                 </label>
                                 <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="procurement" id="procurement" value="5">
-                                    Procurement
-                                </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="warehousing" id="warehousing" value="6">
-                                    Warehousing
-                                </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="sales" id="sales" value="7">
-                                    Sales
-                                </label>
-                                <label class="checkbox" style="padding-left: 30px;">
-                                    <input type="checkbox" class="styled permisions" name="manufacturing" id="manufacturing" value="8">
-                                    Manufacturing
+                                    <input type="checkbox" class="styled permisions" name="auditee" id="auditee" value="4">
+                                    Auditee
                                 </label>
                             </div>
                             <span id="type_err" style="color:red;"></span>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="modal-footer">

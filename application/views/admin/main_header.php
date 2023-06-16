@@ -18,11 +18,12 @@
 		
 
 			<ul class="nav navbar-nav navbar-right">
-                <li class="dropdown dropdown-user" >
+                <li class="dropdown dropdown-user">
                     <div class="mt-5">
                         <input type="checkbox" data-toggle="toggle" <?= ($this->settings->otp_verification) ? 'checked' : '' ?> data-style="ios" data-id="0" class="otp-active-deactive" data-on="OTP Active" data-off="OTP De-active">
                     </div>
                 </li>
+				<li class="dropdown dropdown-user" ><a href="<?php echo base_url('index.php/welcome')?>"　class="dropdown-toggle"><span>Home</span></a></li>
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown">
 					

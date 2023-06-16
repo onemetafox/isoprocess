@@ -1,3 +1,4 @@
+<?php $this->load->view('header');?>
 <style type="text/css">
 	.radio>label{font-size: 13px!important}
 	h5.content-group-lg {
@@ -87,95 +88,129 @@
 	    0% { opacity:0; }
 	    100% { opacity:100%; }
 	}
-    .password-with-help-group .form-group{
-        margin-bottom: 0;
-    }
-    .password-with-help-group{
+
+	.form-group.float-right {
+	    float: right;
+	    margin: -26px 0px 0px 0px;
+	    position: relative;
+	    top: 37px;
+	}
+    .divider-with-text {
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 15px;
+    }
+    .divider-with-text::before {
+        content: "";
+        height: 1px;
+        background: rgba(0, 0, 0, 0.10);
+        flex: 1;
+        margin-right: 10px;
+        margin-top: 4px;
+    }
+    .divider-with-text::after {
+        content: "";
+        height: 1px;
+        background: rgba(0, 0, 0, 0.10);
+        flex: 1;
+        margin-left: 10px;
+        margin-top: 4px;
+    }
+    .custom-input{
+        outline: none;
+        border: 1px solid #e1e4e5;
+        padding: 10px 12px;
+        border-radius: 0;
+        height: 42px;
+        box-shadow: none;
+    }
+    .custom-input:focus{border: 1px solid #e1e4e5;box-shadow: none;}
+    .c-row{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .c-column{
+        width: 80%;
+        display: flex;
+        align-items: center;
         margin-bottom: 20px;
     }
-    .flex-grow-1{
+    .c-column > .form-group{
+        margin-bottom: 0;
         flex-grow: 1;
+    }
+    .c-column > .help-tip{
+        margin-left: 12px;
+    }
+    .LoginInner input[type="text"]{
+        width: 100% !important;
     }
 </style>
 <section class="LoginBox">
-    <form name="reset_pass_form" action="<?=base_url();?>auth/resetPassword" method="post">
+    <form name="reset_pass_form" action="<?=base_url();?>index.php/Auth/resetPassword" method="post">
         <input type="hidden" name="recovery_link" value="<?= $recovery_link ?>">
-        <div class="login-form wow zoomIn">
-
-            <div class="text-center">
-
-                <div class="icon-object border-warning-400 text-warning-400"><i class="icon-spinner11"></i></div>
-
-                <h5 class="content-group-lg">Reset Your Password
-
-                    <small class="display-block">
-                        <?php
-                            echo validation_errors();
+        <div class="LoginInner wow zoomIn">
+            <div class="row">
+                <div class="col-sm-12 LoginImg tooltip-section">
+                    <img src="<?php echo base_url()?>assets/home/Images/userimg.png">
+                    <h5 class="content-group-lg">Reset Your Password</h5>
+                    <small class="display-block" style="display: block;margin-top: 3px;color: red;font-weight:700;font-size:20px;">
+                        <?php echo validation_errors();
                             if ($this->session->flashdata('message')) {
                                 echo $this->session->flashdata('message');
+                                $this->session->unset_userdata('message');
                             }
                         ?>
                     </small>
 
-                </h5>
-
-            </div>
-
-            <div class="password-with-help-group">
-                <div class="form-group has-feedback has-feedback-left flex-grow-1">
-
-                    <input type="password" id="password" data-toggle="password" class="form-control input-lg" name="password" placeholder="Password" />
-
-                    <div class="form-control-feedback">
-
-                        <i class="icon-lock2 text-muted"></i>
-
-                    </div>
-
                 </div>
-                <div class="help-tip" style="margin-left: 12px;">
+            </div>
+            <div class="clearfix"></div>
+            <div class="c-row">
+                <div class="c-column">
+                    <div class="form-group">
+                        <input class="form-control custom-input" type="password" data-toggle="password" data-eye-open-class="fa fa-eye-slash" data-eye-close-class="fa fa-eye" name="password" placeholder="Enter Password" />
+                    </div>
+                    <div class="help-tip">
+                        <p>Must include at least 8 chracters <br/>Must include at least 1 uppercase letter(A-Z) <br/>Must include at least 1 lowercase letter(a-z) <br/>Must include at least 1 numeric digit(0-9) <br/>Must include at least 1 special character(!@#$%^*)</p>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group float-right">
+                <div class="help-tip">
                     <p>Must include at least 8 chracters <br/>Must include at least 1 uppercase letter(A-Z) <br/>Must include at least 1 lowercase letter(a-z) <br/>Must include at least 1 numeric digit(0-9) <br/>Must include at least 1 special character(!@#$%^*)</p>
                 </div>
-            </div>
-            <div class="password-with-help-group">
-                <div class="form-group has-feedback has-feedback-left flex-grow-1">
-
-                    <input type="password" id="repassword" data-toggle="password" class="form-control input-lg" name="repassword" placeholder="Enter Confrim Password" />
-
-                    <div class="form-control-feedback">
-
-                        <i class="icon-lock2 text-muted"></i>
-
+            </div>-->
+            <div class="c-row">
+                <div class="c-column">
+                    <div class="form-group">
+                        <input class="form-control custom-input" type="password" data-toggle="password" data-eye-open-class="fa fa-eye-slash" data-eye-close-class="fa fa-eye" name="repassword" placeholder="Enter Confirm Password" />
                     </div>
-
-                </div>
-                <div class="help-tip" style="margin-left: 12px;">
-                    <p>Must include at least 8 chracters <br/>Must include at least 1 uppercase letter(A-Z) <br/>Must include at least 1 lowercase letter(a-z) <br/>Must include at least 1 numeric digit(0-9) <br/>Must include at least 1 special character(!@#$%^*)</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="custom-capcha">
-                    <script src='https://www.google.com/recaptcha/api.js'></script>
-                    <div class="g-recaptcha" data-sitekey="6LeMZPkUAAAAAOY59BjLyKtYXFOH3YU4QNGKWSw4"></div>
-                    <div id="errormessage"></div>
+                    <div class="help-tip">
+                        <p>Must include at least 8 chracters <br/>Must include at least 1 uppercase letter(A-Z) <br/>Must include at least 1 lowercase letter(a-z) <br/>Must include at least 1 numeric digit(0-9) <br/>Must include at least 1 special character(!@#$%^*)</p>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-
-                <a href="javascript:reset()" class="btn bg-slate btn-block btn-lg content-group">Reset Password <i class="icon-arrow-right14 position-right"></i></a>
-
+            <div class="c-row">
+                <div class="c-column">
+                    <div class="form-group text-center">
+                        <script src='https://www.google.com/recaptcha/api.js'></script>
+                        <div class="g-recaptcha" data-sitekey="6LeEZfkUAAAAABP2q9CE8VuLPG2eNTvhO8NfLCcS"></div>
+                        <div id="errormessage" style="color: red; margin: 5px 0 0 0px"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="content-divider text-muted form-group"><span>Already have an account?</span></div>
-
-            <a href="<?= base_url('auth/login') ?>" class="btn bg-slate btn-block btn-lg content-group">Login</a>
-
-        </div>
+            <a href="javascript:reset()" class="hvr-bounce-in">Reset Password</a>
+            <p class="divider-with-text text-muted text-center">Already have an account?</p>
+            <a href="<?= base_url('index.php/Welcome/login'); ?>"><span>Login</span></a>
+            <!--    <span>Forgot Your Password</span>-->
+        </div><!--LoginInner-->
     </form>
 </section><!--LoginBox-->
+<?php $this->load->view('footer');?>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js"></script>
 <script type="text/javascript">
     function reset(){

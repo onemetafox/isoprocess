@@ -33,8 +33,8 @@
 
 						<a href="mailto:support@qualitycircleint.com"><i class="fas fa-envelope emailiconTop"></i>
 							support@qualitycircleint.com</a>
-						<a href="tel:19037818111"><img src="<?php echo base_url()?>assets/home/Images/united-states.png" class="emailiconTop"> 1-903-781-8111</a>
-						<a href="tel:18769601111"><img src="<?php echo base_url()?>assets/home/Images/jamaica.png" class="emailiconTop"> 1-876-960-1111</a>
+						<a href="tel:19037818111"><img src="<?php echo base_url()?>assets/home/Images/united-states.png" class="emailiconTop">1-(430)272-2107</a>
+						<a href="tel:18769601111"><img src="<?php echo base_url()?>assets/home/Images/jamaica.png" class="emailiconTop"> 1-(430)272-2107</a>
 					</div>
 
 
@@ -54,30 +54,30 @@
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right nil">
 						<li ><a class="<?php echo $menu_title && $menu_title == 'home'? 'header_menu_active':''?>" href="<?php echo base_url('index.php/welcome')?>">Home</a></li>
-						<?php if($this->session->userdata('admin_id') && ($this->session->userdata('plan_type') == 'real' || $this->session->userdata('plan_type') == 'trial')):?>
+						<?php if($this->session->userdata('consultant_id') && ($this->session->userdata('plan_type') == 'real' || $this->session->userdata('plan_type') == 'trial')):?>
 						<li><a class="<?php echo $menu_title && $menu_title == 'pricing'? 'header_menu_active':''?>" href="<?php echo base_url('index.php/auth/reg_pay_plans')?>">Pricing</a></li>
 						<?php endif;?>
 						<li><a href="#">Smart Solutions</a>
 							<ul class="Submenu">
 								<li><a href="https://fsscverificationsoftware.com/">Verification Software</a></li>
-								<li><a href="http://isoprocessbasedauditexperts.com">Process Auditing Software</a></li>
-								<!--<li><a href="https://contractsigningsoftware.com">Contract Signing Software</a></li>-->
-								<li><a href="http://isoimplementationsoftware.com">Implementation Software</a></li>
+								<li><a href="https://isogapauditsoftware.com/">Gap Audit Software</a></li>
+								<!-- <li><a href="https://contractsigningsoftware.com/">Contract Signing Software</a></li> -->
+								<li><a href="http://isoimplementationsoftware.com/welcome">Implementation Software</a></li>
 								<li><a href="https://www.gosmartacademy.com/">Virtual Academy</a></li>
 							</ul>
 						</li>
 						<li><a class="<?php echo $menu_title && $menu_title == 'about'? 'header_menu_active':''?>" href="<?php echo base_url('index.php/welcome/aboutus')?>">About Us</a></li>
 						<?php if($this->session->userdata('superadmin_id')):?>
-						<li><a href="<?php echo base_url('index.php/welcome/superadmindashboard')?>">Dashboard</a></li>
+						<li><a href="<?php echo base_url('index.php/welcome/superadmindashboard')?>">Manage</a></li>
 						<?php endif;?>
 						<?php if($this->session->userdata('admin_id') && ($this->session->userdata('plan_type') == 'real' || $this->session->userdata('plan_type') == 'trial')):?>
-						<li><a href="<?php echo base_url('index.php/welcome/admindashboard')?>">Dashboard</a></li>
+						<li><a href="<?php echo base_url('index.php/welcome/admindashboard')?>">Manage</a></li>
 						<?php endif;?>
-						<?php if($this->session->userdata('consultant_id')):?>
-						<li><a href="<?php echo base_url('index.php/welcome/consultantdashboard')?>">Dashboard</a></li>
+						<?php if($this->session->userdata('consultant_id') && !$this->session->userdata('employee_id')):?>
+						<li><a href="<?php echo base_url('index.php/welcome/consultantdashboard')?>">Manage</a></li>
 						<?php endif;?>
 						<?php if($this->session->userdata('employee_id')):?>
-						<li><a href="<?php echo base_url('index.php/welcome/employeedashboard')?>">Dashboard</a></li>
+						<li><a href="<?php echo base_url('index.php/welcome/employeedashboard')?>">Manage</a></li>
 						<?php endif;?>
 						<?php if(!$this->session->userdata('username')):?>
 						<li><a class="<?php echo $menu_title && $menu_title == 'signup'? 'header_menu_active':''?>" href="<?php echo base_url('index.php/welcome/register')?>">Sign Up</a></li>

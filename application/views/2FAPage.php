@@ -1,62 +1,40 @@
-<style>
-	label {
-		font-size: 13px;
-	}
-	.help-block > a {
-		font-size: 12px;
-	}
-	.help-block > a:hover {
-		box-shadow: none;
-		transition: initial;
-	}
-	small > p {
-		color: red;
-		font-size: 14px;
-		font-weight: bold;
-	}
-	.content-divider > span {
-		background-color: white;
-	}
+<?php $this->load->view('header');?>
+<style type="text/css">
+	.radio>label{font-size: 13px!important}
 </style>
-
-
 <?php 
-$CI =& get_instance();
-$userData = $CI->session->userdata('temp_user');
+	$CI =& get_instance();
+	$userData = $CI->session->userdata('temp_user');
 ?>
-
 <section class="LoginBox">
-	<form class="wow zoomIn" id="login_form" action="<?= base_url('auth/submitAnswer') ?>" method="post">
-		<div class="login-form">
-			<div class="text-center">
-				<div class="icon-object border-warning-400 text-warning-400"><i class="icon-people"></i></div>
-				<h5 class="content-group-lg">Answer Your Security Question
-					<small class="display-block">
-						<?= validation_errors() ?>
-						<?= isset($flash) ? "<p>{$flash['msg']}</p>" : '' ?>
-					</small>
-				</h5>
-			</div>
-
-			<div class="form-group has-feedback has-feedback-left">
-				<input type="text" readonly="" class="form-control input-lg" name="security[question]" placeholder="Security Question" value="<?= $userData->security_question; ?>" />
-			</div>
-
-			<div class="form-group has-feedback has-feedback-left">
-				<input type="text" class="form-control input-lg" name="security[answer]" placeholder="Enter your security answer" />
-			</div>
-
-			<div class="form-group">
-				<!-- <a href="javascript:login()" class="btn bg-slate btn-block btn-lg content-group">Submit <i class="icon-arrow-right14 position-right"></i></a> -->
-				<button type="submit" class="btn bg-slate btn-block btn-lg content-group">Submit <i class="icon-arrow-right14 position-right"></i></button>
-			</div>
-
-			<div class="content-divider text-muted form-group"><span>Don't have an account?</span></div>
-
-			<a href="<?= base_url('auth/register') ?>" class="btn bg-slate btn-block btn-lg content-group">Register</a>
-			<!--<span class="help-block text-center">
-				By continuing, you're confirming that you've read and agree to our <a href="#">Terms and Conditions</a> and <a href="#">Cookie Policy</a>
-			</span>-->
-		</div>
-	</form>
-</section>
+   <form name="login_form" action="<?= base_url('index.php/auth/submitAnswer') ?>" method="post">
+	   	<div class="LoginInner wow zoomIn">
+		    <div class="form-group">
+			     <div class="col-sm-12 LoginImg">
+					  <img src="<?php echo base_url()?>assets/home/Images/userimg.png">
+					  <h5 class="content-group-lg">Answer Your Security Question</h5>
+					  <small class="display-block" style="display: block;margin-top: 3px;color: red;font-weight:700;font-size:20px;">
+					    <?php echo validation_errors();
+								if ($this->session->flashdata('message')) {
+									echo $this->session->flashdata('message');
+									$this->session->unset_userdata('message');
+								}
+					    ?>
+					  </small>
+			     </div>
+		      	 <input type="text" style="outline:none;border: 1px solid #e1e4e5;width: 80%;padding: 10px 12px;" name="security[question]" placeholder="Security Question" value="<?= $userData->security_question; ?>" />
+		    </div>
+		    <div class="form-group">
+		      <input type="text" style="outline:none;border: 1px solid #e1e4e5;width: 80%;padding: 10px 12px;" name="security[answer]" placeholder="Enter your security answer">
+		    </div>
+		    <a href="javascript:login()" class="hvr-bounce-in">Submit</a>
+		    <!-- <span>Forgot Your Password</span> -->
+	   </div><!--LoginInner-->
+   </form>
+</section><!--LoginBox-->
+<?php $this->load->view('footer');?>
+<script type="text/javascript">
+function login(){
+	document.login_form.submit();
+}
+</script>

@@ -1,4 +1,4 @@
-<section class="headerHero wow fadeIn">
+<?php $this->load->view('header');?>
 <div style="margin-left : 30px; margin-right : 30px;">
     <p style="margin-top : 5px; text-align: center;"><strong><span style="font-size: 30.5pt; font-family: '-apple-system-font',serif;">Terms of Use</span></strong></p>
     <p style="text-align: justify;"><span style="font-size: 13.5pt; font-family: '-apple-system-font',serif;">Date of Last Revision: July 27 &nbsp;2019.</span></p>
@@ -107,4 +107,4 @@
     <p style="text-align: justify;"><span style="font-size: 13.5pt; font-family: '-apple-system-font',serif;">Website:&nbsp;</span><span style="font-size: 16.0pt;">www.qualitycircleint.com</span></p>
     <p style="text-align: justify;">&nbsp;</p>
 </div>
-<?php $this->load->view('admin/footer');?>
+<?php $this->load->view('footer');?>

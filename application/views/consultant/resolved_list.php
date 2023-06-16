@@ -172,14 +172,20 @@
 									<th>No</th>
 									<th>Date</th>
 									<th>Process Owner</th>
-									<th>Line Worker</th>
+									<th>Auditee</th>
 									<th>Trigger</th>
+									<th>Audit Criteria</th>
 									<th>Machine</th>
 									<th>Date Of Occurrence</th>
-									<th>Description Of Non-Conformity</th>
-									<th>CORRECTION</th>
-									<th>CORRECTIVE ACTION :</th>
-									<th>CORRECTIVE ACTION PLAN:</th>
+                                    <?php if ($type == 'CORRECTIVE') {?>
+                                        <th>Description Of Non-Conformity</th>
+                                        <th>CORRECTION</th>
+                                        <th>CORRECTIVE ACTION :</th>
+                                        <th>CORRECTIVE ACTION PLAN:</th>
+                                    <?php } else{?>
+                                        <th>Opportunity Description</th>
+                                        <th>Opportunity Action:</th>
+                                    <?php }?>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -189,7 +195,9 @@
 <?php 
 $respo=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->process_owner'")->row()->employee_name;
 
-$line_worker=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->line_worker'")->row()->employee_name;
+$auditor=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->auditor_id'")->row()->employee_name;
+
+$case_name=@$this->db->query("SELECT * FROM `audit_criteria` WHERE `criteria_name`='$standalone->audit_criteria'")->row()->name;
 
 $trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$standalone->trigger_id'")->row()->trigger_name;
 
@@ -200,23 +208,37 @@ $trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$st
 									<td><?=$standalone->by_when_date?></td>
 									<td><?=$respo?></td>
 									<td>
-										<?php if ($standalone->line_worker == "0"): ?>
+										<?php if ($standalone->auditor_id == "0"): ?>
 											TBD
 										<?php endif; ?>
-										<?php if ($standalone->line_worker == "-1"): ?>
+										<?php if ($standalone->auditor_id == "-1"): ?>
 											N/A
 										<?php endif; ?>
-										<?php if ($standalone->line_worker != "0" && $standalone->line_worker != "1"): ?>
-											<?=$line_worker?>
+										<?php if ($standalone->auditor_id != "0" && $standalone->auditor_id != "1"): ?>
+											<?=$auditor?>
 										<?php endif; ?>
 									</td>
 									<td><?=$trigger_name?></td>
+									<td><?=$standalone->audit_criteria?></td>
 									<td><?=$standalone->mashine_clause?></td>
 									<td><?=$standalone->occur_date?></td>
-									<td><?=$standalone->prob_desc?></td>
-									<td><?=$standalone->correction?></td>
-									<td><?=$standalone->action_plan?></td>
-									<td><?=$standalone->corrective_action?></td>
+                                    <?php if ($type == 'CORRECTIVE') {?>
+                                        <td><?=$standalone->prob_desc?></td>
+                                        <td><?=$standalone->correction?></td>
+                                        <td><?=$standalone->action_plan?></td>
+                                        <td><?=$standalone->corrective_action?></td>
+                                    <?php } else {?>
+                                        <td>
+                                            <?php
+                                            if (strlen($standalone->ofi_desc) > 45){
+                                                echo substr($standalone->ofi_desc,0,45)."...";
+                                            }else{
+                                                echo $standalone->ofi_desc;
+                                            }
+                                            ?>
+                                        </td>
+                                        <td><?=$standalone->opp_action?></td>
+                                    <?php }?>
 									<td>
 										<a href="<?php echo base_url(); ?>index.php/consultant/corrective_action_form_detail/<?=$standalone->id?>?type=<?php echo $type; ?>" class="btn btn-primary">View</a>
 									</td>

@@ -1,56 +1,120 @@
-<style>
-	.thumb-rounded, .thumb-rounded .caption-overflow, .thumb-rounded img {
-		border-radius: 0% !important;
-	}
-</style>
-
-<section class="LoginBox">
-	<form action="<?= base_url('auth/add_purchase') ?>" class="login-form" method="post" style="padding: 20px 20px;">
-		<div class="panel" style="margin-bottom: 0px;">
-			<div class="panel-body">
-				<div class="thumb thumb-rounded">
-					<img src="<?= base_url(IMG_URL . 'company.jpg') ?>" alt="" />
-					<div class="caption-overflow">
-						<span>
-							<a href="#" class="btn border-white text-white btn-flat btn-icon btn-rounded btn-xs"><i class="icon-collaboration"></i></a>
-							<a href="#" class="btn border-white text-white btn-flat btn-icon btn-rounded btn-xs ml-5"><i class="icon-question7"></i></a>
-						</span>
-					</div>
-				</div>
-				<h6 class="content-group text-center text-semibold no-margin-top">
-					<small class="display-block">How many accounts are you going to create?</small>
-				</h6>
-				<div class="form-group has-feedback">
-					<div class="row">
-						<div class="col-md-12">
-							<?php if(isset($trial_plan)) : ?>
-								<div class="radio">
-									<label>
-										<input type="radio" name="plan_id" class="control-warning" value="<?= $trial_plan->plan_id ?>" />
-										<?= $trial_plan->plan_name ?>
-									</label>
-								</div>
-								<div style="padding-left: 27px;">You can use trial for 14 days</div>
-								<div style="padding-left: 27px;">User Limit: <?= $trial_plan->no_of_user ?></div>
-							<?php endif; ?>
-							<?php
-							$cnt = 0;
-							foreach ($plans as $plan) :
-								$cnt ++;
-							?>
-								<div class="radio">
-									<label>
-										<input type="radio" name="plan_id" class="control-warning" value="<?= $plan->plan_id ?>" <?= $cnt == 1 ? 'checked' : '' ?> /><?= $plan->plan_name ?>
-									</label>
-								</div>
-								<div style="padding-left: 27px;">Employees Limit: <?= $plan->no_of_user ?></div>
-								<div style="padding-left: 27px;">Price: <span style="color: red;">$<?= $plan->total_amount ?></span></div>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				</div>
-				<button type="submit" class="btn btn-primary btn-block">Next <i class="icon-arrow-right14 position-right"></i></button>
-			</div>
-		</div>
-	</form>
-</section>
+<?php $this->load->view('header');?>
+<section class="innerPageBanner aboutPageBanner">
+  <div class="container">
+  	<div class="pageTitleBox wow fadeInUp">
+  		<h1>Pricing</h1>
+  		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's
+  			standard dummy text.</p>
+  	</div>
+  </div>
+  </section>
+  <!--innerPageBanner-->
+  <section class="Pricing_Section">
+  <div class="container">
+  <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#home">Monthly</a></li>
+      <li><a data-toggle="tab" href="#menu1">Annually</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+        <?php foreach ($month_plan as $val):?>
+        <div class="col-sm-3 col-md-3 col-xs-6">
+         <div class="PricingWrapper">
+          <div class="pricing"> 
+              <?php if(strtolower($val->plan_name) == 'silver'):?>
+              <div class="PricingTop">
+              <?php endif; ?>
+              <?php if(strtolower($val->plan_name) == 'unlimit'):?>
+              <div class="PricingTop PricingTop1">
+              <?php endif; ?>
+              <?php if(strtolower($val->plan_name) == 'gold'):?>
+              <div class="PricingTop PricingTop2">
+                <?php endif; ?>
+                <h3><?php echo $val->plan_name?></h3>
+              </div><!--PricingTop-->
+              <div class="PricingMiddle">
+                <ul>
+                  <li>$<?php echo $val->total_amount?></li>
+                  <li>Limiation of consultant:<br><?php echo $val->no_of_user?></li>         
+                </ul>
+                <a href="<?php echo base_url('index.php/auth/add_purchase/'.$val->plan_id)?>" class="SignUp">Select Plan</a>
+              </div><!--PricingMiddle-->
+          </div><!--pricing-->
+          </div><!--PricingWrapper-->
+        </div><!--col-sm-3-->
+        <?php endforeach; ?>
+        <?php if(empty($this->session->userdata('plan_id'))):?>
+        <?php if(!empty($trial_plan)):?>
+        <div class="col-sm-3 col-md-3 col-xs-6">
+         <div class="PricingWrapper">
+          <div class="pricing">
+             <div class="PricingTop PricingTop3">
+               <h3><?php echo $trial_plan->plan_name?></h3>
+             </div><!--PricingTop-->
+            <div class="PricingMiddle">
+             <ul>
+              <li>You will expire in 14 Days</li>
+              <li>Limiation of consultant:<br><?php echo $trial_plan->no_of_user?></li>
+             </ul>
+            <a href="<?php echo base_url('index.php/auth/add_purchase/'.$trial_plan->plan_id)?>" class="SignUp">Select Plan</a>
+            </div><!--PricingMiddle-->
+          </div><!--pricing-->
+          </div><!--PricingWrapper-->      
+        </div><!--col-sm-3-->
+        <?php endif;?>
+        <?php endif;?>
+      </div>
+      <div id="menu1" class="tab-pane fade">
+        <?php foreach ($year_plan as $val):?>
+        <div class="col-sm-3 col-md-3 col-xs-6">
+         <div class="PricingWrapper">
+          <div class="pricing">
+             <?php if(strtolower($val->plan_name) == 'silver'):?>
+             <div class="PricingTop">
+             <?php endif; ?>
+             <?php if(strtolower($val->plan_name) == 'unlimit'):?>
+             <div class="PricingTop PricingTop1">
+             <?php endif; ?>
+             <?php if(strtolower($val->plan_name) == 'gold'):?>
+             <div class="PricingTop PricingTop2">
+             <?php endif; ?>
+               <h3><?php echo $val->plan_name?></h3>
+             </div><!--PricingTop-->
+            <div class="PricingMiddle">
+             <ul>
+              <li>$<?php echo $val->total_amount?></li>
+              <li>Limiation of consultant:<br><?php echo $val->no_of_user?></li>         
+             </ul>
+            <a href="<?php echo base_url('index.php/auth/add_purchase/'.$val->plan_id)?>" class="SignUp">Select Plan</a>
+            </div><!--PricingMiddle-->
+          </div><!--pricing-->
+          </div><!--PricingWrapper-->
+        </div><!--col-sm-3-->
+        <?php endforeach; ?>
+        <?php if(empty($this->session->userdata('plan_id'))):?>
+        <?php if(!empty($trial_plan)):?>
+        <div class="col-sm-3 col-md-3 col-xs-6">
+         <div class="PricingWrapper">
+          <div class="pricing">
+             <div class="PricingTop PricingTop3">
+               <h3><?php echo $trial_plan->plan_name?></h3>
+             </div><!--PricingTop-->
+            <div class="PricingMiddle">
+             <ul>
+              <li>You will expire in 14 Days</li>
+              <li>Limiation of consultant:<br><?php echo $trial_plan->no_of_user?></li>
+ <!--              <li>Limitation of company per consultant:<br><?php echo $trial_plan->cp_limit?></li>
+              <li>Limitation of process requirement:<br><?php echo $trial_plan->preq_limit?></li> -->
+             </ul>
+            <a href="<?php echo base_url('index.php/auth/add_purchase/'.$trial_plan->plan_id)?>" class="SignUp">Select Plan</a>
+            </div><!--PricingMiddle-->
+          </div><!--pricing-->
+          </div><!--PricingWrapper-->      
+        </div><!--col-sm-3-->
+      <?php endif;?>
+      <?php endif;?>
+      </div>
+    </div>
+  </div><!--container-->
+</section><!--Pricing_Section-->
+<?php $this->load->view('footer');?>

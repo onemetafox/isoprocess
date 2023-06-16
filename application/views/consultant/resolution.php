@@ -117,17 +117,76 @@
 
 								<?php
 								$respo=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->process_owner'")->row()->employee_name;
-								$respo_id=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->process_owner'")->row()->employee_id;
-								$line_worker=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->line_worker'")->row()->employee_name;
-								$monitoring_type=@$this->db->query("SELECT * FROM `type_of_monitoring` WHERE `type_id`='$standalone_data->monitoring_type'")->row()->type_of_monitoring;
+								$auditor=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->auditor_id'")->row()->employee_name;
+								$audit_type=@$this->db->query("SELECT * FROM `type_of_audit` WHERE `type_id`='$standalone_data->audit_type'")->row()->type_of_audit;
 
-								$process=@$this->db->query("SELECT * FROM `process` WHERE `id`='$standalone_data->process'")->row()->name;
+								$process=@$this->db->query("SELECT * FROM `process_list` WHERE `process_id`='$standalone_data->process'")->row()->process_name;
 								$trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$standalone_data->trigger_id'")->row()->trigger_name;
-
-								$employee_email=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->line_worker'")->row()->employee_email;
+								$clause_name=@$this->db->query("SELECT * FROM `clause` WHERE `id`='$standalone_data->clause'")->row()->name;
+								$clause_name1=@$this->db->query("SELECT * FROM `clause` WHERE `id`='$standalone_data->clause1'")->row()->name;
+								$clause_name2=@$this->db->query("SELECT * FROM `clause` WHERE `id`='$standalone_data->clause2'")->row()->name;
+								switch ($standalone_data->clause){
+									case -1:
+										$clause_name = "Input Step";
+										break;
+									case -2:
+										$clause_name = "Activity";
+										break;
+									case -3:
+										$clause_name = "Output";
+										break;
+									case -4:
+										$clause_name = "Control";
+										break;
+									case -5:
+										$clause_name = "Resource";
+										break;
+									case -6:
+										$clause_name = "Effectiveness";
+										break;
+								}
+								switch ($standalone_data->clause1){
+									case -1:
+										$clause_name1 = "Input Step";
+										break;
+									case -2:
+										$clause_name1 = "Activity";
+										break;
+									case -3:
+										$clause_name1 = "Output";
+										break;
+									case -4:
+										$clause_name1 = "Control";
+										break;
+									case -5:
+										$clause_name1 = "Resource";
+										break;
+									case -6:
+										$clause_name1 = "Effectiveness";
+										break;
+								}
+								switch ($standalone_data->clause2){
+									case -1:
+										$clause_name2 = "Input Step";
+										break;
+									case -2:
+										$clause_name2 = "Activity";
+										break;
+									case -3:
+										$clause_name2 = "Output";
+										break;
+									case -4:
+										$clause_name2 = "Control";
+										break;
+									case -5:
+										$clause_name2 = "Resource";
+										break;
+									case -6:
+										$clause_name2 = "Effectiveness";
+										break;
+								}
+								$employee_email=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone_data->auditor_id'")->row()->employee_email;
 								?>
-								<input type="hidden" name="respo_id" id="respo_id" value="<?=$respo_id?>" />
-								<input type="hidden" name="actionNo" id="actionNo" value="<?=$standalone_data->unique_id?>" />
 
                         <table class="table table-lg table-bordered">
                              <tr>
@@ -145,15 +204,15 @@
                         	 		<input type="text" class="form-control"  value="<?=$standalone_data->unique_id?>"  readonly>
                         	 	</td>
 							</tr>
-							<!--<tr>
+							<tr>
 								<td>
-									<span class="help-block">Type of Monitoring:</span>
+									<span class="help-block">Type of Audit:</span>
 								</td>
 								<td align="center">
-									<input type="text" class="form-control" value="<?/*=$monitoring_type*/?>" disabled>
+									<input type="text" class="form-control" value="<?=$audit_type?>" disabled>
 								</td>
 								<td>
-									<input type="text" class="form-control" value="<?/*=$monitoring_type*/?>" readonly >
+									<input type="text" class="form-control" value="<?=$audit_type?>" readonly >
 								</td>
 							</tr>
 							<tr>
@@ -161,12 +220,12 @@
 									<span class="help-block">Process:</span>
 								</td>
 								<td align="center">
-									<input type="text" class="form-control" value="<?/*=$process*/?>" disabled>
+									<input type="text" class="form-control" value="<?=$process?>" disabled>
 								</td>
 								<td>
-									<input type="text" class="form-control" value="<?/*=$process*/?>" readonly >
+									<input type="text" class="form-control" value="<?=$process?>" readonly >
 								</td>
-							</tr>-->
+							</tr>
 							<tr>
 								<td>
 									<span class="help-block">Process Owner:</span>
@@ -180,14 +239,18 @@
 							</tr>
                         	 <tr>
                         	 	<td>
-                        	 	  <span class="help-block">Line Worker:</span>
+                        	 	  <span class="help-block">Auditee:</span>
                         	 	</td>
                         	 	<td align="center">
-    	 		                    <input type="text" class="form-control" value="<?php if ($standalone_data->line_worker == "0"): ?>TBD<?php endif; ?><?php if ($standalone_data->line_worker == "-1"): ?>N/A<?php endif; ?><?php if ($standalone_data->line_worker != "0" && $standalone_data->line_worker != "1"): ?><?=$line_worker?><?php endif; ?>"
+    	 		                    <input type="text" class="form-control" value="<?php if ($standalone_data->auditor_id == "0"): ?>TBD<?php endif; ?>
+									<?php if ($standalone_data->auditor_id == "-1"): ?>N/A<?php endif; ?>
+									<?php if ($standalone_data->auditor_id != "0" && $standalone_data->auditor_id != "1"): ?><?=$auditor?><?php endif; ?>"
 							    	disabled>
     	 	                    </td>
                         	 	<td>
-                        	 		<input type="text" class="form-control"  value="<?php if ($standalone_data->line_worker == "0"): ?>TBD<?php endif; ?><?php if ($standalone_data->line_worker == "-1"): ?>N/A<?php endif; ?><?php if ($standalone_data->line_worker != "0" && $standalone_data->line_worker != "1"): ?><?=$line_worker?><?php endif; ?>"
+                        	 		<input type="text" class="form-control"  value="<?php if ($standalone_data->auditor_id == "0"): ?>TBD<?php endif; ?>
+									<?php if ($standalone_data->auditor_id == "-1"): ?>N/A<?php endif; ?>
+									<?php if ($standalone_data->auditor_id != "0" && $standalone_data->auditor_id != "1"): ?><?=$auditor?><?php endif; ?>"
 								    readonly>
                         	 	</td>
                         	 </tr>
@@ -208,6 +271,55 @@
                                     </select>
                         	 	</td>
                         	 </tr>
+
+
+							<tr>
+								<td>
+									<span class="help-block">Audit Criteria:</span>
+								</td>
+								<td align="center">
+									<input type="text" class="form-control" value="<?=$standalone_data->audit_criteria?>"  disabled>
+								</td>
+								<td>
+
+									<select class="form-control" name="audit_criteria">
+										<option>Not Applicable</option>
+										<?php foreach ($criteria_list as $item) { ?>
+											<option <?php if($item->criteria_name == $standalone_data->audit_criteria) echo 'selected'; ?>
+												value="<?=$item->criteria_name?>"><?=$item->criteria_name?>
+											</option>
+										<?php } ?>
+									</select>
+
+								</td>
+							</tr>
+
+
+							<tr>
+								<td>
+									<span class="help-block">Grade of Non-Conformity:</span>
+								</td>
+								<td align="center">
+									<input type="text" class="form-control" value="<?=$standalone_data->grade_nonconform?>"  disabled>
+								</td>
+								<td>
+
+									<select class="form-control" name="grade_nonconform">
+										<option value="Major" <?php if($standalone_data->grade_nonconform == "Major") echo 'selected'; ?>>Major</option>
+										<option value="Minor" <?php if($standalone_data->grade_nonconform == "Minor") echo 'selected'; ?>>Minor</option>
+										<option value="Critical" <?php if($standalone_data->grade_nonconform == "Critical") echo 'selected'; ?>>Critical</option>
+
+										<?php foreach ($grade_nonconform as $item) { ?>
+											<option <?php if($item->name == $standalone_data->grade_nonconform) echo 'selected'; ?>
+												value="<?=$item->name?>"><?=$item->name?>
+											</option>
+										<?php } ?>
+									</select>
+
+								</td>
+							</tr>
+
+
 							<tr>
 								<td>
 									<span class="help-block">DATE OF OCCURRANCE:</span>
@@ -282,6 +394,134 @@
 									<!--<input type="text" class="form-control" name="manufacturing_date" value="<?/*=$standalone_data->manufacturing_date*/?>" >-->
 								</td>
 							</tr>
+                        	 <tr>
+                        	 	<td> 
+                        	 	  <span class="help-block">STANDARD:</span>
+                        	 	</td>
+                        	 	<td align="center">
+    	 		                    <input type="text" class="form-control" value="<?=$standalone_data->standard?>"  disabled>
+    	 	                    </td>
+                        	 	<td>
+
+									<select class="form-control" name="standard">
+										<option>Not Applicable</option>
+										<?php foreach ($standard_list as $item) { ?>
+											<option <?php if($item->name == $standalone_data->standard) echo 'selected'; ?>
+												value="<?=$item->name?>"><?=$item->name?>
+											</option>
+										<?php } ?>
+									</select>
+
+                        	 		<!--<input type="text" class="form-control" name="manufacturing_date" value="<?/*=$standalone_data->manufacturing_date*/?>" >-->
+                        	 	</td>
+                        	 </tr>
+							<tr>
+								<td>
+									<span class="help-block">STANDARD1:</span>
+								</td>
+								<td align="center">
+									<input type="text" class="form-control" value="<?=$standalone_data->standard1?>"  disabled>
+								</td>
+								<td>
+
+									<select class="form-control" name="standard1">
+										<option>Not Applicable</option>
+										<?php foreach ($standard_list as $item) { ?>
+											<option <?php if($item->name == $standalone_data->standard1) echo 'selected'; ?>
+													value="<?=$item->name?>"><?=$item->name?>
+											</option>
+										<?php } ?>
+									</select>
+
+									<!--<input type="text" class="form-control" name="manufacturing_date" value="<?/*=$standalone_data->manufacturing_date*/?>" >-->
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="help-block">STANDARD2:</span>
+								</td>
+								<td align="center">
+									<input type="text" class="form-control" value="<?=$standalone_data->standard2?>"  disabled>
+								</td>
+								<td>
+
+									<select class="form-control" name="standard2">
+										<option>Not Applicable</option>
+										<?php foreach ($standard_list as $item) { ?>
+											<option <?php if($item->name == $standalone_data->standard2) echo 'selected'; ?>
+													value="<?=$item->name?>"><?=$item->name?>
+											</option>
+										<?php } ?>
+									</select>
+
+									<!--<input type="text" class="form-control" name="manufacturing_date" value="<?/*=$standalone_data->manufacturing_date*/?>" >-->
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<span class="help-block">CLAUSE:</span>
+								</td>
+								<td align="center">
+									<input type="text" class="form-control" value="<?=$clause_name?>"  disabled>
+								</td>
+								<td>
+
+									<select class="form-control" name="clause">
+										<option>Not Applicable</option>
+										<?php foreach ($clause_list as $item) { ?>
+											<option <?php if($item->id == $standalone_data->clause) echo 'selected'; ?>
+												value="<?=$item->id?>"><?=$item->name?>
+											</option>
+										<?php } ?>
+									</select>
+
+									<!--<input type="text" class="form-control" name="manufacturing_date" value="<?/*=$standalone_data->manufacturing_date*/?>" >-->
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="help-block">CLAUSE1:</span>
+								</td>
+								<td align="center">
+									<input type="text" class="form-control" value="<?=$clause_name1?>"  disabled>
+								</td>
+								<td>
+
+									<select class="form-control" name="clause1">
+										<option>Not Applicable</option>
+										<?php foreach ($clause_list as $item) { ?>
+											<option <?php if($item->id == $standalone_data->clause1) echo 'selected'; ?>
+													value="<?=$item->id?>"><?=$item->name?>
+											</option>
+										<?php } ?>
+									</select>
+
+									<!--<input type="text" class="form-control" name="manufacturing_date" value="<?/*=$standalone_data->manufacturing_date*/?>" >-->
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="help-block">CLAUSE2:</span>
+								</td>
+								<td align="center">
+									<input type="text" class="form-control" value="<?=$clause_name2?>"  disabled>
+								</td>
+								<td>
+
+									<select class="form-control" name="clause2">
+										<option>Not Applicable</option>
+										<?php foreach ($clause_list as $item) { ?>
+											<option <?php if($item->id == $standalone_data->clause2) echo 'selected'; ?>
+													value="<?=$item->id?>"><?=$item->name?>
+											</option>
+										<?php } ?>
+									</select>
+
+									<!--<input type="text" class="form-control" name="manufacturing_date" value="<?/*=$standalone_data->manufacturing_date*/?>" >-->
+								</td>
+							</tr>
+
                         	  <tr>
                         	 	<td> 
                         	 	  <span class="help-block">REGULATORY REQUIREMENT :</span>
@@ -364,6 +604,51 @@
 
                         	 	</td>
                         	 </tr>
+                        	   <tr>
+                        	 	<td> 
+                        	 	  <span class="help-block">COMPANY NAME:</span>
+                        	 	</td>
+                        	 	<td align="center">
+    	 		                    <input type="text" class="form-control" value="<?=$standalone_data->company_name?>"  disabled>
+    	 	                    </td>
+                        	 	<td>
+                        	 		<input type="text" class="form-control" name="company_name" value="<?=$standalone_data->company_name?>" >
+                        	 	</td>
+                        	 </tr>
+                        	 <tr>
+                        	 	<td> 
+                        	 	  <span class="help-block">SHIP TO ADDRESS:</span>
+                        	 	</td>
+                        	 	<td align="center">
+    	 		                    <input type="text" class="form-control" value="<?=$standalone_data->company_address?>"  disabled>
+    	 	                    </td>
+                        	 	<td>
+                        	 		<input type="text" class="form-control" name="company_address" value="<?=$standalone_data->company_address?>"  >
+                        	 	</td>
+                        	 </tr>
+                        	  <tr>
+                        	 	<td> 
+                        	 	  <span class="help-block">SHIP TO CITY:</span>
+                        	 	</td>
+                        	 	<td align="center">
+    	 		                    <input type="text" class="form-control" value="<?=$standalone_data->city?>"  disabled>
+    	 	                    </td>
+                        	 	<td>
+                        	 		<input type="text" class="form-control" value="<?=$standalone_data->city?>" name="city" >
+                        	 	</td>
+                        	 </tr>
+                        	  <tr>
+                        	 	<td> 
+                        	 	  <span class="help-block">STATE:</span>
+                        	 	</td>
+                        	 	<td align="center">
+    	 		                    <input type="text" class="form-control" value="<?=$standalone_data->state?>"  disabled>
+    	 	                    </td>
+                        	 	<td>
+                        	 		<input type="text" class="form-control" name="state" value="<?=$standalone_data->state?>" >
+                        	 	</td>
+                        	 </tr>
+
                         	 <tr>
                         	 	<td> 
                         	 	  <span class="help-block">DESCRIPTION OF PROBLEM / NONCONFORMITY:</span>
@@ -375,6 +660,28 @@
                         	 		<textarea class="form-control" name="prob_desc"><?=$standalone_data->prob_desc?></textarea>
                         	 	</td>
                         	 </tr>
+							<tr>
+								<td>
+									<span class="help-block">DESCRIPTION OF OPPORTUNITY</span>
+								</td>
+								<td align="center">
+									<textarea class="form-control" disabled><?=$standalone_data->ofi_desc?></textarea>
+								</td>
+								<td>
+									<textarea class="form-control" name="ofi_desc"><?=$standalone_data->ofi_desc?></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="help-block">OPPORTUNITY FOR IMPROVEMENT:</span>
+								</td>
+								<td align="center">
+									<textarea class="form-control" disabled><?=$standalone_data->ofi?></textarea>
+								</td>
+								<td>
+									<textarea class="form-control" readonly name="prob_desc"><?=$standalone_data->ofi?></textarea>
+								</td>
+							</tr>
                         	 <tr>
                         	 	<td> 
                         	 	  <span class="help-block">CORRECTION:</span>
@@ -401,6 +708,7 @@
 							<tr>
 								<td>
 									<span class="help-block" style="display: inline;padding-right: 40px;">ROOT CAUSE:</span>
+									<a class="btn btn-info" onclick = "show_root_cause()">Root Cause Analysis</a>
 								</td>
 								<td align="center">
 									<textarea class="form-control" disabled><?=$standalone_data->root_cause?></textarea>
@@ -515,13 +823,11 @@
                         	 	<td align="center">
     	 		                    <select name="type" disabled class="form-control " required="">
                                         <option value="CORRECTIVE">CORRECTIVE</option>
-                                        <option value="CORRECTION">CORRECTION</option>
                                     </select>
     	 	                    </td>
                         	 	<td>
                         	 		 <select name="type" class="form-control " required="">
                                         <option value="CORRECTIVE">CORRECTIVE</option>
-                                        <option value="CORRECTION">CORRECTION</option>
                                     </select>
 
                                     <input type="hidden" name="form_id" value="<?=$standalone_data->id?>">
@@ -550,6 +856,10 @@
 								</td>
 								<td>
 									<div class="text-right" style="margin-top: 20px;">
+                                     	<a data-toggle="modal" data-target="#modal_send_message" class="btn btn-primary btn-sm"><i class="icon-mail5"></i> Send Message</a>
+										<a type="button" class="btn btn-info btn-sm" href="<?php echo base_url(); ?>index.php/Consultant/show_corrective_message/<?=$standalone_data->id?>">
+											<i class="icon-mail-read"></i> View Message
+										</a>
 										<button type="button" class="btn btn-primary savedata"> Submit</button>
 									</div>
 								</td>
@@ -591,6 +901,28 @@
 			$("#process_status").val("Close");
 		}
 	}
+
+
+	function find(val){
+		if (val==0) {
+			         $("#cust_name").val('');
+                     $("#address").val('');
+                     $("#city").val('');
+                     $("#state").val('');
+		}
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>index.php/Company/findcust",
+                    data:{ 'id' : val},
+                      success: function(data) {
+                      var datas = $.parseJSON(data)
+                     $("#cust_name").val(datas.name);
+                     $("#address").val(datas.address);
+                     $("#city").val(datas.city);
+                     $("#state").val(datas.state);
+                    }
+                  });
+    }
 </script>
 
 <script type="text/javascript">
@@ -693,6 +1025,55 @@ $('body').on('click','.savedata',function(e){
     }
    });
 });
+function show_root_cause(){
+	var val = "<?=$corrective_id?>";
+	$.ajax({
+		type: "POST",
+		url: "<?php echo base_url(); ?>index.php/Consultant/get_root_cause",
+		data:{ 'id' : val},
+		success: function(data) {
+			var datas = $.parseJSON(data)
+			$("#why1").val(datas.why1);
+			$("#why2").val(datas.why2);
+			$("#why3").val(datas.why3);
+			$("#why4").val(datas.why4);
+			$("#why5").val(datas.why5);
+            if(datas.conclusion != "")
+	      		$("#conclusion").val(datas.conclusion);
+		}
+	});
+	$('#modal_root_cause').modal();
+}
+
+function sendMessage(val) {
+	var message = $('#message').val();
+	if(message.length == 0) {
+		$("#message_err").html('* this field is required');
+		return false;
+	} else {
+		$.ajax({
+			type: "POST",
+			url: "<?php echo base_url(); ?>index.php/Consultant/send_corrective_message",
+			data:{ 'corrective_id' : val, 'message' : message},
+			success: function(data) {
+				var dialog = bootbox.dialog({
+					message: "Successfully sended.",
+					size: 'small',
+					buttons: {
+						cancel: {
+							label: "Ok",
+							className: 'btn-danger',
+							callback: function() {
+								dialog.modal('hide');
+								$('#modal_send_message').modal('hide');
+							}
+						}
+					}
+				});
+			}
+		});
+	}
+}
 
 </script>
 
@@ -706,6 +1087,106 @@ console.clear();
 	}
 
 </script>
+
+
+
+<!-- Primary modal -->
+	<div id="modal_send_message" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title"><i class="icon-envelope  role-right"></i>  Send Message</h6>
+
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group has-feedback">
+								<label>Message: </label>
+								<textarea class="form-control" name="message" id="message"></textarea>
+								<span id="message_err" style="color:red;"></span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="sendMessage('<?=$corrective_id?>');"><i class="icon-reply role-right"></i> Send</button>
+				</div>
+			</div>
+		</div>
+	</div>
+					<div id="modal_root_cause" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header bg-primary">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h6 class="modal-title">Root Cause</h6>
+								</div>
+								<div class="modal-body">
+									<form id = "add_root_cause" action="<?php echo base_url();?>index.php/consultant/add_root_cause" method="post">
+										<input type="hidden" name="data_id" value="<?=$standalone_data->id?>">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group has-feedback">
+													<label>WHY: </label>
+													<textarea class="form-control" id="why1" name="why1"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group has-feedback">
+													<label>WHY: </label>
+													<textarea class="form-control" id="why2" name="why2"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group has-feedback">
+													<label>WHY: </label>
+													<textarea class="form-control" id="why3" name="why3"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group has-feedback">
+													<label>WHY: </label>
+													<textarea class="form-control" id="why4" name="why4"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group has-feedback">
+													<label>WHY: </label>
+													<textarea class="form-control" id="why5" name="why5"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group has-feedback">
+													<label>Conclusion: </label>
+													<textarea class="form-control" id="conclusion" name="conclusion" rows="3"><?=$standalone_data->root_cause?></textarea>
+												</div>
+											</div>
+										</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary"><i class="icon-reply role-right"></i> Save</button>
+								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+    <!-- /primary modal -->
 </body>
 
 </html>

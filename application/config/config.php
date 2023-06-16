@@ -25,12 +25,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 //$config['base_url'] = 'http://isogapauditsoftware.com/';
-//$config['base_url'] = 'http://isoimplementationsoftware.com/';
+//$config['base_url'] = 'https://phpstack-971964-3536769.cloudwaysapps.com/';
 
-$base  = "http://".$_SERVER['HTTP_HOST'];
+$base  = "https://".$_SERVER['HTTP_HOST'];
 $base .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-$config['base_url'] = $base;
-// $config['base_url'] == '/lms';
+// $config['base_url'] = $base;
+$config['base_url'] = '/isoprocess';
 
 /*
 |--------------------------------------------------------------------------
@@ -107,7 +107,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = TRUE;
+$config['enable_hooks'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -410,7 +410,7 @@ $config['sess_regenerate_destroy'] = FALSE;
 $config['cookie_prefix']	= '';
 $config['cookie_domain']	= '';
 $config['cookie_path']		= '/';
-$config['cookie_secure']	= TRUE;
+$config['cookie_secure']	= FALSE;
 $config['cookie_httponly'] 	= FALSE;
 
 /*
