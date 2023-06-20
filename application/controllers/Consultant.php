@@ -5430,7 +5430,7 @@ class Consultant extends BaseController //CI_Controller
 
         $html = <<< EOD
         $content
-EOD;
+        EOD;
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, TRUE, '', TRUE);
 //        $pdf->writeHTML($html, true, false, true, false, '');
 
@@ -5494,7 +5494,7 @@ EOD;
 
     public function download_pdf()
     {
-ini_set('max_execution_time', 0);
+        ini_set('max_execution_time', 0);
         $this->load->library("Pdf");
         $html = $this->input->post('download_text');
         $id = $this->input->post('download_id');
