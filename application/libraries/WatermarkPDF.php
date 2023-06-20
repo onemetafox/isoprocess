@@ -58,7 +58,7 @@ class WatermarkPDF extends PDF_Rotate {
             $this->Cell(0,10,$header_text,0,0,$header_align);
         }  
         
-        if (file_exists($fullPathToImage)) {
+        if (!is_null($fullPathToImage) && file_exists($fullPathToImage)) {
             //Put the watermark
             $this->SetAlpha(0.5);
             $this->Image($fullPathToImage, 55, 80, 100, 100, '');

@@ -164,7 +164,7 @@
                                                 Audit of : <?=$check->process_name?>
                                             </td>
                                             <td style="text-align: left;width: 35%;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                Audit Criteria: <?=$non_conform_list->criteria_id?>
+                                                Audit Criteria: <?=$non_conform_list->criteria_id?>,<?=$non_conform_list->criteria_id2?>,<?=$non_conform_list->criteria_id3?>,<?=$non_conform_list->criteria_id4?>
                                             </td>
                                             <td style="text-align: left;width: 35%;border-width:1px 1px 1px 1px;padding-left: 5px;">
                                             </td>

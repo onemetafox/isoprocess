@@ -295,10 +295,10 @@
             </div>
             <div class="modal-body">
                     <div class="radio" >
-                        <label><input type="radio" class="styled" id="mind_map" name="map" value="1" checked>Mind Map</label>
+                        <label><input type="radio" class="styled" id="process_map" name="map" value="2" checked>Process Map</label>
                     </div>
                     <div class="radio" >
-                        <label><input type="radio" class="styled" id="process_map" name="map" value="2">Process Map</label>
+                        <label><input type="radio" class="styled" id="mind_map" name="map" value="1" >Mind Map</label>
                     </div>
             </div>
             <div class="modal-footer">
