@@ -535,7 +535,7 @@
                                     <option value="0">TBD</option>
                                     <option value="-1">N/A</option>
                                     <?php foreach ($smes as $sme) { ?>
-                                        <option value="<?= $sme->employee_id ?>"><?= $sme->employee_name ?></option>
+                                        <option value="<?= $sme->employee_id ?>"><?= $sme->role ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -632,12 +632,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label>Employees: </label>
+                                <label>Auditee: </label>
                                 <select class="form-control" name="edit_auditee[]" multiple id="edit_auditee" required>
                                     <option value="0">TBD</option>
                                     <option value="-1">N/A</option>
                                     <?php foreach ($smes as $sme) { ?>
-                                        <option value="<?= $sme->employee_id ?>"><?= $sme->employee_name ?></option>
+                                        <option value="<?= $sme->employee_id ?>"><?= $sme->role ?></option>
                                     <?php } ?>
                                 </select>
                             </div>

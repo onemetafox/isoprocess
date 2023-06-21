@@ -65,7 +65,7 @@
                                                 Auditor: <?=$auditor_name?>
                                             </td>
                                             <td style="text-align: left;width: 25%;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                Audit Criteria: <?=$conform_list->criteria_id?>
+                                                Audit Criteria: <?=$conform_list->criteria_id?>,<?=$conform_list->criteria_id2?>,<?=$conform_list->criteria_id3?>,<?=$conform_list->criteria_id4?>
                                             </td>
                                             <td style="text-align: left;width: 25%;border-width:1px 1px 1px 1px;padding-left: 5px;">
                                                 Auditees: <?=$auditee_name?>
@@ -260,7 +260,7 @@
                                                     Audit of : <?=$check->process_name?>
                                                 </td>
                                                 <td style="text-align: left;width: 35%;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                    Audit Criteria: <?=$opportunity->criteria_id?>
+                                                    Audit Criteria: <?=$opportunity->criteria_id?>,<?=$opportunity->criteria_id2?>,<?=$opportunity->criteria_id3?>,<?=$opportunity->criteria_id4?>
                                                 </td>
                                                 <td style="text-align: left;width: 35%;border-width:1px 1px 1px 1px;padding-left: 5px;">
                                                 </td>
