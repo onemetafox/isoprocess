@@ -426,9 +426,9 @@
             data:{'name' : val},
             success: function(data) {
                 $('#auditor_tbody').html(data);
-                 $('#auditor__view').DataTable({ 
-                      "destroy": true, //use for reinitialize datatable
-                   });
+                $('#auditor__view').DataTable({ 
+                    "destroy": true, //use for reinitialize datatable
+                });
                 $(function() {
                     // Style checkboxes and radios
                     $('.styled').uniform();
@@ -445,9 +445,9 @@
             data:{'name' : val},
             success: function(data) {
                 $('#owner_tbody').html(data);
-                 $('#owner__view').DataTable({ 
-                      "destroy": true, //use for reinitialize datatable
-                   });
+                $('#owner__view').DataTable({ 
+                    "destroy": true, //use for reinitialize datatable
+                });
                 $(function() {
                     // Style checkboxes and radios
                     $('.styled').uniform();
