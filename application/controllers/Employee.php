@@ -2324,11 +2324,12 @@ class Employee extends BaseController//CI_Controller
 				$this->db->where('consultant_id',$consultant_id);
 				$data['audit_criteria'] = $this->db->get('audit_criteria')->result();
 
-				$this->db->join("permision", "employees.employee_id = permision.employee_id", "left");
-				$this->db->where('employees.consultant_id', $consultant_id);
-				$this->db->where('permision.type_id', $auditee);
-				$data['smes'] = $this->db->get('employees')->result();
-
+				// $this->db->join("permision", "employees.employee_id = permision.employee_id", "left");
+				// $this->db->where('employees.consultant_id', $consultant_id);
+				// $this->db->where('permision.type_id', $auditee);
+				// $data['smes'] = $this->db->get('employees')->result();
+				
+				$data['smes'] = $this->employee->getSMES($consultant_id);
 				$this->load->view('employee/create_checklist', $data);
 
 			}else{

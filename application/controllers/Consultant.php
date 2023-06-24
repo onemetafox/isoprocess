@@ -2321,13 +2321,8 @@ class Consultant extends BaseController //CI_Controller
             $this->db->where("s.audit_id", $pa_id);
             $this->db->group_by("s.auditor");
             $data["auditors_email"] = $this->db->get()->result();
-            $sql = "SELECT *, GROUP_CONCAT(t.utype_name) type_name
-                    FROM employees e
-                    LEFT JOIN permision p ON e.employee_id = p.employee_id
-                    LEFT JOIN user_type t ON p.type_id = t.utype_id
-                    WHERE e.consultant_id = " . $consultant_id . "
-                    GROUP BY e.employee_id";
-            $data['smes'] = $this->db->query($sql)->result();
+            
+            $data['smes'] = $this->employee->getSMES($consultant_id);
             $this->load->view('consultant/audit_schedule', $data);
         } else {
             redirect('Welcome');
