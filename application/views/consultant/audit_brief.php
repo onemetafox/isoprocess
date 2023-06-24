@@ -576,7 +576,8 @@
                         $datas = $.parseJSON(data);
                         if($datas == 'success') {
                             $('#modal_new_auditor').modal('hide');
-                            get_auditors(1);
+                            location.reload();
+                            // get_auditors(1);
                         } else if($datas == 'failed') {
                             var dialog = bootbox.dialog({
                                 title: 'Warning',
@@ -629,7 +630,8 @@
                         var datas = $.parseJSON(data);
                         if(datas == "success") {
                             $('#modal_new_auditor').modal('hide');
-                            get_auditors(1);
+                            location.reload();
+                            // get_auditors(1);
                         } else {
                             var dialog = bootbox.dialog({
                                 title: 'Warning',
@@ -703,7 +705,8 @@
                         $datas = $.parseJSON(data);
                         if($datas == 'success') {
                             $('#modal_new_owner').modal('hide');
-                            get_owners(1);
+                            location.reload();
+                            // get_owners(1);
                         } else if($datas == 'failed') {
                             var dialog = bootbox.dialog({
                                 title: 'Warning',
@@ -754,7 +757,9 @@
                         var datas = $.parseJSON(data);
                         if(datas == 'success') {
                             $('#modal_new_owner').modal('hide');
-                            get_owners(1);
+                            location.reload()
+                            // get_owners(1);
+
                         } else {
                             var dialog = bootbox.dialog({
                                 title: 'Warning',
@@ -807,7 +812,8 @@
                                         url: "<?php echo base_url(); ?>index.php/Consultant/delete_employee_any/"+id,
                                         data:{},
                                         success: function(data) {
-                                            get_auditors(1);
+                                            location.reload();
+                                            // get_auditors(1);
                                         }
                                     });
                                 } else {
@@ -864,7 +870,8 @@
                                         url: "<?php echo base_url(); ?>index.php/Consultant/delete_employee_any/"+id,
                                         data:{},
                                         success: function(data) {
-                                            get_owners(1);
+                                            location.reload();
+                                            // get_owners(1);
                                         }
                                     });
                                 } else {
