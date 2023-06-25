@@ -27,6 +27,8 @@
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script> 
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.18.0/ckeditor.js" integrity="sha512-woYV6V3QV/oH8txWu19WqPPEtGu+dXM87N9YXP6ocsbCAH1Au9WDZ15cnk62n6/tVOmOo0rIYwx05raKdA4qyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" type="text/css">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 		<style type="text/css">
 			.policy {
@@ -111,7 +113,11 @@
 						dataType: "json",
 						encode: true,
 					}).done(function (data) {
-						console.log(data);
+						if(data.status){
+							toastr.success(data.msg);
+						}else{
+							toastr.error(data.msg);
+						}
 					});
 
 					event.preventDefault();
