@@ -25,14 +25,18 @@
 	<!-- <script type="text/javascript" src="<?=base_url(); ?>assets/js/plugins/forms/selects/select2.min.js"></script> -->
 	<script type="text/javascript" src="<?=base_url(); ?>assets/js/core/app.js"></script>
 	
- <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" type="text/css">
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- <script type="text/javascript" src="<?=base_url(); ?>assets/js/pages/datatables_basic.js"></script> -->
    <style type="text/css">
-    	.clist {
-		    background-color:#26a69a;
-		    color: #fff;
-		}
+	.clist {
+		background-color:#26a69a;
+		color: #fff;
+	}
   	.toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
  	.toggle.ios .toggle-handle { border-radius: 20px; }
     </style> 
@@ -45,7 +49,6 @@
 	<?php $this->load->view('Admin/main_header.php'); ?>
 	<!-- /main navbar -->
 
-
 	<!-- Page container -->
 	<div class="page-container">
 
@@ -55,7 +58,6 @@
 			<!-- Main sidebar -->
 			<?php $this->load->view('Admin/sidebar'); ?>
 			<!-- /main sidebar -->
-
 
 			<!-- Main content -->
 			<div class="content-wrapper">

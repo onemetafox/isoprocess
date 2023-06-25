@@ -128,7 +128,10 @@ class Admin extends BaseController//CI_Controller
 		}
 	}
 
-
+	public function policy(){
+		$data['policy'] = $this->settings->getOne('1');
+		$this->load->view('Admin/payment_list', $data);
+	}
 	public function consultant_list()
 	{
 		$admin_id = $this->session->userdata('admin_id');

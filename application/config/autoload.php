@@ -134,5 +134,6 @@ $autoload['language'] = array();
 */
 $autoload['model'] = array(
     'EmployeeModel' => 'employee',
-    'CheckListModel' => 'checklist'
+    'CheckListModel' => 'checklist',
+    'Settings_model' => 'settings'
 );

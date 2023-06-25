@@ -1,8 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Settings_model extends CI_Model {
+require_once APPPATH.'/core/BaseModel.php';
 
+class Settings_model extends BaseModel {
+
+    var $table_name = "default_setting";
 
     function getEmailTemplate($where){
         $result = $this->db->get_where('settings_email_template', $where);
@@ -11,7 +14,7 @@ class Settings_model extends CI_Model {
     }
 
    #--------------- Email for expired subscription------------------------
-     function getEmailTemplate_1($where){
+    function getEmailTemplate_1($where){
         $result = $this->db->get_where('subscription_email_template', $where);
         $res=$result->row_array();
         return $res;
