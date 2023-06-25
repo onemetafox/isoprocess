@@ -26,8 +26,10 @@
 		<!-- <script type="text/javascript" src="<?=base_url(); ?>assets/js/pages/datatables_basic.js"></script> -->
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script> 
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.18.0/ckeditor.js" integrity="sha512-woYV6V3QV/oH8txWu19WqPPEtGu+dXM87N9YXP6ocsbCAH1Au9WDZ15cnk62n6/tVOmOo0rIYwx05raKdA4qyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 		<style type="text/css">
-			.paylist {
+			.policy {
 				background-color:#26a69a;
 				color: #fff;
 			}
@@ -73,43 +75,15 @@
 							
 						</div>
 					</div>
-					<!-- /page header -->
-
 
 					<!-- Content area -->
 					<div class="content">
-						<?php
 						
-						if($this->session->flashdata('message')=='success') { ?>
-							<div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
-								<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-								<span class="text-semibold">Thank you!</span>Plan Successfully created.. 
-							</div>
-						<?php  $this->session->unset_userdata('message'); } ?>
-						
-							<?php if($this->session->flashdata('message')=='failed') { ?>
-							<div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
-								<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-								<span class="text-semibold">Oppps!</span>Something Went Wrong Please try again.
-							</div>
-						<?php  $this->session->unset_userdata('message'); } ?>
-						<?php if($this->session->flashdata('message')=='success_del') { ?>
-							<div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
-								<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-								Plan Successfully Deleted.. 
-							</div>
-						<?php $this->session->unset_userdata('message'); } ?>
-
-						<?php if($this->session->flashdata('message')=='update_success') { ?>
-							<div class="alert alert-styled-right alert-styled-custom alert-arrow-right alpha-teal alert-bordered">
-								<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-								Plan Successfully Updated.. 
-							</div>
-						<?php  $this->session->unset_userdata('message'); } ?>
-						<!-- Basic datatable -->
-						<div class="panel panel-flat" style="overflow:auto;">
-							
-						</div>
+						<form>
+							<textarea class="ckeditor form-control" name="policy" rows="30" ><?= $setting->policy?$setting->policy:''; ?></textarea>
+							<br>
+							<input type="submit" value = "<?= $setting->policy?"Update Policy":'Add Policty'; ?>" class="btn btn-primary">
+						</form>
 						<!-- /basic datatable -->
 
 						<!-- Footer -->
@@ -123,5 +97,26 @@
 			</div>
 			<!-- /page content -->
 		</div>
+		<script>
+			$(document).ready(function () {
+				$("form").submit(function (event) {
+					var formData = {
+						policy: CKEDITOR.instances['policy'].getData()
+					};
+
+					$.ajax({
+						type: "POST",
+						url: "<?= base_url()?>index.php/Admin/updatePolicy",
+						data: formData,
+						dataType: "json",
+						encode: true,
+					}).done(function (data) {
+						console.log(data);
+					});
+
+					event.preventDefault();
+				});
+			});
+		</script>
 	</body>
 </html>

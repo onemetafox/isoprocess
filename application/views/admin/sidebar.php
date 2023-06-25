@@ -18,7 +18,7 @@
 						<a href="<?php echo base_url(); ?>index.php/Admin/invoice" class="paylist"><i class="icon-coin-dollar"></i> <span>Invoice Management</span></a>
 					</li>
 					<li>
-						<a href="<?php echo base_url(); ?>index.php/Admin/policy" class="paylist"><i class="icon-shield2"></i> <span>Policy Management</span></a>
+						<a href="<?php echo base_url(); ?>index.php/Admin/policy" class="policy"><i class="icon-shield2"></i> <span>Policy Management</span></a>
 					</li>
 					<li>
 						<a href="<?php echo base_url(); ?>index.php/Admin/Email_template" class="email_1"><i class="icon-envelope"></i>Email Template</a>
