@@ -128,7 +128,20 @@ class Admin extends BaseController//CI_Controller
 		}
 	}
 
-
+	public function policy(){
+		$data['setting'] = $this->setting->getOne('1');
+		$data['title'] = "Policy Management";
+		$this->load->view('Admin/policy', $data);
+	}
+	public function updatePolicy(){
+		$data = $this->input->post();
+		$result = $this->setting->updateOne(1, $data);
+		if($result){
+			$response['status'] = true;
+			$response['msg'] = "Updated Successfully";
+			echo json_encode($response);
+		}
+	}
 	public function consultant_list()
 	{
 		$admin_id = $this->session->userdata('admin_id');

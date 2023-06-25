@@ -19,6 +19,10 @@
 	<script type="text/javascript" src="<?=base_url(); ?>assets/home/js/fontawesome.js"></script>
 	<script type="text/javascript" src="<?=base_url(); ?>assets/home/js/wow.min.js"></script>
 	<script type="text/javascript" src="<?=base_url(); ?>assets/home/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" type="text/css">
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<script src="https://checkout.stripe.com/checkout.js"></script>
 	<style type="text/css">
 		.header_menu_active{color: #0892d0!important;}

@@ -148,7 +148,7 @@
 						<a style="margin-left: -5px; background-image: none; display: inline; color: #a307a5; font-size: 17px; font-style: italic; text-decoration:underline"
 						target="_blank" href = "<?php echo base_url("index.php/auth/terms")?>"
 						>Terms</a>for QCIL
-						<input style="margin-left : 15px" type="checkbox" checked="checked">
+						<input style="margin-left : 15px" name="terms" type="checkbox" >
 						<span style="margin-left : 15px" class="checkmark"></span>
 					</label>
 				</div>
@@ -163,7 +163,11 @@
 			jQuery("#errormessage").text("Please Fill The Google Captcha");
 		}
 		else{
-			document.sign_form.submit();
-		}  
+            if(!$("input[name ='terms']").prop('checked') ){
+                toastr.error("Please read terms and select it");
+            }else{
+                document.sign_form.submit();
+            }
+		}
 	}
 </script>

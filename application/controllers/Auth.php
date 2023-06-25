@@ -1429,6 +1429,7 @@ class Auth extends BaseController //CI_Controller
 	
     public function terms(){
         $data['menu_title'] = 'payment';
+        $data['setting'] = $this->setting->getOne(1);
         $this->load->view('terms',$data);
     }
 	
