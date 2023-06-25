@@ -12,5 +12,10 @@ class EmployeeModel extends CI_Model {
                 GROUP BY e.employee_id";
         return $this->db->query($sql)->result();
     }
+
+    public function getOne($id){
+        $this->db->where("id", $id);
+        return $this->db->get("checklist")->row();
+    }
 }
 
