@@ -34,19 +34,20 @@
         <?php
             $num1 = 0;
             $num2 = 1;
-        foreach($process_check_list as $check) {
-            $conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'NO ISSUE'")->result();
-            $opportunity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Opportunities'")->result();
-            $auditee_array = explode (",", $conformity_list->auditees); 
-            $auditor = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->auditor'")->row();
-            $auditor_name = ($auditor == null) ? "" : $auditor->employee_name;
-            // $auditee = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->sme'")->row();
-            // $auditee_name = ($auditee == null) ? "" : $auditee->employee_name;
-            $owner = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->process_owner'")->row();
-            $owner_name = ($owner == null) ? "" : $owner->employee_name;
-            if($conformity_list != null) {
-                foreach($conformity_list as $conform_list) {
-        ?>
+            foreach($process_check_list as $check) {
+                $conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'NO ISSUE'")->result();
+                $opportunity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Opportunities'")->result();
+                $auditor = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->auditor'")->row();
+                $auditor_name = ($auditor == null) ? "" : $auditor->employee_name;
+                // $auditee = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->sme'")->row();
+                // $auditee_name = ($auditee == null) ? "" : $auditee->employee_name;
+                $owner = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->process_owner'")->row();
+                $owner_name = ($owner == null) ? "" : $owner->employee_name;
+                if($conformity_list != null) {
+                    foreach($conformity_list as $conform_list) {
+                        $auditee_array = explode (",", $conform_list->auditees); 
+
+            ?>
                 <tr>
                     <td style="text-align: center">
                         <p style="font-size: 18px;">CONFORMITY REPORTS – <?=strtoupper($check->process_name)?></p>
@@ -70,9 +71,9 @@
                                             </td>
                                             <td style="text-align: left;width: 25%;border-width:1px 1px 1px 1px;padding-left: 5px;">
                                                 Auditees: <?php 
-                                                    foreach( $auditee_array as $auditee_id){
+                                                    foreach( $auditee_array as $kye => $auditee_id){
                                                         $auditee = $this->employee->getOne($auditee_id);
-                                                        echo($auditee->name . ", ");
+                                                        echo($auditee->role . ", ");
                                                     }
                                                 ?>
                                             </td>
