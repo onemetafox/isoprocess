@@ -222,7 +222,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                         <span><h4>Input Step</h4></span>
                     </div>
                     <div style="padding-left: 10px;display: inline-block;">
-                        <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-1')">NEW</a>
+                        <!-- <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-1')">NEW</a> -->
                     </div>
                     <div class="panel panel-flat" style="overflow:auto;">
                         <table class="table">
@@ -314,7 +314,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                         <span><h4>Activity</h4></span>
                     </div>
                     <div style="padding-left: 10px;display: inline-block;">
-                        <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-2')">NEW</a>
+                        <!-- <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-2')">NEW</a> -->
                     </div>
                     <div class="panel panel-flat" style="overflow:auto;">
                         <table class="table">
@@ -406,7 +406,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                         <span><h4>Output</h4></span>
                     </div>
                     <div style="padding-left: 10px;display: inline-block;">
-                        <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-3')">NEW</a>
+                        <!-- <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-3')">NEW</a> -->
                     </div>
                     <div class="panel panel-flat" style="overflow:auto;">
                         <table class="table">
@@ -498,7 +498,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                         <span><h4>Control</h4></span>
                     </div>
                     <div style="padding-left: 10px;display: inline-block;">
-                        <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-4')">NEW</a>
+                        <!-- <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-4')">NEW</a> -->
                     </div>
                     <div class="panel panel-flat" style="overflow:auto;">
                         <table class="table">
@@ -590,7 +590,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                         <span><h4>Resource</h4></span>
                     </div>
                     <div style="padding-left: 10px;display: inline-block;">
-                        <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-5')">NEW</a>
+                        <!-- <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-5')">NEW</a> -->
                     </div>
                     <div class="panel panel-flat" style="overflow:auto;">
                         <table class="table">
@@ -682,7 +682,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                         <span><h4>Effectiveness</h4></span>
                     </div>
                     <div style="padding-left: 10px;display: inline-block;">
-                        <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-6')">NEW</a>
+                        <!-- <a type="button" class="btn btn-primary btn-sm" style="float:left;margin-left: 10px;" onclick="create_checklist('-6')">NEW</a> -->
                     </div>
                     <div class="panel panel-flat" style="overflow:auto;">
                         <table class="table">
