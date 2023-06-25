@@ -2304,11 +2304,11 @@ class Consultant extends BaseController //CI_Controller
             $this->db->where('permision.type_id', $process_owner);
             $data['owners'] = $this->db->get('employees')->result();
 
-            // $this->db->join("permision", "employees.employee_id = permision.employee_id", "left");
-	        //         $this->db->where('employees.consultant_id', $consultant_id);
+            $this->db->join("permision", "employees.employee_id = permision.employee_id", "left");
+            $this->db->where('employees.consultant_id', $consultant_id);
             // $this->db->where('permision.type_id', $auditee);
             
-            // $data['smes'] = $this->db->get('employees')->result();
+            $data['smes'] = $this->db->get('employees')->result();
             
             $this->db->where('log_id', $pa_id);
             $data['audit_log'] = $this->db->get('audit_log_list')->row();
@@ -2321,8 +2321,7 @@ class Consultant extends BaseController //CI_Controller
             $this->db->where("s.audit_id", $pa_id);
             $this->db->group_by("s.auditor");
             $data["auditors_email"] = $this->db->get()->result();
-            
-            $data['smes'] = $this->employee->getSMES($consultant_id);
+            // $data['smes'] = $this->employee->getSMES($consultant_id);
             $this->load->view('consultant/audit_schedule', $data);
         } else {
             redirect('Welcome');

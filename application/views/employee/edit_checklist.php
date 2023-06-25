@@ -211,8 +211,8 @@
                                             <option value="0">TBD</option>
                                             <option value="-1">N/A</option>
                                             <?php foreach ($smes as $sme) { ?>
-                                        <option value="<?= $sme->employee_id ?>" name="sjdfjsdfjk"><?= $sme->employee_name ?></option>
-                                    <?php } ?>
+                                                <option value="<?= $sme->employee_id ?>" name="sjdfjsdfjk"><?= $sme->role ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -370,7 +370,6 @@
 
 <script type="text/javascript">
     var process_id = 0;
-    console.clear();
     $('#a_t1').prop("disabled", true);
     $('#a_t2').prop("disabled", true);
     $('#a_t3').prop("disabled", true);
@@ -396,91 +395,82 @@
         $("#" + id).val("TBD");
     }
 
-
-/////////////////////////////////////////////////////////////
-     $(document).ready(function(){
-        $('#edit_auditee').multiselect({
-            columns : 1,
-            placeholder : 'Select Auditee...'
-        });
-    });
-
-    $(document).ready(function(){
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>index.php/Employee/findprocess",
-            data: {'id': <?=$process__id?>, 'pa_id':<?=$audit_id?>},
-            success: function (data) {
-                var datas = $.parseJSON(data);
-                var auditee_array = datas.sme.split(", ");
-                $("#edit_auditee").val(auditee_array);
-                $("#edit_auditee").multiselect("reload");
-               
-            }
-        });
- });
  /////////////////////////////////////////////////////////////
 $(document).ready(function(){
-  jQuery(document).on("click","#ms-list-1 button",function(){
-   var val = $(".ms-options ul li.selected input").val();
-   console.log(val);
-    if (val == "0") {
-      console.log("yes 0");
-      $("input[value='281']").prop('disabled', true);
-      $("input[value='302']").prop('disabled', true);
-      $("input[value='306']").prop('disabled', true);
-      $("input[value='307']").prop('disabled', true);
-      $("input[value='-1']").prop('disabled', true);
+    $.ajax({
+        type: "POST",
+        // url: "<?php echo base_url(); ?>index.php/Employee/findprocess",
+        // data: {'id': <?=$process__id?>, 'pa_id':<?=$audit_id?>},
+        url: "<?php echo base_url(); ?>index.php/Employee/findAuditee",
+        data: {'id': <?= $checklist_id ?>},
+        success: function (data) {
+            var datas = $.parseJSON(data);
+            var auditee_array = datas.auditees.split(", ");
+            $("#edit_auditee").val(auditee_array);
+            $("#edit_auditee").multiselect("reload");
+            
+        }
+    });
 
-    } else if ((val == "281") || (val == "302") || (val == "306") || (val == "307")) {
+    $('#edit_auditee').multiselect({
+        columns : 1,
+        placeholder : 'Select Auditee...'
+    });
+    jQuery(document).on("click","#ms-list-1 button",function(){
+        var val = $(".ms-options ul li.selected input").val();
+        if (val == "0") {
+            $("input[value='281']").prop('disabled', true);
+            $("input[value='302']").prop('disabled', true);
+            $("input[value='306']").prop('disabled', true);
+            $("input[value='307']").prop('disabled', true);
+            $("input[value='-1']").prop('disabled', true);
 
-      console.log("yes 281 ,302,306,307");
-      $("input[value='0']").prop('disabled', true);
-      $("input[value='-1']").prop('disabled', true);
+        } else if ((val == "281") || (val == "302") || (val == "306") || (val == "307")) {
 
-    }else if(val == "-1"){
-      console.log("yes - 1");
-      $("input[value='281']").prop('disabled', true);
-      $("input[value='302']").prop('disabled', true);
-      $("input[value='306']").prop('disabled', true);
-      $("input[value='307']").prop('disabled', true);
-      $("input[value='0']").prop('disabled', true);
+            $("input[value='0']").prop('disabled', true);
+            $("input[value='-1']").prop('disabled', true);
 
-    }
-   
-});
- $(document.body).delegate('input','click', function() {
-    var val = $(this).val();
-    if (val == "0") {
-      $("input[value='281']").prop('checked', false);
-      $("input[value='302']").prop('checked', false);
-      $("input[value='306']").prop('checked', false);
-      $("input[value='307']").prop('checked', false);
-      $("input[value='-1']").prop('checked', false);
-       $("input[value='281']").prop("disabled", $(this).is(":checked"));
-      $("input[value='302']").prop("disabled", $(this).is(":checked"));
-      $("input[value='306']").prop("disabled", $(this).is(":checked"));
-      $("input[value='307']").prop("disabled", $(this).is(":checked"));
-      $("input[value='-1']").prop("disabled", $(this).is(":checked"));
-    } else if ((val == "281") || (val == "302") || (val == "306") || (val == "307")) {     
-      $("input[value='0']").prop("disabled", $(this).is(":checked"));
-      $("input[value='-1']").prop("disabled", $(this).is(":checked"));
-      $("input[value='0']").prop('checked', false);
-      $("input[value='-1']").prop('checked', false);
+        }else if(val == "-1"){
+            $("input[value='281']").prop('disabled', true);
+            $("input[value='302']").prop('disabled', true);
+            $("input[value='306']").prop('disabled', true);
+            $("input[value='307']").prop('disabled', true);
+            $("input[value='0']").prop('disabled', true);
+        }
+    
+    });
+    $(document.body).delegate('input','click', function() {
+        var val = $(this).val();
+        if (val == "0") {
+            $("input[value='281']").prop('checked', false);
+            $("input[value='302']").prop('checked', false);
+            $("input[value='306']").prop('checked', false);
+            $("input[value='307']").prop('checked', false);
+            $("input[value='-1']").prop('checked', false);
+            $("input[value='281']").prop("disabled", $(this).is(":checked"));
+            $("input[value='302']").prop("disabled", $(this).is(":checked"));
+            $("input[value='306']").prop("disabled", $(this).is(":checked"));
+            $("input[value='307']").prop("disabled", $(this).is(":checked"));
+            $("input[value='-1']").prop("disabled", $(this).is(":checked"));
+        } else if ((val == "281") || (val == "302") || (val == "306") || (val == "307")) {     
+            $("input[value='0']").prop("disabled", $(this).is(":checked"));
+            $("input[value='-1']").prop("disabled", $(this).is(":checked"));
+            $("input[value='0']").prop('checked', false);
+            $("input[value='-1']").prop('checked', false);
 
-    }else if(val == "-1"){
-      $("input[value='281']").prop("disabled", $(this).is(":checked"));
-      $("input[value='302']").prop("disabled", $(this).is(":checked"));
-      $("input[value='306']").prop("disabled", $(this).is(":checked"));
-      $("input[value='307']").prop("disabled", $(this).is(":checked"));
-      $("input[value='0']").prop("disabled", $(this).is(":checked"));
-      $("input[value='281']").prop('checked', false);
-      $("input[value='302']").prop('checked', false);
-      $("input[value='306']").prop('checked', false);
-      $("input[value='307']").prop('checked', false);
-      $("input[value='0']").prop('checked', false);
-    }
-  });
+        }else if(val == "-1"){
+            $("input[value='281']").prop("disabled", $(this).is(":checked"));
+            $("input[value='302']").prop("disabled", $(this).is(":checked"));
+            $("input[value='306']").prop("disabled", $(this).is(":checked"));
+            $("input[value='307']").prop("disabled", $(this).is(":checked"));
+            $("input[value='0']").prop("disabled", $(this).is(":checked"));
+            $("input[value='281']").prop('checked', false);
+            $("input[value='302']").prop('checked', false);
+            $("input[value='306']").prop('checked', false);
+            $("input[value='307']").prop('checked', false);
+            $("input[value='0']").prop('checked', false);
+        }
+    });
 });
  /////////////////////////////////////////////////////////////    
 </script>
