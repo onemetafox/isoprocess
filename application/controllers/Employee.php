@@ -287,7 +287,11 @@ class Employee extends BaseController//CI_Controller
 			redirect('Welcome');
 		}
 	}
-
+	public function findAuditee(){
+		$id = $this->input->post("id");
+		$data = $this->checklist->getOne($id);
+		echo json_encode($data);
+	}
 	public function findprocess()
 	{
 		$employee_id = $this->session->userdata('employee_id');
@@ -2326,9 +2330,10 @@ class Employee extends BaseController//CI_Controller
 
 				$this->db->join("permision", "employees.employee_id = permision.employee_id", "left");
 				$this->db->where('employees.consultant_id', $consultant_id);
-				$this->db->where('permision.type_id', $auditee);
+				// $this->db->where('permision.type_id', $auditee);
 				$data['smes'] = $this->db->get('employees')->result();
-
+				
+				// $data['smes'] = $this->employee->getSMES($consultant_id);
 				$this->load->view('employee/create_checklist', $data);
 
 			}else{
@@ -2442,9 +2447,9 @@ class Employee extends BaseController//CI_Controller
 		    $auditee .= $row . ", ";
 		}
 		$auditee = substr($auditee, 0, -2);
-		    $array = array(
-		        'sme' => $auditee,
-		    );
+		$array = array(
+			'sme' => $auditee,
+		);
 	    $this->db->where('audit_id', $pa_id);
 	    $this->db->where('process_id', $edit_process_id);
 	    $this->db->update('select_process', $array);
@@ -2463,7 +2468,8 @@ class Employee extends BaseController//CI_Controller
 				'evidence' => $evidence,
 				'note' => $notes,
 				'status' => $status,
-				'effectiveness' => $effectiveness
+				'effectiveness' => $effectiveness,
+				'auditees' => $auditee
 		);
 		$this->db->where('id', $checklist_id);
 		$done = $this->db->update('checklist', $data);
@@ -2658,8 +2664,10 @@ class Employee extends BaseController//CI_Controller
 				$data['checklist'] = $checklist;
 				$this->db->join("permision", "employees.employee_id = permision.employee_id", "left");
 				$this->db->where('employees.consultant_id', $consultant_id);
-				$this->db->where('permision.type_id', $auditee);
+				// $this->db->where('permision.type_id', $auditee);
 				$data['smes'] = $this->db->get('employees')->result();
+				// print_r($this->db->last_query());
+				// die();
 				$this->load->view('employee/edit_checklist', $data);
 
 
