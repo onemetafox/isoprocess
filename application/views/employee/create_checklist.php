@@ -24,34 +24,7 @@
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/core/app.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
-<!--    <script type="text/javascript" src="--><?//= base_url(); ?><!--assets/js/pages/datatables_basic.js"></script>-->
 
-    <script type="text/javascript">
-        $(function() {
-            // Setting datatable defaults
-            $.extend( $.fn.dataTable.defaults, {
-                autoWidth: false,
-                columnDefs: [{
-                    orderable: false,
-                    width: '150px',
-                    targets: [6 ]
-                }],
-                dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-                language: {
-                    search: '<span>Filter:</span> _INPUT_',
-                    searchPlaceholder: 'Type to filter...',
-                    lengthMenu: '<span>Show:</span> _MENU_',
-                    paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
-                },
-                drawCallback: function () {
-                    $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
-                },
-                preDrawCallback: function() {
-                    $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
-                }
-            });
-        });
-    </script>
 </head>
 
 <body class="navbar-top">
@@ -99,8 +72,7 @@
 
                 <div class="breadcrumb-line">
                     <ul class="breadcrumb">
-                        <li><a href="<?php echo base_url(); ?>index.php/Welcome/employeedashboard"><i
-                                    class="icon-home2 role-left"></i>Home</a></li>
+                        <li><a href="<?php echo base_url(); ?>index.php/Welcome/employeedashboard"><i class="icon-home2 role-left"></i>Home</a></li>
                         <li>Process Audit</li>
                         <li>Open Audit Log</li>
                         <li>Edit Audit Plan</li>
@@ -108,9 +80,7 @@
 
                     </ul>
 
-                    <ul class="breadcrumb-elements">
-
-                    </ul>
+                    <ul class="breadcrumb-elements"></ul>
                 </div>
             </div>
             <!-- /page header -->
@@ -145,173 +115,188 @@
                             </div>
                         </div>
                     </div>
+                    <?php   $user_type = $this->session->userdata("user_type"); ?>
                     <form id="save_checklist" action="<?php echo base_url(); ?>index.php/Employee/save_checklist" method="post" style="display: inline-block;">
                         <input type="hidden" id = "process_id" name="process_id" value = "<?=$process_id?>">
                         <input type="hidden" id = "clause_id" name="clause_id" value = "<?=$clause_id?>">
-                    <div class="panel panel-flat text-left">
-                        <div class="col-md-12" style="margin-top: 15px;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Process Step</label>
-                                    <input type="text" class="form-control" id = "process_step" name = "process_type" style="width: 100%;" required>
-                                </div>
-                                <?php if ($clause_id != '-6'): ?>
-                                <div class="col-md-4">
-                                    <label>Expected Answer</label>
-                                    <div class="radio" >
-                                        <label><input type="radio" class="styled" id="e_a4" name="expected_answer" value="-1" checked onchange="change_status()">TBD</label>
+                        <input type="hidden" id = "checklist_id" name="checklist_id" value = "<?=$checklist_id?>">
+                        <div class="panel panel-flat text-left">
+                            <div class="col-md-12" style="margin-top: 15px;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <label>Process Step</label>
+                                                <input type="text" class="form-control" id = "process_step" name = "process_type" style="width: 100%;" required>
+                                            </div>
+                                            <?php if ($clause_id != '6'): ?>
+                                            <div class="col-md-4">
+                                                <label>Expected Answer</label>
+                                                <div class="radio" >
+                                                    <label><input type="radio" class="styled" id="e_a4" name="expected_answer" onchange="change_status()" value="-1" checked>TBD</label>
+                                                </div>
+                                                <div class="radio" >
+                                                    <label><input type="radio" class="styled" id="e_a1" name="expected_answer" onchange="change_status()" value="2">Yes</label>
+                                                </div>
+                                                <div class="radio" >
+                                                    <label><input type="radio" class="styled" id="e_a2" name="expected_answer" onchange="change_status()" value="1">No</label>
+                                                </div>
+                                                <div class="radio" >
+                                                    <label><input type="radio" class="styled" id="e_a3" name="expected_answer" onchange="change_status()" value="0">Not Sure</label>
+                                                </div>
+                                            </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label class="control-label">Questions</label>
+                                                    <?php if($user_type == "Lead Auditor") : ?>
+                                                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="TBD_btn('questions')">TBD</button>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <textarea placeholder="" class="form-control" name="questions" id="questions" rows="4"></textarea>
+                                            </div>
+                                            <?php if ($clause_id != '4'): ?>
+                                                <div class="col-md-4">
+                                                    <label>Audit Trail</label>
+                                                    <div class="radio" >
+                                                        <label><input type="radio" class="styled" id="a_t4" name="audit_trail" value="-1" >TBD</label>
+                                                    </div>
+                                                    <div class="radio" >
+                                                        <label><input type="radio" class="styled" id="a_t1" name="audit_trail" value="2">Yes</label>
+                                                    </div>
+                                                    <div class="radio" >
+                                                        <label><input type="radio" class="styled" id="a_t2" name="audit_trail" value="1">No</label>
+                                                    </div>
+                                                    <div class="radio" >
+                                                        <label><input type="radio" class="styled"id="a_t3" name="audit_trail" value="0">Not Sure</label>
+                                                    </div>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="col-md-4">
+                                                    <label>Effectiveness</label>
+                                                    <textarea placeholder="" class="form-control" name="effectiveness" id="effectiveness"></textarea>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="form-group has-feedback">
+                                                    <label>Auditee: </label>
+                                                    <select class="form-control" name="edit_auditee[]" multiple id="edit_auditee" required>
+                                                        <option value="0">TBD</option>
+                                                        <option value="-1">N/A</option>
+                                                        <?php foreach ($smes as $sme) { ?>
+                                                            <option value="<?= $sme->employee_id ?>" name="sjdfjsdfjk"><?= $sme->role ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="radio" >
-                                        <label><input type="radio" class="styled" id="e_a1" name="expected_answer" value="2" onchange="change_status()">Yes</label>
-                                    </div>
-                                    <div class="radio" >
-                                        <label><input type="radio" class="styled" id="e_a2" name="expected_answer" value="1" onchange="change_status()">No</label>
-                                    </div>
-                                    <div class="radio" >
-                                        <label><input type="radio" class="styled" id="e_a3" name="expected_answer" value="0" onchange="change_status()">Not Sure</label>
-                                    </div>
-                                </div>
-                                <?php endif; ?>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Evidence</label>
-                                        <?php
-                                        $user_type = $this->session->userdata("user_type");
-                                        if($user_type == "Lead Auditor") :
-                                        ?>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="TBD_btn('evidence')">TBD</button>
-                                        <?php endif; ?>
-                                    </div>
-                                    <textarea placeholder="" class="form-control" name="evidence" id="evidence"></textarea>
-                                </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group has-feedback">
-                                        <label>Auditee: </label>
-                                        <select class="form-control" name="edit_auditee[]" multiple id="edit_auditee" required>
-                                            <option value="0">TBD</option>
-                                            <option value="-1">N/A</option>
-                                            <?php foreach ($smes as $sme) { ?>
-                                        <option value="<?= $sme->employee_id ?>" name="sjdfjsdfjk"><?= $sme->role ?></option>
-                                    <?php } ?>
-                                        </select>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Evidence1</label>
+                                            <textarea placeholder="" class="form-control" <?=  $user_type=="Lead Auditor"?"":"readonly" ?> name="evidence[]" id="evidence1"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Evidence2</label>
+                                            <textarea placeholder="" class="form-control" <?=  $user_type=="Lead Auditor"?"":"readonly" ?> name="evidence[]" id="evidence2"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Evidence3</label>
+                                            <textarea placeholder="" class="form-control" <?=  $user_type=="Lead Auditor"?"":"readonly" ?> name="evidence[]" id="evidence3"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Evidence4</label>
+                                            <textarea placeholder="" class="form-control" <?=  $user_type=="Lead Auditor"?"":"readonly" ?> name="evidence[]" id="evidence4"></textarea>
+                                        </div>
+                                        
                                     </div>
+
+                                    
+                                    <input type="hidden" id="edit_process_id" name="edit_process_id" value="<?=$process__id?>">
+                                    <input type="hidden" id="audit_id" name="audit_id" value="<?=$audit_id?>">
                                 </div>
-                                <input type="hidden" id="edit_process_id" name="edit_process_id" value="<?=$process__id?>">
-                                <input type="hidden" id="audit_id" name="audit_id" value="<?=$audit_id?>">
-                                
-                                <!-- <button type="button" class="btn btn-primary" onclick="edit('<?=$process__id?>')">Edit</button> -->
-                    
                             </div>
-                        </div>
-                        <div class="col-md-12" style="margin-top: 25px;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Questions</label>
-                                        <?php if($user_type == "Lead Auditor") : ?>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="TBD_btn('questions')">TBD</button>
-                                        <?php endif; ?>
-                                    </div>
-                                    <textarea placeholder="" class="form-control" name="questions" id="questions" rows="4"></textarea>
+                            <div class="col-md-12" style="margin-top: 25px;">
+                                <div class="row">
+                                    
                                 </div>
-                                <?php if ($clause_id != '-6'): ?>
+                            </div>
+                            <div class="col-md-12" style="margin-top: 25px;">
+                                <div class="row">
                                     <div class="col-md-4">
-                                        <label>Audit Trail</label>
-                                        <div class="radio" >
-                                            <label><input type="radio" id="a_t4" class="styled" name="audit_trail" value="-1" checked>TBD</label>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="control-label">Audit Criteria</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="audit_criteria" id="audit_criteria" required>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <a data-toggle="modal" data-target="#criterias" class="btn btn-primary">MANAGE</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="radio" >
-                                            <label><input type="radio" id="a_t1" class="styled" name="audit_trail" value="2">Yes</label>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="audit_criteria2" id="audit_criteria2" required>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <a data-toggle="modal" data-target="#criterias2" class="btn btn-primary">MANAGE</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="radio" >
-                                            <label><input type="radio" id="a_t2" class="styled" name="audit_trail" value="1">No</label>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="audit_criteria3" id="audit_criteria3" required>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <a data-toggle="modal" data-target="#criterias3" class="btn btn-primary">MANAGE</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="radio" >
-                                            <label><input type="radio" id="a_t3" class="styled" name="audit_trail" value="0">Not Sure</label>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="audit_criteria4" id="audit_criteria4" required>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <a data-toggle="modal" data-target="#criterias4" class="btn btn-primary">MANAGE</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                <?php else: ?>
                                     <div class="col-md-4">
-                                        <label>Effectiveness</label>
-                                        <textarea placeholder="" class="form-control" name="effectiveness" id="effectiveness"></textarea>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <div class="col-md-12" style="margin-top: 25px;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label class="control-label">Audit Criteria</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <select class="form-control" name="audit_criteria" id="audit_criteria" required>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a data-toggle="modal" data-target="#criterias" class="btn btn-primary">MANAGE</a>
-                                            </div>
+                                        <div class="form-group">
+                                            <label class="control-label" id="label-comments">Comments/Notes</label>
+                                            <input type="hidden" name = "label-report" id="label-report"/>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <select class="form-control" name="audit_criteria2" id="audit_criteria2" required>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a data-toggle="modal" data-target="#criterias2" class="btn btn-primary">MANAGE</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <select class="form-control" name="audit_criteria3" id="audit_criteria3" required>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a data-toggle="modal" data-target="#criterias3" class="btn btn-primary">MANAGE</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <select class="form-control" name="audit_criteria4" id="audit_criteria4" required>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a data-toggle="modal" data-target="#criterias4" class="btn btn-primary">MANAGE</a>
-                                            </div>
-                                        </div>
+                                        <textarea placeholder="" class="form-control" name="notes" id="notes" rows="5"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Comments/Notes</label>
-                                        <?php if($user_type == "Lead Auditor"): ?>
-                                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="TBD_btn('notes')">TBD</button>
-                                        <?php endif; ?>
+                            </div>
+                            <div class="col-md-12" style="margin-top: 25px;">
+                                <div class="row">
+                                    <div class="col-md-9">
                                     </div>
-                                    <textarea placeholder="" class="form-control" name="notes" id="notes" rows="5"></textarea>
+                                    <div class="col-md-3">
+                                        <input type="submit" class="btn btn-primary btn-sm" style="float: left;margin-right: 10px;" href="<?php echo base_url(); ?>index.php/employee/save_criteria">
+                                        <a type="button" class="btn btn-primary btn-sm" style="float: left;" onclick="page_cancel()">Cancel</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12" style="margin-top: 25px;">
-                            <div class="row">
-                                <div class="col-md-9">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="submit" class="btn btn-primary btn-sm" style="float: left;margin-right: 10px;" href="<?php echo base_url(); ?>index.php/Employee/save_criteria">
-                                    <a type="button" class="btn btn-primary btn-sm" style="float: left;" onclick="page_cancel()">Cancel</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     </form>
                 </div>
                 <!-- /basic datatable -->
@@ -327,32 +312,10 @@
     </div>
     <!-- /page content -->
 </div>
-<div id="SelectMap_Modal" class="modal fade">
-    <div class="modal-dialog" style = "width: 300px;">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <h6 class="modal-title">Select Map Type</h6>
-            </div>
-            <div class="modal-body">
-                    <div class="radio" >
-                        <label><input type="radio" class="styled" id="mind_map" name="map" value="1" checked>Mind Map</label>
-                    </div>
-                    <div class="radio" >
-                        <label><input type="radio" class="styled" id="process_map" name="map" value="2">Process Map</label>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="edit_checklist()">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- /page container -->
 
 <script type="text/javascript">
     var process_id = 0;
-    console.clear();
     $('#a_t1').prop("disabled", true);
     $('#a_t2').prop("disabled", true);
     $('#a_t3').prop("disabled", true);
@@ -373,6 +336,18 @@
             $('#a_t3').prop("disabled", true);
             $('#a_t4').prop("disabled", true);
         }
+        if($('#e_a1').prop('checked')){
+            $('#label-comments').text("Conformity table");
+            $('#notes').attr("readonly", false);
+        }
+        if($('#e_a2').prop('checked')){
+            $('#label-comments').text("Nonconformity");
+            $('#notes').attr("readonly", false);
+        }
+        if($('#e_a4').prop('checked')){
+            $('#label-comments').text("");
+            $('#notes').attr("readonly", true);
+        }
     }
     function TBD_btn(id) {
         $("#" + id).val("TBD");
@@ -384,85 +359,66 @@
             placeholder : 'Select Auditee...'
         });
     });
-/////////////////////////////////////////////////////////////
+
     $(document).ready(function(){
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>index.php/Employee/findprocess",
-            data: {'id': <?=$process__id?>, 'pa_id':<?=$audit_id?>},
-            success: function (data) {
-                var datas = $.parseJSON(data);
-                var auditee_array = datas.sme.split(", ");
-                $("#edit_auditee").val(auditee_array);
-                $("#edit_auditee").multiselect("reload");
-               
+        
+        jQuery(document).on("click","#ms-list-1 button",function(){
+            var val = $(".ms-options ul li.selected input").val();
+            if (val == "0") {
+                $("input[value='281']").prop('disabled', true);
+                $("input[value='302']").prop('disabled', true);
+                $("input[value='306']").prop('disabled', true);
+                $("input[value='307']").prop('disabled', true);
+                $("input[value='-1']").prop('disabled', true);
+
+            } else if ((val == "281") || (val == "302") || (val == "306") || (val == "307")) {
+
+                $("input[value='0']").prop('disabled', true);
+                $("input[value='-1']").prop('disabled', true);
+
+            }else if(val == "-1"){
+                $("input[value='281']").prop('disabled', true);
+                $("input[value='302']").prop('disabled', true);
+                $("input[value='306']").prop('disabled', true);
+                $("input[value='307']").prop('disabled', true);
+                $("input[value='0']").prop('disabled', true);
+
+            }
+        
+        });
+        $(document.body).delegate('input','click', function() {
+            var val = $(this).val();
+            if (val == "0") {
+                $("input[value='281']").prop('checked', false);
+                $("input[value='302']").prop('checked', false);
+                $("input[value='306']").prop('checked', false);
+                $("input[value='307']").prop('checked', false);
+                $("input[value='-1']").prop('checked', false);
+                $("input[value='281']").prop("disabled", $(this).is(":checked"));
+                $("input[value='302']").prop("disabled", $(this).is(":checked"));
+                $("input[value='306']").prop("disabled", $(this).is(":checked"));
+                $("input[value='307']").prop("disabled", $(this).is(":checked"));
+                $("input[value='-1']").prop("disabled", $(this).is(":checked"));
+            } else if ((val == "281") || (val == "302") || (val == "306") || (val == "307")) {     
+                $("input[value='0']").prop("disabled", $(this).is(":checked"));
+                $("input[value='-1']").prop("disabled", $(this).is(":checked"));
+                $("input[value='0']").prop('checked', false);
+                $("input[value='-1']").prop('checked', false);
+
+            }else if(val == "-1"){
+                $("input[value='281']").prop("disabled", $(this).is(":checked"));
+                $("input[value='302']").prop("disabled", $(this).is(":checked"));
+                $("input[value='306']").prop("disabled", $(this).is(":checked"));
+                $("input[value='307']").prop("disabled", $(this).is(":checked"));
+                $("input[value='0']").prop("disabled", $(this).is(":checked"));
+                $("input[value='281']").prop('checked', false);
+                $("input[value='302']").prop('checked', false);
+                $("input[value='306']").prop('checked', false);
+                $("input[value='307']").prop('checked', false);
+                $("input[value='0']").prop('checked', false);
             }
         });
- });
- /////////////////////////////////////////////////////////////
-$(document).ready(function(){
-  jQuery(document).on("click","#ms-list-1 button",function(){
-   var val = $(".ms-options ul li.selected input").val();
-   console.log(val);
-    if (val == "0") {
-      console.log("yes 0");
-      $("input[value='281']").prop('disabled', true);
-      $("input[value='302']").prop('disabled', true);
-      $("input[value='306']").prop('disabled', true);
-      $("input[value='307']").prop('disabled', true);
-      $("input[value='-1']").prop('disabled', true);
-
-    } else if ((val == "281") || (val == "302") || (val == "306") || (val == "307")) {
-
-      console.log("yes 281 ,302,306,307");
-      $("input[value='0']").prop('disabled', true);
-      $("input[value='-1']").prop('disabled', true);
-
-    }else if(val == "-1"){
-      console.log("yes - 1");
-      $("input[value='281']").prop('disabled', true);
-      $("input[value='302']").prop('disabled', true);
-      $("input[value='306']").prop('disabled', true);
-      $("input[value='307']").prop('disabled', true);
-      $("input[value='0']").prop('disabled', true);
-
-    }
-   
-});
- $(document.body).delegate('input','click', function() {
-    var val = $(this).val();
-    if (val == "0") {
-      $("input[value='281']").prop('checked', false);
-      $("input[value='302']").prop('checked', false);
-      $("input[value='306']").prop('checked', false);
-      $("input[value='307']").prop('checked', false);
-      $("input[value='-1']").prop('checked', false);
-       $("input[value='281']").prop("disabled", $(this).is(":checked"));
-      $("input[value='302']").prop("disabled", $(this).is(":checked"));
-      $("input[value='306']").prop("disabled", $(this).is(":checked"));
-      $("input[value='307']").prop("disabled", $(this).is(":checked"));
-      $("input[value='-1']").prop("disabled", $(this).is(":checked"));
-    } else if ((val == "281") || (val == "302") || (val == "306") || (val == "307")) {     
-      $("input[value='0']").prop("disabled", $(this).is(":checked"));
-      $("input[value='-1']").prop("disabled", $(this).is(":checked"));
-      $("input[value='0']").prop('checked', false);
-      $("input[value='-1']").prop('checked', false);
-
-    }else if(val == "-1"){
-      $("input[value='281']").prop("disabled", $(this).is(":checked"));
-      $("input[value='302']").prop("disabled", $(this).is(":checked"));
-      $("input[value='306']").prop("disabled", $(this).is(":checked"));
-      $("input[value='307']").prop("disabled", $(this).is(":checked"));
-      $("input[value='0']").prop("disabled", $(this).is(":checked"));
-      $("input[value='281']").prop('checked', false);
-      $("input[value='302']").prop('checked', false);
-      $("input[value='306']").prop('checked', false);
-      $("input[value='307']").prop('checked', false);
-      $("input[value='0']").prop('checked', false);
-    }
-  });
-});
- /////////////////////////////////////////////////////////////
+    });
 </script>
 <?php $this->load->view('consultant/manage/criteria'); ?>
 <?php $this->load->view('consultant/manage/criteria2'); ?>
