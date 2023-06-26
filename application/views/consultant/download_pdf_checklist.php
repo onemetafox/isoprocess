@@ -1,4 +1,8 @@
-
+<style>
+    td{
+        padding: 2px !important;
+    }
+</style>
 <div class="container page-content">
     <table style="margin-left: 20px;width: 600px;">
         <tr style="text-align: center;">
@@ -86,10 +90,14 @@
                                     <table>
                                         <tr>
                                             <td style="text-align: left;vertical-align: top;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                Audit Evidence:
-                                                <br>
-                                                <br>
-                                                <?=$conform_list->evidence?>
+                                                Audit Evidence: <br>
+                                                <?php $evidences = json_decode($conform_list->evidence); 
+                                                    if($evidences != ""){
+                                                        foreach($evidences as $evidence){
+                                                            echo $evidence . "<br>";
+                                                        }
+                                                    }
+                                                ?>
                                             </td>
                                         </tr>
                                     </table>
