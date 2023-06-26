@@ -2562,7 +2562,6 @@ class Employee extends BaseController//CI_Controller
 	    $this->db->where('audit_id', $pa_id);
 	    $this->db->where('process_id', $edit_process_id);
 	    $this->db->update('select_process', $array);
-	    //die("dfsdf");
 		///////////////////////////////////////////////////////////////////
 
 		if ($expected_answer == '2'){
@@ -2579,20 +2578,21 @@ class Employee extends BaseController//CI_Controller
 			}
 		}
 		$data = array(
-				'process_id' => $process_id,
-				'clause_id' => $clause_id,
-				'process_step' => $process_type,
-				'questions' => $questions,
-				'criteria_id' => $audit_criteria,
-				'criteria_id2' => $audit_criteria2,
-				'criteria_id3' => $audit_criteria3,
-				'criteria_id4' => $audit_criteria4,
-				'answer' => $expected_answer,
-				'audit_trail' => $audit_trail,
-				'evidence' => $evidence,
-				'note' => $notes,
-				'status' => $status,
-				'effectiveness' => $effectiveness
+			'process_id' => $process_id,
+			'clause_id' => $clause_id,
+			'process_step' => $process_type,
+			'questions' => $questions,
+			'criteria_id' => $audit_criteria,
+			'criteria_id2' => $audit_criteria2,
+			'criteria_id3' => $audit_criteria3,
+			'criteria_id4' => $audit_criteria4,
+			'answer' => $expected_answer,
+			'audit_trail' => $audit_trail,
+			'evidence' => json_encode($evidence),
+			'note' => $notes,
+			'status' => $status,
+			'effectiveness' => $effectiveness,
+			'auditees' => $auditee
 		);
 		$done = $this->db->insert('checklist', $data);
 
