@@ -161,16 +161,16 @@
                                                 <div class="col-md-4">
                                                     <label>Audit Trail</label>
                                                     <div class="radio" >
-                                                        <label><input type="radio" class="styled" id="a_t4" name="audit_trail" value="-1" >TBD</label>
+                                                        <label><input type="radio" class="styled" id="a_t4" onchange="change_status()" name="audit_trail" value="-1" >TBD</label>
                                                     </div>
                                                     <div class="radio" >
-                                                        <label><input type="radio" class="styled" id="a_t1" name="audit_trail" value="2">Yes</label>
+                                                        <label><input type="radio" class="styled" id="a_t1" onchange="change_status()" name="audit_trail" value="2">Yes</label>
                                                     </div>
                                                     <div class="radio" >
-                                                        <label><input type="radio" class="styled" id="a_t2" name="audit_trail" value="1">No</label>
+                                                        <label><input type="radio" class="styled" id="a_t2" onchange="change_status()" name="audit_trail" value="1">No</label>
                                                     </div>
                                                     <div class="radio" >
-                                                        <label><input type="radio" class="styled"id="a_t3" name="audit_trail" value="0">Not Sure</label>
+                                                        <label><input type="radio" class="styled"id="a_t3" onchange="change_status()" name="audit_trail" value="0">Not Sure</label>
                                                     </div>
                                                 </div>
                                             <?php else: ?>
@@ -330,6 +330,22 @@
             $('#a_t2').prop("disabled", false);
             $('#a_t3').prop("disabled", false);
             $('#a_t4').prop("disabled", false);
+            if($('#a_t1').prop('checked')){
+                $('#label-comments').text("Conformity table");
+                $('#notes').attr("readonly", false);
+            }
+            if($('#a_t1').prop('checked')){
+                $('#label-comments').text("Nonconformity");
+                $('#notes').attr("readonly", false);
+            }
+            if($('#a_t3').prop('checked')){
+                $('#label-comments').text("Second time");
+                $('#notes').attr("readonly", false);
+            }
+            if($('#a_t4').prop('checked')){
+                $('#label-comments').text("");
+                $('#notes').attr("readonly", true);
+            }
         }else{
             $('#a_t1').prop("disabled", true);
             $('#a_t2').prop("disabled", true);
@@ -342,6 +358,10 @@
         }
         if($('#e_a2').prop('checked')){
             $('#label-comments').text("Nonconformity");
+            $('#notes').attr("readonly", false);
+        }
+        if($('#e_a3').prop('checked')){
+            $('#label-comments').text("Second time");
             $('#notes').attr("readonly", false);
         }
         if($('#e_a4').prop('checked')){
