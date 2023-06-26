@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title ?></title>
+<!--    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">-->
     <link href="<?= base_url(); ?>assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
     <link href="<?= base_url(); ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="<?= base_url(); ?>assets/css/core.css" rel="stylesheet" type="text/css">
@@ -24,7 +25,6 @@
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/core/app.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
 
-   
 </head>
 
 <body class="navbar-top">
@@ -42,6 +42,7 @@
         <!-- Main sidebar -->
         <?php $this->load->view('employee/sidebar'); ?>
         <!-- /main sidebar -->
+
 
         <!-- Main content -->
         <div class="content-wrapper">
@@ -90,6 +91,7 @@
 
             <!-- Content area -->
             <div class="content">
+                <!-- Basic datatable -->
                 <?php
                 foreach ($checklist as $checklist) { ?>
                 <div class="panel panel-body text-left" id="main-data">
@@ -131,7 +133,7 @@
                                     <input type="text" class="form-control" id = "process_step" name = "process_type" style="width: 100%;" required value="<?=$checklist->process_step?>">
                                 </div>
                                 <?php if ($clause_id != '6'): ?>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label>Expected Answer</label>
                                     <div class="radio" >
                                         <label><input type="radio" class="styled" id="e_a4" name="expected_answer" onchange="change_status()" value="-1" <?php if ($checklist->answer == '-1'): ?> checked <?php endif; ?>>TBD</label>
@@ -147,17 +149,29 @@
                                     </div>
                                 </div>
                                 <?php endif; ?>
-                                <div class="col-md-4">
+
+                                <?php   $user_type = $this->session->userdata("user_type"); 
+                                        $evidences = json_decode($checklist->evidence);
+                                ?>
+
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Evidence</label>
-                                        <?php
-                                        $user_type = $this->session->userdata("user_type");
-                                        if($user_type == "Lead Auditor") :
-                                            ?>
-                                            <button type="button" class="btn btn-primary btn-sm pull-right" onclick="TBD_btn('evidence')">TBD</button>
-                                        <?php endif; ?>
+                                        <label class="control-label">Evidence1</label>
+                                        <textarea placeholder="" class="form-control" <?=  $user_type=="Lead Auditor"?"":"readonly" ?> name="evidence[]" id="evidence1"><?=!$evidences?"":$evidences[0]?></textarea>
                                     </div>
-                                    <textarea placeholder="" class="form-control" name="evidence" id="evidence"><?=$checklist->evidence?></textarea>
+                                    <div class="form-group">
+                                        <label class="control-label">Evidence2</label>
+                                        <textarea placeholder="" class="form-control" <?=  $user_type=="Lead Auditor"?"":"readonly" ?> name="evidence[]" id="evidence2"><?=!$evidences?"":$evidences[1]?></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Evidence3</label>
+                                        <textarea placeholder="" class="form-control" <?=  $user_type=="Lead Auditor"?"":"readonly" ?> name="evidence[]" id="evidence3"><?=!$evidences?"":$evidences[2]?></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Evidence4</label>
+                                        <textarea placeholder="" class="form-control" <?=  $user_type=="Lead Auditor"?"":"readonly" ?> name="evidence[]" id="evidence4"><?=!$evidences?"":$evidences[3]?></textarea>
+                                    </div>
+                                    
                                 </div>
 
                                  <div class="col-md-4">

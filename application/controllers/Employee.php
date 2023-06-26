@@ -292,6 +292,7 @@ class Employee extends BaseController//CI_Controller
 		$data = $this->checklist->getOne($id);
 		echo json_encode($data);
 	}
+
 	public function findprocess()
 	{
 		$employee_id = $this->session->userdata('employee_id');
@@ -2465,7 +2466,7 @@ class Employee extends BaseController//CI_Controller
 				'criteria_id4' => $audit_criteria4,
 				'answer' => $expected_answer,
 				'audit_trail' => $audit_trail,
-				'evidence' => $evidence,
+				'evidence' => json_encode($evidence),
 				'note' => $notes,
 				'status' => $status,
 				'effectiveness' => $effectiveness,
