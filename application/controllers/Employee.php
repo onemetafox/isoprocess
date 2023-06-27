@@ -2424,19 +2424,18 @@ class Employee extends BaseController//CI_Controller
 		$notes = $this->input->post('notes');
 		$effectiveness = $this->input->post('effectiveness');
 		if ($expected_answer == '2'){
-			$status = "NO ISSUE";
+			$status = "Comformity Table";
 		}else if ($expected_answer == '1'){
-			$status = "NON COMFORMITY";
+			$status = "Non-Comformity Table";
 		}else if ($expected_answer == '0'){
 			if ($audit_trail == '2'){
-				$status = "NO ISSUE";
+				$status = "Comformity Table";
 			}else if ($audit_trail == '1'){
-				$status = "NON COMFORMITY";
-			}else{
-				$status = "Opportunities";
+				$status = "Non-Comformity Table";
+			}else if($audit_trail == '0'){
+				$status = "Second time";
 			}
 		}
-
 
 		///////////////////////////update auditee////////////////////////////
 		$edit_process_id = $this->input->post("edit_process_id");
@@ -2565,16 +2564,16 @@ class Employee extends BaseController//CI_Controller
 		///////////////////////////////////////////////////////////////////
 
 		if ($expected_answer == '2'){
-			$status = "NO ISSUE";
+			$status = "Comformity Table";
 		}else if ($expected_answer == '1'){
-			$status = "NON COMFORMITY";
+			$status = "Non-Comformity Table";
 		}else if ($expected_answer == '0'){
 			if ($audit_trail == '2'){
-				$status = "NO ISSUE";
+				$status = "Comformity Table";
 			}else if ($audit_trail == '1'){
-				$status = "NON COMFORMITY";
-			}else{
-				$status = "Opportunities";
+				$status = "Non-Comformity Table";
+			}else if($audit_trail == '0'){
+				$status = "Second time";
 			}
 		}
 		$data = array(

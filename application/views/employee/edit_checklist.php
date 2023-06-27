@@ -344,7 +344,7 @@
                 $('#label-comments').text("Conformity table");
                 $('#notes').attr("readonly", false);
             }
-            if($('#a_t1').prop('checked')){
+            if($('#a_t2').prop('checked')){
                 $('#label-comments').text("Nonconformity");
                 $('#notes').attr("readonly", false);
             }
@@ -370,10 +370,7 @@
             $('#label-comments').text("Nonconformity");
             $('#notes').attr("readonly", false);
         }
-        if($('#e_a3').prop('checked')){
-            $('#label-comments').text("Second time");
-            $('#notes').attr("readonly", false);
-        }
+        
         if($('#e_a4').prop('checked')){
             $('#label-comments').text("");
             $('#notes').attr("readonly", true);
