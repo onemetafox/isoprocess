@@ -39,22 +39,19 @@
             $num1 = 0;
             $num2 = 1;
             foreach($process_check_list as $check) {
-                $conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'NO ISSUE'")->result();
-                $opportunity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Opportunities'")->result();
+                $conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Comformity Table'")->result();
+                $opportunity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Second time'")->result();
                 $auditor = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->auditor'")->row();
                 $auditor_name = ($auditor == null) ? "" : $auditor->employee_name;
-                // $auditee = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->sme'")->row();
-                // $auditee_name = ($auditee == null) ? "" : $auditee->employee_name;
                 $owner = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->process_owner'")->row();
                 $owner_name = ($owner == null) ? "" : $owner->employee_name;
                 if($conformity_list != null) {
                     foreach($conformity_list as $conform_list) {
                         $auditee_array = explode (",", $conform_list->auditees); 
-
             ?>
                 <tr>
                     <td style="text-align: center">
-                        <p style="font-size: 18px;">CONFORMITY REPORTS – <?=strtoupper($check->process_name)?></p>
+                        <p style="font-size: 18px;"> <?=strtoupper($conform_list->status)?>– <?=strtoupper($check->process_name)?></p>
                     </td>
                 </tr>
                 <tr style="text-align: center;">
@@ -134,14 +131,14 @@
                         </table>
                     </td>
                 </tr>
-        <?php
+            <?php
                 }
             }
-            $non_conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'NON COMFORMITY'")->result();
+            $non_conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Non-Comformity Table'")->result();
             $num3 = 1;
             if($non_conformity_list != null) {
                 foreach($non_conformity_list as $non_conform_list) {
-        ?>
+            ?>
                 <tr><td style="height: 10px;"></td></tr>
                 <tr style="text-align: center;">
                     <td style="text-align: center;">
@@ -151,7 +148,7 @@
                                     <table>
                                         <tr>
                                             <td style="text-align: center;vertical-align: top;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                <label style="font-size: 18px;">NONCONFORMITY REPORT</label>
+                                                <label style="font-size: 18px;"><?=strtoupper($non_conform_list->status)?></label>
                                                 <br>
                                                 <br>
                                                 <label>Incident Identification Number: <?=sprintf("%06d", $num1)?>.<?=sprintf("%05d", $num2)?></label>
@@ -247,7 +244,7 @@
                                         <table>
                                             <tr>
                                                 <td style="text-align: center;vertical-align: top;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                    <label style="font-size: 18px;">OPPORTUNITY REPORT</label>
+                                                    <label style="font-size: 18px;"><?=strtoupper($opportunity->status)?></label>
                                                     <br>
                                                     <br>
                                                     <label>Incident Identification Number: <?=sprintf("%06d", $num5)?>.<?=sprintf("%05d", $num6)?></label>
