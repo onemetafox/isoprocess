@@ -287,7 +287,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="control-label" id="label-comments">Comments/Notes</label>
+                                            <label class="control-label" id="label-comments"><?=$checklist->status?></label>
                                             <input type="hidden" name = "label-report" id="label-report"/>
                                         </div>
                                         <textarea placeholder="" class="form-control" name="notes" id="notes" rows="5"><?=$checklist->note?></textarea>
@@ -340,12 +340,17 @@
             $('#a_t2').prop("disabled", false);
             $('#a_t3').prop("disabled", false);
             $('#a_t4').prop("disabled", false);
+            if(value){
+                $('#a_t4').prop("checked", true);
+            }
             if($('#a_t1').prop('checked')){
                 $('#label-comments').text("Conformity table");
+                $('#notes').text('');
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t2').prop('checked')){
                 $('#label-comments').text("Nonconformity");
+                $('#notes').text('');
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t3').prop('checked')){
@@ -353,7 +358,8 @@
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t4').prop('checked')){
-                $('#label-comments').text("");
+                $('#label-comments').text("TBD");
+                $("#notes").text('This table is locked until you search for further evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you are still not sure you need to input an "Opportunity for Improvement" OFI');
                 $('#notes').attr("readonly", true);
             }
         }else{
@@ -364,15 +370,18 @@
         }
         if($('#e_a1').prop('checked')){
             $('#label-comments').text("Conformity table");
+            $('#notes').text('');
             $('#notes').attr("readonly", false);
         }
         if($('#e_a2').prop('checked')){
             $('#label-comments').text("Nonconformity");
+            $('#notes').text('');
             $('#notes').attr("readonly", false);
         }
         
         if($('#e_a4').prop('checked')){
-            $('#label-comments').text("");
+            $('#label-comments').text("TBD");
+            $('#notes').text('This table is locked until you search for evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you are still not sure you need to input an "Opportunity for Improvement" OFI')
             $('#notes').attr("readonly", true);
         }
     }

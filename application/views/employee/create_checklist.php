@@ -142,7 +142,7 @@
                                                     <label><input type="radio" class="styled" id="e_a2" name="expected_answer" onchange="change_status()" value="1">No</label>
                                                 </div>
                                                 <div class="radio" >
-                                                    <label><input type="radio" class="styled" id="e_a3" name="expected_answer" onchange="change_status()" value="0">Not Sure</label>
+                                                    <label><input type="radio" class="styled" id="e_a3" name="expected_answer" onchange="change_status('not sure')" value="0">Not Sure</label>
                                                 </div>
                                             </div>
                                             <?php endif; ?>
@@ -279,10 +279,10 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="control-label" id="label-comments">Comments/Notes</label>
+                                            <label class="control-label" id="label-comments">TBD</label>
                                             <input type="hidden" name = "label-report" id="label-report"/>
                                         </div>
-                                        <textarea placeholder="" class="form-control" name="notes" id="notes" rows="5"></textarea>
+                                        <textarea placeholder="" class="form-control" name="notes" id="notes" rows="5" readonly>This table is locked until you search for evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you are still not sure you need to input an "Opportunity for Improvement" OFI</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -323,19 +323,24 @@
     function page_cancel(){
         window.history.back();
     }
-    function change_status(){
+    function change_status(value){
         var expected_answer = $('#e_a3').prop("checked");
         if (expected_answer == true){
             $('#a_t1').prop("disabled", false);
             $('#a_t2').prop("disabled", false);
             $('#a_t3').prop("disabled", false);
             $('#a_t4').prop("disabled", false);
+            if(value){
+                $('#a_t4').prop("checked", true);
+            }
             if($('#a_t1').prop('checked')){
                 $('#label-comments').text("Conformity table");
+                $('#notes').text('');
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t2').prop('checked')){
                 $('#label-comments').text("Nonconformity");
+                $('#notes').text('');
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t3').prop('checked')){
@@ -343,7 +348,8 @@
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t4').prop('checked')){
-                $('#label-comments').text("");
+                $('#label-comments').text("TBD");
+                $("#notes").text('This table is locked until you search for further evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you are still not sure you need to input an "Opportunity for Improvement" OFI');
                 $('#notes').attr("readonly", true);
             }
         }else{
@@ -354,15 +360,18 @@
         }
         if($('#e_a1').prop('checked')){
             $('#label-comments').text("Conformity table");
+            $('#notes').text('');
             $('#notes').attr("readonly", false);
         }
         if($('#e_a2').prop('checked')){
             $('#label-comments').text("Nonconformity");
+            $('#notes').text('');
             $('#notes').attr("readonly", false);
         }
         
         if($('#e_a4').prop('checked')){
-            $('#label-comments').text("");
+            $('#label-comments').text("TBD");
+            $('#notes').text('This table is locked until you search for evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you are still not sure you need to input an "Opportunity for Improvement" OFI')
             $('#notes').attr("readonly", true);
         }
     }
