@@ -1,56 +1,48 @@
 <?php require_once('./config.php'); ?>
 <?php $this->load->view('header');?>
 <section class="innerPageBanner aboutPageBanner">
-
-	<div class="container">
-
-		<div class="pageTitleBox wow fadeInUp">
-
-			<h1>Payment</h1>
-
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's
-
-				standard dummy text.</p>
-
-		</div>
-
-	</div>
-
-</section>
-
-<!--innerPageBanner-->
-
-
-
-<section class="Paymet_Section">
-
-<div class="container">
-
-<div class="PaymentInner wow zoomIn">
-
-  <img src="<?php echo base_url()?>assets/home/Images/payImg.png">
-
-  <h1>Payment</h1>
-
-  <label class="checontainer" style="padding:0;">You must pay $<?php echo !empty($plan)?$plan->total_amount:''?></label>
-
-  <label class="checontainer">stripe payment 
-
-  <input type="radio" checked="checked" name="radio">
-
-  <span class="checkmark"></span>
-
-</label>
-    <label class="checontainer" style="padding:0;">
-        <input id ='agree' type="checkbox" style="float : left; margin-top: 6px;  position: relative; opacity: 5"
-               onclick="if(this.checked){document.getElementById('div_card').style.removeProperty('display');
-                   } else {document.getElementById('div_card').setAttribute('style', 'display:none')}"
-        >
-        <div style="margin-left : 25px; ">I Agree with <a target="_blank" href = "<?php echo base_url("index.php/auth/terms")?>"
-            style = "font-size: 17px; font-style: italic; text-decoration: underline; color: #a307a5;">Terms</a>
-            for QCIL
+    <div class="container">
+        <div class="pageTitleBox wow fadeInUp">
+            <h1>Payment</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text.</p>
         </div>
-    </label>
+    </div>
+</section>
+<!--innerPageBanner-->
+<section class="Paymet_Section">
+    <div class="container">
+        <div class="PaymentInner wow zoomIn">
+            <img src="<?php echo base_url()?>assets/home/Images/payImg.png">
+            <h1>Payment</h1>
+            <label class="checontainer" style="padding:0;">You must pay $<?php echo !empty($plan)?$plan->total_amount:''?></label>
+            <!-- <label class="checontainer">stripe payment 
+              <input type="radio" checked="checked" name="radio">
+              <span class="checkmark"></span>
+            </label> -->
+            <div class="row">
+                <label class="radioBox">
+                    <input type="radio" class="payment_method" name="payment_method" value="paypal" checked >
+                    <span class="checkmark" style="margin-top:12px"></span>
+                    <img style="width:225px" src="<?=base_url()?>assets/images/paypalbtn.png" alt="Buy now with PayPal" />
+                </label>
+            </div>
+            <div class="row">
+                <label class="radioBox">
+                    <input type="radio" class="payment_method" name="payment_method" value="stripe">
+                    <span class="checkmark" style="margin-top:12px"></span>
+                    <img style="width:225px" alt="Visa Checkout" class="v-button" role="button" src="<?=base_url()?>assets/images/stripebtn.svg">
+                </label>
+            </div>
+            <label class="checontainer" style="padding:0;">
+                <input id ='agree' type="checkbox" style="float : left; margin-top: 6px;  position: relative; opacity: 5"
+                      onclick="if(this.checked){document.getElementById('div_card').style.removeProperty('display');
+                          } else {document.getElementById('div_card').setAttribute('style', 'display:none')}"
+                >
+                <div style="margin-left : 25px; ">I Agree with <a target="_blank" href = "<?php echo base_url("index.php/auth/terms")?>"
+                    style = "font-size: 17px; font-style: italic; text-decoration: underline; color: #a307a5;">Terms</a>
+                    for QCIL
+                </div>
+            </label>
 
 <div class="CardBtn" id = 'div_card' style="display: none">
 
