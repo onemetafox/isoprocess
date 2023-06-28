@@ -123,7 +123,7 @@
 	</div><!--container-->
 </section><!--Pricing_Section-->
 <form id="paypalPayment" action="<?= base_url()?>pricing/paypalPayment" method="post">
-    <input type="hidden" name = "amount" value = "<?php echo !empty($plan)?$plan->total_amount:''?>">
+    <input type="hidden" name = "id" value = "<?= $plan->id?>">
 </form>
 <script src="<?= base_url()?>assets/js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
@@ -185,7 +185,7 @@
             stripeForm.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
             var dataPost = stripeForm.serializeArray();
 
-            $.post( '<?=base_url()?>' + "pricing/stripPayment", dataPost, function(response) {
+            $.post( '<?=base_url()?>' + "index.php/auth/add_purchase/<?= $$plan->id?>", dataPost, function(response) {
 
                 $.unblockUI();
                 
