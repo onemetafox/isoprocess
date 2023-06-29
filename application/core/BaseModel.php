@@ -7,6 +7,7 @@ class BaseModel extends CI_Model {
     var $private_key = "id";
 
     public function where($filters){
+
         foreach($filters as $key => $value){
             $this->db->where($key, $value);
         }
@@ -26,11 +27,12 @@ class BaseModel extends CI_Model {
         if($filters)
             $this->where($filters);
         if($order)
-            $this->db->order_by($order_by, "DESC");
+            $this->db->order_by($order, "DESC");
         if($direction)
-            $this->db->order_by($order_by, $direction);
+            $this->db->order_by($order, $direction);
         $this->db->select($this->table_name.".*");
-        return $this->db->get($this->table_name)->result();
+        $data = $this->db->get($this->table_name)->result();
+        return $data;
     }
 
     public function save($data){

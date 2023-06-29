@@ -1136,7 +1136,7 @@ class Auth extends BaseController //CI_Controller
                     'create_date' => date('Y-m-d'),
                     'due_date' => $expired,
                     'invoice_num' => 'INV-'. rand(),
-                    'payment_type'=> $payment_type
+                    'payment_type'=> strtoupper($payment_type)
                 );
                 $invoice_id = $this->invoice->save($invoice);
 

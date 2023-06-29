@@ -475,6 +475,7 @@ class Consultant extends BaseController //CI_Controller
             $filter['to'] = $end_date;
             $filter['admin_id'] = $consultant_id;
             $data['invoices'] = $this->invoice->getAll($filter, 'create_date', 'DESC');
+
             $data['start_date'] = $start_date;
             $data['end_date'] = $end_date;
 

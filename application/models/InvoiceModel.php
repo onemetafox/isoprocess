@@ -10,11 +10,11 @@ class InvoiceModel extends BaseModel {
 
     public function where($filters){
         if(isset($filters['from'])){
-            $this->db->where('create_date >= ' . $filters['from']);
+            $this->db->where("create_date >= ", $filters['from']);
             unset($filters['from']);
         }
         if(isset($filters['to'])){
-            $this->db->where('create_date <= ' . $filters['from']);
+            $this->db->where("create_date <= " , $filters['to']);
             unset($filters['to']);
         }
         return parent::where($filters);
@@ -24,7 +24,7 @@ class InvoiceModel extends BaseModel {
         $this->db->select("consultant.user_type company_name, invoice_item.amount, invoice_item.description");
         $this->db->join("consultant", "consultant.consultant_id = invoice.admin_id");
         $this->db->join("invoice_item", "invoice.id = invoice_item.invoice_id");
-        return parent::getAll($filters = null, $order = null, $dir = null);
+        return parent::getAll($filters, $order, $dir);
     }
 }
 

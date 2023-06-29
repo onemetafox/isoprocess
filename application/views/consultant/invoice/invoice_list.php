@@ -254,6 +254,7 @@
 								<th>Description</th>
 								<th>Invoie#</th>
 								<th>Due Date</th>
+								<th>Payment Type</th>
 								<th>Amount</th>
 								<th>Status</th>
 								<th>Action</th>
@@ -269,6 +270,7 @@
 									<td><?=$invoice->description?></td>
 									<td><?=$invoice->invoice_num?></td>
 									<td><?=$invoice->due_date?></td>
+									<td><?=$invoice->payment_type?></td>
 									<td>$<?=$invoice->amount?></td>
 									<td><span class="label <?php echo $invoice->status=='pending'?'label-info':'label-success'?>"><?= @$invoice->status?></span></td>
 									<td>
