@@ -32,5 +32,24 @@ class BaseModel extends CI_Model {
         $this->db->select($this->table_name.".*");
         return $this->db->get($this->table_name)->result();
     }
+
+    public function save($data){
+        if(isset($data[$this->private_key])){
+            return $this->update($data);
+        }else{
+            return $this->insert($data);
+        }
+    }
+
+    public function insert($data){
+        $this->db->insert($this->table_name, $data);
+        return $this->db->insert_id();
+    }
+
+    public function update($data){
+        $this->db->where($this->private_key, $data[$this->private_key]);
+        $this->db->update($this->table_name, $data);
+        return ($this->db->affected_rows() > 0) ? TRUE : FALSE; 
+    }
 }
 

@@ -1074,22 +1074,29 @@ class Auth extends BaseController //CI_Controller
             redirect('Auth/reg_pay_plans');
         }
     }
-	
-    public function add_purchase($plan_id = null){
+	public function load_plan($id){
+        $data['plan'] = $this->plan->getOne($id);
+        $data['menu_title'] = 'payment';
+        $data['title'] = 'Payment';
+        $this->load->view('Register/reg_payment',$data);
+
+    }
+
+    public function add_purchase($plan_id = null, $payment_type = Null){
         $this->load->model('Companymodel');
-        //$plan_id    = $this->input->post('plan_id');
         $consultant_id = $this->session->userdata('consultant_id');
-        $admin_name = $this->session->userdata('username');
-        $plan_name = $this->db->where('plan_id',$plan_id)->get('plan')->row()->plan_name;
+
+        $consultant = $this->consultant->getOne($consultant_id);
+        $plan = $this->plan->getOne($plan_id);
+
         $email = $this->db->where('is_admin', 1)->get('admin')->row()->email;
-        $consultant_name = $this->db->where('consultant_id',$consultant_id)->get('consultant')->row()->consultant_name;
 
         //-------------------- send email-------------------------
         $email_temp = $this->getEmailTemp('User Sign up to Super Admin');
-        $email_temp['message'] = str_replace("{Admin Name}",$admin_name. " from ". $consultant_name,$email_temp['message']);
+        $email_temp['message'] = str_replace("{Admin Name}",$consultant->username. " from ". $consultant->consultant_name,$email_temp['message']);
         $email_temp['message'] = str_replace("{COURSE NAME}",'phpstack-971964-3536769.cloudwaysapps.com',$email_temp['message']);
-        $email_temp['message'] = str_replace("{Plan}",$plan_name,$email_temp['message']);
-        $this->sendemail($email,'User sign up for subscription',$email_temp['message'],$email_temp['subject'],2);
+        $email_temp['message'] = str_replace("{Plan}",$plan->plan_name,$email_temp['message']);
+        // $this->sendemail($email,'User sign up for subscription',$email_temp['message'],$email_temp['subject'],2);
         //--------------------------------------------------------
         //---------------------------------------------- send sms ----------------------------------------------
         if (!empty($phone) && $this->settings->otp_verification){
@@ -1098,21 +1105,19 @@ class Auth extends BaseController //CI_Controller
             $phone_response = $this->phone_rk->checkPhoneNumber($phone);
             if ($phone_response['success']){
                 $message = "Hello Super Admin".PHP_EOL;
-                $message.= "{$admin_name} from {$consultant_name} has signed up for {$plan_name} of ".APP_NAME.".";
+                $message.= "{$consultant->username} from {$consultant->consultant_name} has signed up for {$plan->plan_name} of ".APP_NAME.".";
                 $this->twill_rk->sendMsq($phone,$message);
             }
         }
 
-        $date = date('Y-m-d');
         if($plan_id == '0'){
             redirect('Auth/reg_pay_plans');
         }else{
             if($plan_id == '1'){
                 $this->trial();
             }else{
-                $data = array();
-                $plandata = $this->db->where('plan_id',$plan_id)->get('plan')->row();
-                $term_type = $plandata->term_type;
+                $date = date('Y-m-d');
+                $term_type = $plan->term_type;
                 if($term_type == 0){
                     $expired = date('Y-m-d', strtotime($date. ' + 30 days'));
                 }
@@ -1121,22 +1126,36 @@ class Auth extends BaseController //CI_Controller
                 }
                 //start This is a case of payed
                 $data = array('status' => 1,'plan_type' => 'real','plan_id' => $plan_id,'expired' => $expired);
-                $invoice = array('status' => 'paid','admin_id' => $consultant_id,'amount' => $plandata->total_amount,'plan_id' => $plan_id,'tax_rate' => 0,'create_date' => date('Y-m-d'),'due_date' => date('Y-m-d'),'invoice_num' => 'INV-'. rand());
-                $this->db->insert('invoice',$invoice);
-                $invoice_id = $this->db->insert_id();
+                
+                $invoice = array(
+                    'status' => 'paid',
+                    'admin_id' => $consultant_id,
+                    'amount' => $plan->total_amount,
+                    'plan_id' => $plan_id,
+                    'tax_rate' => 0,
+                    'create_date' => date('Y-m-d'),
+                    'due_date' => $expired,
+                    'invoice_num' => 'INV-'. rand(),
+                    'payment_type'=> $payment_type
+                );
+                $invoice_id = $this->invoice->save($invoice);
+
                 $item_data = [
-                    'description' => $plandata->name. ' Membership Payment','invoice_id' => $invoice_id,'amount' => $plandata->total_amount
+                    'description' => $plan->plan_name. ' Membership Payment','invoice_id' => $invoice_id,'amount' => $plan->total_amount
                 ];
 				
                 $this->db->insert('invoice_item',$item_data);
+
                 $result = $this->Companymodel->update_company($data,$consultant_id);
                 if($result){
                     /*require_once('./config.php');
                      $data['stripe'] = $stripe;*/
-                    $session_data = array('com_status' => 1,'plan_type' => 'real','plan_id' => $plan_id);
-                    $this->session->set_userdata($session_data);
+                    // $session_data = array('com_status' => 1,'plan_type' => 'real','plan_id' => $plan_id);
+                    // $this->session->set_userdata($session_data);
 
-                    redirect('Auth/payment',$data);
+                    // redirect('Auth/payment',$data);
+                    $data = array("msg" => "Paid Successfully", "status" => TRUE);
+                    echo json_encode($data);
                     //redirect('Auth/term_condition');
                 }else{
                     redirect('Auth/reg_pay_plans');
@@ -1149,10 +1168,9 @@ class Auth extends BaseController //CI_Controller
         $consultant_id = $this->session->userdata('consultant_id');
         if(isset($consultant_id)){
             $this->load->model('Companymodel');
-            $this->load->model('Planmodel');
 
             $company = $this->Companymodel->get_company($consultant_id);
-            $plan = $this->Planmodel->get_plan($company->plan_id);
+            $plan = $this->plan->getOne($company->plan_id);
 
             $data['company'] = $company;
             $data['plan'] = $plan;
@@ -1412,10 +1430,8 @@ class Auth extends BaseController //CI_Controller
 
         if(isset($consultant_id)){
             $this->load->model('Companymodel');
-            $this->load->model('Planmodel');
-
             $consultant = $this->Companymodel->get_company($consultant_id);
-            $plan = $this->Planmodel->get_plan($plan_id);
+            $plan = $this->plan->getOne($plan_id);
 
             $data['consultant'] = $consultant;
             $data['plan'] = $plan;

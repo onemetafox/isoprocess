@@ -1035,7 +1035,8 @@ class Admin extends BaseController//CI_Controller
 				'create_date' => $this->input->post('create_date'),
 				'due_date' => $this->input->post('create_date'),
 				'footer_comment' => $this->input->post('footer_comment'),
-				'status' => 'pending'
+				'status' => 'pending',
+				'payment_type' => 'Manually'
 			];
 			$done = $this->db->insert('invoice',$invoice_data);
 			if($done){

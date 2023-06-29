@@ -3,11 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Companymodel extends CI_Model {
 
-	public function index()
-	{
-
-	}
-
     public function update_company($data = array(),$company_id = 0)
 	{
 		  $this->db->where('consultant_id',$company_id);

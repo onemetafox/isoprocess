@@ -38,7 +38,7 @@
                                     <li>$<?php echo $val->total_amount?></li>
                                     <li>Limiation of consultant:<br><?php echo $val->no_of_user?></li>         
                                 </ul>
-                                <a href="<?php echo base_url('index.php/auth/add_purchase/'.$val->plan_id)?>" class="SignUp">Select Plan</a>
+                                <a href="<?php echo base_url('index.php/auth/load_plan/'.$val->plan_id)?>" class="SignUp">Select Plan</a>
                             </div><!--PricingMiddle-->
                         </div><!--pricing-->
                     </div><!--PricingWrapper-->
@@ -57,7 +57,7 @@
                                     <li>You will expire in 14 Days</li>
                                     <li>Limiation of consultant:<br><?php echo $trial_plan->no_of_user?></li>
                                 </ul>
-                                <a href="<?php echo base_url('index.php/auth/add_purchase/'.$trial_plan->plan_id)?>" class="SignUp">Select Plan</a>
+                                <a href="<?php echo base_url('index.php/auth/load_plan/'.$trial_plan->plan_id)?>" class="SignUp">Select Plan</a>
                             </div><!--PricingMiddle-->
                         </div><!--pricing-->
                     </div><!--PricingWrapper-->      
@@ -86,7 +86,7 @@
                                 <li>$<?php echo $val->total_amount?></li>
                                 <li>Limiation of consultant:<br><?php echo $val->no_of_user?></li>         
                             </ul>
-                            <a href="<?php echo base_url('index.php/auth/add_purchase/'.$val->plan_id)?>" class="SignUp">Select Plan</a>
+                            <a href="<?php echo base_url('index.php/auth/load_plan/'.$val->plan_id)?>" class="SignUp">Select Plan</a>
                         </div><!--PricingMiddle-->
                     </div><!--pricing-->
                 </div><!--PricingWrapper-->
@@ -105,7 +105,7 @@
                                 <li>You will expire in 14 Days</li>
                                 <li>Limiation of consultant:<br><?php echo $trial_plan->no_of_user?></li>
                             </ul>
-                            <a href="<?php echo base_url('index.php/auth/add_purchase/'.$trial_plan->plan_id)?>" class="SignUp">Select Plan</a>
+                            <a href="<?php echo base_url('index.php/auth/load_plan/'.$trial_plan->plan_id)?>" class="SignUp">Select Plan</a>
                         </div><!--PricingMiddle-->
                     </div><!--pricing-->
                 </div><!--PricingWrapper-->      
