@@ -39,47 +39,21 @@
 	            display:none;
 	        }
 	    </style> 
-
 </head>
 
-
 <body class="navbar-top">
-	<!-- Main navbar -->
 	<?php $this->load->view('Admin/main_header.php'); ?>
-	<!-- /main navbar -->
-
-
-	<!-- Page container -->
 	<div class="page-container">
-
-		<!-- Page content -->
 		<div class="page-content">
-
-			<!-- Main sidebar -->
 			<?php $this->load->view('Admin/sidebar'); ?>
-			<!-- /main sidebar -->
-
-
-			<!-- Main content -->
 			<div class="content-wrapper">
-				<!-- Page header -->
-
-				<!-- /page header -->
-
-
-				<!-- Content area -->
 				<div class="content">
 					<div class="panel panel-white">
-<!-- 						<div class="panel-heading" style="text-align:right;">
-								<button type="button" class="btn btn-default btn-xs heading-btn"><i class="icon-file-check position-left"></i> Save</button>
-								<button type="button" class="btn btn-default btn-xs heading-btn"><i class="icon-printer position-left"></i> Print</button>
-						</div> -->
 						<form id="invoice_form" class="form-horizontal" action="<?php echo base_url('index.php/Admin/invoice_add_action')?>" name="add_form" method="post">
 						<div id="invoice-editable">
 							<div class="panel-body no-padding-bottom">
 								<div class="row">
 									<div class="col-sm-6 content-group">
-										<!-- <img src="assets/images/logo_demo.png" class="content-group mt-10" alt="" style="width: 120px;"> -->
 			 							<ul class="list-condensed list-unstyled">
 			 								<li style="margin-bottom:20px"><h5 style="font-size: 25px;"><?php echo $super->company_name?></h5></li>
 											<li><?php echo $super->address?></li>
@@ -88,7 +62,6 @@
 											<li><?php echo $super->fax?></li>
 										</ul>
 									</div>
-
 									<div class="col-md-6 content-group">
 										<div class="invoice-details" >
 											<div class="form-group" style="margin-bottom:5px!important">
@@ -108,7 +81,7 @@
 											<div class="form-group">
 												<label class="control-label col-md-2 col-md-offset-5">INVOICE: </label>
 												<div class="col-md-5">
-													<input class="form-control"　type="text" name="invoice_num" value="<?php echo 'INV-'.rand()?>" style="min-width:135px">
+													<input class="form-control" type="text" name="invoice_num" value="<?php echo 'INV-'.rand()?>" style="min-width:135px">
 												</div>
 											</div>
 										</div>
@@ -178,7 +151,7 @@
 							                </td>
 							                <td>
 						                		<ul class="icons-list">
-													<li class="text-danger-600" onclick="delete();"><a title="Remove"　href="#"><i class="icon-trash"></i></a></li>
+													<li class="text-danger-600" onclick="delete();"><a title="Remove" href="#"><i class="icon-trash"></i></a></li>
 												</ul>
 							                </td>
 							            </tr>
@@ -191,7 +164,7 @@
 									<div class="col-sm-4">
 										<div class="content-group">
 											<h6>Other Comments</h6>
-											<textarea name="comment"　rows="10" cols="5" class="form-control" placeholder="" style="height:180px;width:200px"></textarea>
+											<textarea name="comment" rows="10" cols="5" class="form-control" placeholder="" style="height:180px;width:200px"></textarea>
 										</div>
 									</div>
 
@@ -243,7 +216,7 @@
 								</div>	
 								<div class="row">
 									<div class="col-md-4 col-md-offset-4">
-										<textarea name="footer_comment"　rows="10" cols="10" class="form-control" placeholder="" style="height:100px"></textarea>
+										<textarea name="footer_comment" rows="10" cols="10" class="form-control" placeholder="" style="height:100px"></textarea>
 									</div>
 								</div>
 
@@ -313,7 +286,7 @@
 	            datas[2] = "<input type='number' class='form-control' name='amount["+added_index+"]' onchange='add_amount()' value='0' required>";
 	            datas[3] = "<ul class='icons-list'>"+
 	            				"<li class='text-danger-600' onclick='delete();'>"+
-									"<a title='Remove'　href='#'><i class='icon-trash'></i></a></li>"+
+									"<a title='Remove' href='#'><i class='icon-trash'></i></a></li>"+
 							"</ul>";
 	            oTable.row.add(datas);
 	            oTable.draw();
@@ -387,10 +360,6 @@
 			$('.total_span').html(subtotal+taxable*taxrate/100);
 			$('#invoice_form input[name="total_amount"]').val(subtotal+taxable*taxrate/100);
 		}
-/*		$('.tax_switch').on('click',function(){
-			alert();
-			//add_amount();
-		});*/
 		function tax_change(e){
 			add_amount();
 		}

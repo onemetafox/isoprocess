@@ -36,10 +36,7 @@
                 </label>
             </div>
             <label class="checontainer" style="padding:0;">
-                <input id ='agree' type="checkbox" style="float : left; margin-top: 6px;  position: relative; opacity: 5"
-                      onclick="if(this.checked){document.getElementById('div_card').style.removeProperty('display');
-                          } else {document.getElementById('div_card').setAttribute('style', 'display:none')}"
-                >
+                <input id ='agree' type="checkbox" style="float : left; margin-top: 6px;  position: relative; opacity: 5">
                 <div style="margin-left : 25px; ">I Agree with <a target="_blank" href = "<?php echo base_url("index.php/auth/terms")?>"
                     style = "font-size: 17px; font-style: italic; text-decoration: underline; color: #a307a5;">Terms</a>
                     for QCIL
@@ -122,8 +119,8 @@
 		</div><!--PaymentInner-->
 	</div><!--container-->
 </section><!--Pricing_Section-->
-<form id="paypalPayment" action="<?= base_url()?>pricing/paypalPayment" method="post">
-    <input type="hidden" name = "id" value = "<?= $plan->id?>">
+<form id="paypalPayment" action="<?= base_url()?>index.php/auth/paypalPayment" method="post">
+    <input type="hidden" name = "id" value = "<?= $plan->plan_id?>">
 </form>
 <script src="<?= base_url()?>assets/js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
@@ -139,11 +136,17 @@
             }
                 
         });
-        
-        $("#stripePayment").submit( function(event) {
-            
-            event.preventDefault();
 
+        $("#agree").change(function(){
+            if($("#agree").prop("checked")){
+                $("#div_card").css("display","block");
+            }else{
+                $("#div_card").css("display","none");
+            }
+        })
+
+        $("#stripePayment").submit( function(event) {
+            event.preventDefault();
             $.blockUI({ css: {
                 border: 'none',
                 padding: '15px',
@@ -185,19 +188,15 @@
             stripeForm.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
             var dataPost = stripeForm.serializeArray();
 
-            $.post( '<?=base_url()?>' + "index.php/auth/add_purchase/<?= $$plan->id?>", dataPost, function(response) {
-
+            $.post( '<?=base_url()?>' + "index.php/auth/add_purchase/<?= $plan->plan_id?>/stripe", dataPost, function(response) {
                 $.unblockUI();
-                
-                if(response.success){
-
+                if(response.status){
                     stripeForm[0].reset();
                     stripeSuccess.show().delay(3000).fadeOut();
-                    $('#successMsg').text(response.message);
-
+                    $('#successMsg').text(response.msg);
                 }else{
                     stripeError.show().delay(3000).fadeOut();
-                    $('#errorMsg').text(response.message);
+                    $('#errorMsg').text(response.msg);
                 }
             }, "json");
         }

@@ -552,8 +552,11 @@ class Admin extends BaseController//CI_Controller
 		}
 		if($admin_id){
 			$data['title'] = 'Invoice';
-			$this->db->order_by('create_date','DESC');
-			$data['invoices'] = $this->db->where('create_date >=', $start_date)->where('create_date <=',$end_date)->get('invoice')->result();
+			$filters["from"] = $start_date;
+			$filters["to"] = $end_date;
+			$data['invoices'] = $this->invoice->getAll($filters, "create_date", "DESC");
+			// $this->db->order_by('create_date','DESC');
+			// $data['invoices'] = $this->db->where('create_date >=', $start_date)->where('create_date <=',$end_date)->get('invoice')->result();
 			$data['start_date'] = $start_date;
 			$data['end_date'] = $end_date;
 
@@ -1032,7 +1035,8 @@ class Admin extends BaseController//CI_Controller
 				'create_date' => $this->input->post('create_date'),
 				'due_date' => $this->input->post('create_date'),
 				'footer_comment' => $this->input->post('footer_comment'),
-				'status' => 'pending'
+				'status' => 'pending',
+				'payment_type' => strtoupper('Manually')
 			];
 			$done = $this->db->insert('invoice',$invoice_data);
 			if($done){

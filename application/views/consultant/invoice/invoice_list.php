@@ -173,12 +173,12 @@
                       <?php  $this->session->unset_userdata('message'); } ?>
                		  <div class="panel panel-white">
                     	<div class="panel-body text-left" style="padding-bottom: 0px;">
-                    		<form name="filter_form"　action="<?php echo base_url('index.php/consultant/invoice')?>" method="post">
+                    		<form name="filter_form"action="<?php echo base_url('index.php/consultant/invoice')?>" method="post">
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="icon-calendar22"></i></span>
-										<input type="text" class="form-control daterange-single" name="filter_start"　value="<?php echo $start_date?>">
+										<input type="text" class="form-control daterange-single" name="filter_start"value="<?php echo $start_date?>">
 									</div>
 								</div>
 	                        </div>
@@ -186,7 +186,7 @@
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="icon-calendar22"></i></span>
-										<input type="text" class="form-control daterange-single1" name="filter_end"　value="<?php echo $end_date?>">
+										<input type="text" class="form-control daterange-single1" name="filter_end"value="<?php echo $end_date?>">
 									</div>
 								</div>
 							</div>
@@ -250,10 +250,11 @@
 							<tr>
 								<th>No</th>
 								<th>Invoice Date</th>
-								<th>Customer Name</th>
 								<th>Company Name</th>
+								<th>Description</th>
 								<th>Invoie#</th>
 								<th>Due Date</th>
+								<th>Payment Type</th>
 								<th>Amount</th>
 								<th>Status</th>
 								<th>Action</th>
@@ -262,17 +263,15 @@
 							<tbody>
 							<?php $count=1;
 							foreach ($invoices as $invoice) { ?>
-								<?php
-									$rowdatan=@$this->db->query("select consultant.*,company.name name,company.phone from consultant left join company on consultant.consultant_id=company.consultant_id where consultant.consultant_id='$invoice->admin_id'")->row();
-								?>
 								<tr>
 									<td><?=$count?></td>
-									<td><?=@$invoice->create_date?></td>
-									<td><?=@$rowdatan->admin_name?></td>
-									<td><?=@$rowdatan->company_name?></td>
-									<td><?=@$invoice->invoice_num?></td>
-									<td><?=@$invoice->due_date?></td>
-									<td>$<?=@$invoice->amount?></td>
+									<td><?=$invoice->create_date?></td>
+									<td><?=$invoice->company_name?></td>
+									<td><?=$invoice->description?></td>
+									<td><?=$invoice->invoice_num?></td>
+									<td><?=$invoice->due_date?></td>
+									<td><?=$invoice->payment_type?></td>
+									<td>$<?=$invoice->amount?></td>
 									<td><span class="label <?php echo $invoice->status=='pending'?'label-info':'label-success'?>"><?= @$invoice->status?></span></td>
 									<td>
 										<ul class="icons-list">

@@ -1,12 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Planmodel extends CI_Model {
+require_once APPPATH.'/core/BaseModel.php';
 
-	public function index()
-	{
-
-	}
+class PlanModel extends BaseModel {
+	var $table_name = "plan";
+	var $private_key = "plan_id";
 
 	public function get_plan($id = 0)
 	{
