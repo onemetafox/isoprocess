@@ -552,8 +552,11 @@ class Admin extends BaseController//CI_Controller
 		}
 		if($admin_id){
 			$data['title'] = 'Invoice';
-			$this->db->order_by('create_date','DESC');
-			$data['invoices'] = $this->db->where('create_date >=', $start_date)->where('create_date <=',$end_date)->get('invoice')->result();
+			$filters["from"] = $start_date;
+			$filters["to"] = $end_date;
+			$data['invoices'] = $this->invoice->getAll($filters, "create_date", "DESC");
+			// $this->db->order_by('create_date','DESC');
+			// $data['invoices'] = $this->db->where('create_date >=', $start_date)->where('create_date <=',$end_date)->get('invoice')->result();
 			$data['start_date'] = $start_date;
 			$data['end_date'] = $end_date;
 

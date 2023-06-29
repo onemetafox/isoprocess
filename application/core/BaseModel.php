@@ -6,6 +6,11 @@ class BaseModel extends CI_Model {
     var $table_name = '';
     var $private_key = "id";
 
+    public function where($filters){
+        foreach($filters as $key => $value){
+            $this->db->where($key, $value);
+        }
+    }
     public function getOne($id){
         $this->db->where($this->private_key, $id);
         $data = $this->db->get($this->table_name)->row();
@@ -15,6 +20,17 @@ class BaseModel extends CI_Model {
     public function updateOne($id, $data){
         $this->db->where($this->private_key, $id);
         return $this->db->update($this->table_name, $data);
+    }
+
+    public function getAll($filters = NULL, $order = NULL, $direction = NULL){
+        if($filters)
+            $this->where($filters);
+        if($order)
+            $this->db->order_by($order_by, "DESC");
+        if($direction)
+            $this->db->order_by($order_by, $direction);
+        $this->db->select($this->table_name.".*");
+        return $this->db->get($this->table_name)->result();
     }
 }
 

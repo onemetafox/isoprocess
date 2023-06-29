@@ -16,12 +16,10 @@ class Companymodel extends CI_Model {
 
 	public function get_company($id = 0)
 	{
-
 		$this->db->where('consultant_id', $id);
 		$company = $this->db->get('consultant')->row();
 		if($company != null) 	return $company;
 		else					return false;
-
 	}
 
 }
