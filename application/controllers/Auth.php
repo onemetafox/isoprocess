@@ -6,6 +6,7 @@ class Auth extends BaseController //CI_Controller
     public function __construct(){
         parent::__construct();
         $this->load->library('session');
+        $this->load->library("paypal");
     }
 
     public function login()
@@ -1082,6 +1083,24 @@ class Auth extends BaseController //CI_Controller
 
     }
 
+    public function paypalPayment(){
+        $user = $this->session->userdata();
+        $id = $this->input->post("id");
+
+        $consultant_id = $this->session->userdata('consultant_id');
+        $consultant = $this->consultant->getOne($consultant_id);
+        $plan = $this->plan->getOne($id);
+        $this->paypal->set_api_context();
+        $payment_method = "paypal";
+		$return_url     = "http://localhost" . base_url()."index.php/Auth/add_purchase/".$id."/paypal";
+		$cancel_url     = "http://localhost" . base_url()."index.php/Auth/load_plan/".$id;
+		$total          = $plan->total_amount;
+		$description    = $plan->plan_name;
+		$intent         = 'sale';
+		$this->paypal->create_payment( $payment_method, $return_url, $cancel_url, 
+        $total, $description, $intent );
+    }
+
     public function add_purchase($plan_id = null, $payment_type = Null){
         $this->load->model('Companymodel');
         $consultant_id = $this->session->userdata('consultant_id');
@@ -1154,8 +1173,13 @@ class Auth extends BaseController //CI_Controller
                     // $this->session->set_userdata($session_data);
 
                     // redirect('Auth/payment',$data);
-                    $data = array("msg" => "Paid Successfully", "status" => TRUE);
-                    echo json_encode($data);
+                    if($payment_type == "paypal"){
+                        redirect("Auth/load_plan/".$plan_id);
+                    }else{
+                        $data = array("msg" => "Paid Successfully", "status" => TRUE);
+                        echo json_encode($data);
+                    }
+                    
                     //redirect('Auth/term_condition');
                 }else{
                     redirect('Auth/reg_pay_plans');

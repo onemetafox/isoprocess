@@ -119,7 +119,7 @@
 		</div><!--PaymentInner-->
 	</div><!--container-->
 </section><!--Pricing_Section-->
-<form id="paypalPayment" action="<?= base_url()?>pricing/paypalPayment" method="post">
+<form id="paypalPayment" action="<?= base_url()?>index.php/auth/paypalPayment" method="post">
     <input type="hidden" name = "id" value = "<?= $plan->plan_id?>">
 </form>
 <script src="<?= base_url()?>assets/js/main.js"></script>
