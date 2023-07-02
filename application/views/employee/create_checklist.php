@@ -312,6 +312,34 @@
     </div>
     <!-- /page content -->
 </div>
+
+<div id="info_modal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h6 class="modal-title"><i class="icon-key text-muted"></i> Pay Attention</h6>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger print-error-msg" style="display:none"></div>
+				<div class="col-md-12">
+                    Welcome <?=$auditor?> to your <?= $process_name?> Audit. 
+                    Remember that to successfully add information to your Conformity and Nonconformity Processes Table you must select “Yes” or “No” from your “Expected Answer” Yes will default you to your conformity table and no will default you to your nonconformity table. 
+                    “Not Sure means there is an audit trail so you will not be able to enter any data in the table, rather you will have to search for additional information. 
+                    The process will start over. If you still are  not sure you will be defaulted to the Opportunity For Improvement process table.
+
+                    You must add you evidence table to save.
+
+                    Yours 
+                    Quality Circle AI Team.
+                </div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 <!-- /page container -->
 
 <script type="text/javascript">
@@ -323,6 +351,7 @@
     function page_cancel(){
         window.history.back();
     }
+    $("#info_modal").modal('show');
     function change_status(value){
         var expected_answer = $('#e_a3').prop("checked");
         if (expected_answer == true){
@@ -380,15 +409,11 @@
         $("#" + id).val("TBD");
     }
 
-     $(document).ready(function(){
+    $(document).ready(function(){
         $('#edit_auditee').multiselect({
             columns : 1,
             placeholder : 'Select Auditee...'
         });
-    });
-
-    $(document).ready(function(){
-        
         jQuery(document).on("click","#ms-list-1 button",function(){
             var val = $(".ms-options ul li.selected input").val();
             if (val == "0") {

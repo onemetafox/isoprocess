@@ -160,21 +160,6 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                             ?>
                             <img src="<?php echo base_url(); ?>uploads/logo/<?= $audito ?>" style="height:50px;">
                             <span class="text-semibold"><?= $title ?></span>
-
-                            <div class="pull-right">
-                                <?php
-                                /*                                $consultant_id = $this->session->userdata('consultant_id');
-                                                                $plan_ids1 = @$this->db->query("select * from upgrad_plan where `consultant_id`='$consultant_id' AND `status`='1'")->row()->plan_id;
-                                                                if (count($plan_ids1) > 0) {
-                                                                    $d1 = @$this->db->query("select * from plan where `plan_id`='$plan_ids1'")->row()->no_of_user;
-                                                                }
-                                                                $d2 = @$this->db->query("select * from plan order by no_of_user DESC")->row()->plan_id;
-                                                                */?><!--
-                                <?php /*if ($d1 != $d2 && $d2 > $d1) { */?>
-                                    <a href="<?php /*echo base_url(); */?>index.php/Auth/update_process"
-                                       class="btn bg-brown"> <i class="icon-wrench" title="Main pages"></i> <span> Upgrade Plan</span></a>
-                                --><?php /*} */?>
-                            </div>
                         </h4>
                     </div>
                 </div>
@@ -300,10 +285,11 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         ?>
                                     </td>
                                     <td style="width: 19%;">
-                                        <?php if ($input_step->status != 'Opportunities'): ?>
+                                        <!-- <?php if ($input_step->status != 'Opportunity for Improvement'): ?>
                                             <a type="button" onclick = "logic_show(<?=$input_step->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
-                                        <?php endif;?>
-                                        <?php if ($input_step->status != 'NO ISSUE'): ?>
+                                        <?php endif;?> -->
+                                        <?php if ($input_step->status != 'Comformity Table'): ?>
+                                            <a type="button" onclick = "logic_show(<?=$input_step->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
                                             <?php if($input_step->load_status == 0){?>
                                                 <a type="button" href = "<?php echo base_url(); ?>index.php/employee/corrective_action_form/<?=$input_step->checklist_id?>" class="btn btn-primary btn-sm">Load</a>
                                             <?php } else?>
