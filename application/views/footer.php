@@ -55,8 +55,7 @@
 						<p> P.O. Box 190,<br/>Kingston 5,<br/>Jamaica W.I.</p>
 					</div>
 					<div class="contactRow phoneIcon">
-						<!-- <p><strong>Phone</strong> 1-876-860-711</p> -->
-						<p><strong>Phone</strong> 1-(430)272-2107</p>
+						<p><strong>Phone</strong> 1-(876)-926-2003</p>
 					</div>
 					
 				</div>
