@@ -95,18 +95,41 @@
 	                                        <label class="control-label col-md-2">Customer Name: </label>
 	                                        <div class="col-md-4" style="padding:0">
 		                                        <div class="col-md-12 btn-group bootstrap-select dropdown" style="padding-left:0;padding-right:0">
-		                                            <select data-width="100%" id="admin_id" name="admin_id" class="bootstrap-select" onchange="filterByAdmin(this);">
-		                                                <?php
-		                                                foreach ($admins as $val) {
-		                                                    ?>
-		                                                    <option value="<?= $val['consultant_id'] ?>" name="<?= $val['consultant_id'] ?>">
-		                                                        <?php echo $val['consultant_name'] ?>
+		                                            <select data-width="100%" id="admin_id" name="admin_id" class="bootstrap-select">
+														<option value=""></option>
+		                                                <?php foreach ($admins as $admin) { ?>
+		                                                    <option 
+																data-name = "<?= $admin->consultant_name ?>" 
+																data-address ="<?= $admin->address ?>" 
+																data-city = "<?= $admin->city ?>" 
+																data-phone = "<?= $admin->phone ?>"
+																value="<?= $admin->consultant_id ?>">
+		                                                        <?php echo $admin->consultant_name ?>
 		                                                    </option>
 		                                                <?php } ?>
 		                                            </select>
 		                                        </div>
+												
 	                                        </div>
 	                                    </div>
+										<div class="form-group">
+											<label class="control-label col-md-2">MemberShip Name:</label>
+											<div class="col-md-4" style="padding:0">
+												<div class="col-md-12 btn-group bootstrap-select dropdown" style="padding-left:0;padding-right:0">
+		                                            <select data-width="100%" id="plan_id" name="plan_id" class="bootstrap-select">
+														<option value=""></option>
+		                                                <?php foreach ($plans as $plan) { ?>
+		                                                    <option 
+																data-name="<?= $plan->plan_name ?>"
+																data-amount = "<?= $plan->total_amount ?>"
+																value="<?= $plan->plan_id ?>" >
+		                                                        <?php echo $plan->plan_name ?>
+		                                                    </option>
+		                                                <?php } ?>
+		                                            </select>
+		                                        </div>
+											</div>
+										</div>
 	                                    <div class="col-md-4 col-md-offset-2" style="padding-left:0;">
 				 							<ul class="list-condensed list-unstyled" style="text-align: center;background-color: #FCFBFB;">
 				 								<li style="margin-bottom:20px"><h5 class="admin_com_name"></h5></li>
@@ -120,24 +143,24 @@
 
 							</div>
 							<div class="table-responsive">
-								<div class="col-md-2" >
+								<!-- <div class="col-md-2" >
 									<button id="new_item" class="btn btn-primary" style="margin:20px 0">
 									Add New <i class="fa fa-plus"></i>
 									</button>
-								</div>
+								</div> -->
 							    <table class="table datatable-basic">
 							        <thead>
 							            <tr>
 							                <th>Description</th>
 							                <th class="col-sm-1">Tax</th>
 							                <th class="col-sm-1">Amount</th>
-							                <th class="col-sm-1">Action</th>
+							                <th class="col-sm-1"></th>
 							            </tr>
 							        </thead>
 							        <tbody>
 							            <tr>
 							                <td>
-							                	<input type='text' class='form-control' name='description[0]' required>
+							                	<input type='text' class='form-control' name='description[0]' id="description" required>
 							                </td>
 							                <td>
 							                	<div class="checkbox checkbox-switchery switchery-xs">
@@ -147,12 +170,12 @@
 												</div>
 							                </td>
 							                <td>
-							                	<input type='number' class='form-control' name='amount[0]' min="0" onchange="add_amount(this)" value="0" required>
+							                	<input type='number' class='form-control' name='amount[0]' id="amount" min="0" onchange="add_amount(this)" value="0" required>
 							                </td>
 							                <td>
-						                		<ul class="icons-list">
+						                		<!-- <ul class="icons-list">
 													<li class="text-danger-600" onclick="delete();"><a title="Remove" href="#"><i class="icon-trash"></i></a></li>
-												</ul>
+												</ul> -->
 							                </td>
 							            </tr>
 							        </tbody>
@@ -245,7 +268,6 @@
 	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?= base_url(); ?>assets/js/dataTables.bootstrap.js"></script>
 	<script type="text/javascript">
-		var admin_data = <?php echo json_encode($admins);?>;
 		var oTable;
 		$(function(){
 		    if (Array.prototype.forEach) {
@@ -273,43 +295,43 @@
 		            targets: [0,1,2,3]
 		        }],
             });
-            $('#new_item').click(function (e) {
-	            e.preventDefault();
-	            var added_index = oTable.data().length;
-	            var datas = new Array();
-	            datas[0] = "<input type='text' class='form-control' name='description["+added_index+"]' required>";
-	            datas[1] = "<div class='checkbox checkbox-switchery switchery-xs'>"+
-								"<label>"+
-									"<input type='checkbox' class='switchery' name='tax["+added_index+"]' onclick='tax_change()'>"+
-								"</label>"+
-							"</div>";
-	            datas[2] = "<input type='number' class='form-control' name='amount["+added_index+"]' onchange='add_amount()' value='0' required>";
-	            datas[3] = "<ul class='icons-list'>"+
-	            				"<li class='text-danger-600' onclick='delete();'>"+
-									"<a title='Remove' href='#'><i class='icon-trash'></i></a></li>"+
-							"</ul>";
-	            oTable.row.add(datas);
-	            oTable.draw();
-			    if (Array.prototype.forEach) {
-			        var elems = Array.prototype.slice.call(document.querySelectorAll('.switchery'));
-			        elems.forEach(function(html) {
-			            var switchery = new Switchery(html);
-			        });
-		    	}
-        		$(".switch").bootstrapSwitch();
+            // $('#new_item').click(function (e) {
+	        //     e.preventDefault();
+	        //     var added_index = oTable.data().length;
+	        //     var datas = new Array();
+	        //     datas[0] = "<input type='text' class='form-control' name='description["+added_index+"]' required>";
+	        //     datas[1] = "<div class='checkbox checkbox-switchery switchery-xs'>"+
+			// 					"<label>"+
+			// 						"<input type='checkbox' class='switchery' name='tax["+added_index+"]' onclick='tax_change()'>"+
+			// 					"</label>"+
+			// 				"</div>";
+	        //     datas[2] = "<input type='number' class='form-control' name='amount["+added_index+"]' onchange='add_amount()' value='0' required>";
+	        //     datas[3] = "<ul class='icons-list'>"+
+	        //     				"<li class='text-danger-600' onclick='delete();'>"+
+			// 						"<a title='Remove' href='#'><i class='icon-trash'></i></a></li>"+
+			// 				"</ul>";
+	        //     oTable.row.add(datas);
+	        //     oTable.draw();
+			//     if (Array.prototype.forEach) {
+			//         var elems = Array.prototype.slice.call(document.querySelectorAll('.switchery'));
+			//         elems.forEach(function(html) {
+			//             var switchery = new Switchery(html);
+			//         });
+		    // 	}
+        	// 	$(".switch").bootstrapSwitch();
 
-        	});
+        	// });
             
             $('.datatable-scroll-y').DataTable({
                 autoWidth: true,
                 scrollY: 300
             });
     		
-            oTable.on('click', 'a[title="Remove"]', function (){
-	            var nRow = $(this).parents('tr')[0];
-	            oTable.row(nRow).remove().draw();
-	            add_amount();
-			});
+            // oTable.on('click', 'a[title="Remove"]', function (){
+	        //     var nRow = $(this).parents('tr')[0];
+	        //     oTable.row(nRow).remove().draw();
+	        //     add_amount();
+			// });
 			//end datatable
 
     		//datepicker js
@@ -324,19 +346,20 @@
 		        });
 		    }
     		$(".switch").bootstrapSwitch();
-			$('.admin_com_name').html(admin_data[$('#admin_id').val()]['company_name']);
-			$('.admin_address').html(admin_data[$('#admin_id').val()]['address']);
-			$('.admin_city').html(admin_data[$('#admin_id').val()]['city']);
-			$('.admin_phone').html(admin_data[$('#admin_id').val()]['phone']);
-			
-
 		});
-		function filterByAdmin(e){
-			$('.admin_com_name').html(admin_data[e.value]['company_name']);
-			$('.admin_address').html(admin_data[e.value]['address']);
-			$('.admin_city').html(admin_data[e.value]['city']);
-			$('.admin_phone').html(admin_data[e.value]['phone']);
-		}
+		$("#admin_id").on('change', function(){
+			$('.admin_com_name').html($(this).find(':selected').data('name'));
+			$('.admin_address').html($(this).find(':selected').data('address'));
+			$('.admin_city').html($(this).find(':selected').data('city'));
+			$('.admin_phone').html($(this).find(':selected').data('phone'));
+		})
+		$("#plan_id").on('change', function(){
+			$('#amount').val($(this).find(':selected').data('amount'));
+			$('#description').val($(this).find(':selected').data('name') + " Membership Payment");
+			// $('.admin_address').html($(this).find(':selected').data('amount'));
+			
+		})
+		
 		function add_amount(){
 			var len = oTable.data().length;
 			var rowamount = 0,

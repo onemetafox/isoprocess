@@ -1006,18 +1006,8 @@ class Admin extends BaseController//CI_Controller
 		if($admin_id){
 			$data['title'] = 'Create Invoice';
 			$data['super'] = $this->db->select('*')->get('admin')->row();
-			$admins = $this->db->select('*')->get('consultant')->result_array();
-			$admin_array = array();
-			// while (list($key,$val) = each($admins)) {
-			while (TRUE) {
-                $key = key($admins);
-                if($key === null)
-                    break;
-                $val = current($admins);
-				$admin_array[$val['consultant_id']] = $val;
-				next($admins);
-			}
-			$data['admins'] = $admin_array;
+			$data['admins'] = $this->consultant->getAll();
+			$data['plans'] = $this->plan->getAll();
 			$this->load->view('Admin/invoice/invoice_add',$data);
 		}else{
 			redirect('Welcome');
@@ -1038,9 +1028,8 @@ class Admin extends BaseController//CI_Controller
 				'status' => 'pending',
 				'payment_type' => strtoupper('Manually')
 			];
-			$done = $this->db->insert('invoice',$invoice_data);
-			if($done){
-				$invoice_id = $this->db->insert_id();
+			$invoice_id = $this->invoice->save($invoice_data);
+			if($invoice_id){
 				$item_data = array();
 				$tax = array();
 				$amount = array();
@@ -1080,8 +1069,9 @@ class Admin extends BaseController//CI_Controller
 	public function invoice_paid($id = NULL){
 		$admin_id = $this->session->userdata('admin_id');
 		if($admin_id){
-			$this->db->where('id',$id);
-			$this->db->update('invoice',array('status'=>'paid'));
+			$invoice = $this->invoice->getOne($id);
+			$this->consultant->updateOne($invoice->admin_id, array("is_active"=>1));
+			$this->invoice->save(array('status'=>'paid', 'id'=>$id));
 			redirect('admin/invoice');
 		}else{
 			redirect('Welcome');
@@ -1090,8 +1080,7 @@ class Admin extends BaseController//CI_Controller
 	public function invoice_pending($id = NULL) {
 		$admin_id = $this->session->userdata('admin_id');
 		if($admin_id){
-			$this->db->where('id',$id);
-			$this->db->update('invoice',array('status'=>'pending'));
+			$this->invoice->save(array('status'=>'pending', 'id'=>$id));
 			redirect('admin/invoice');
 		}else{
 			redirect('Welcome');
@@ -1173,8 +1162,7 @@ class Admin extends BaseController//CI_Controller
 	public function invoice_pay($id = NULL){
 		$admin_id = $this->session->userdata('admin_id');
 		if($admin_id){
-			$this->db->where('id',$id);
-			$this->db->update('invoice',array('status'=>'paid'));
+			$this->invoice->updateOne($id,array('status'=>'paid'));
 			redirect('admin/invoice');
 		}else{
 			redirect('Welcome');

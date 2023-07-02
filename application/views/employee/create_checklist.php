@@ -282,7 +282,7 @@
                                             <label class="control-label" id="label-comments">TBD</label>
                                             <input type="hidden" name = "label-report" id="label-report"/>
                                         </div>
-                                        <textarea placeholder="" class="form-control" name="notes" id="notes" rows="5" readonly>This table is locked until you search for evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you are still not sure you need to input an "Opportunity for Improvement" OFI</textarea>
+                                        <textarea placeholder="" class="form-control" name="notes" id="notes" rows="5" readonly>This table is locked until you search for evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you could not obtain evidence to determine either please select "Not Sure" and continue to search for evidence.</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -344,8 +344,9 @@
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t3').prop('checked')){
-                $('#label-comments').text("Second time");
+                $('#label-comments').text("Opportunity For Improvement (OFI)");
                 $('#notes').attr("readonly", false);
+                $('#notes').text('');
             }
             if($('#a_t4').prop('checked')){
                 $('#label-comments').text("TBD");

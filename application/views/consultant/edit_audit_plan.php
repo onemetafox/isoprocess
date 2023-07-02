@@ -268,7 +268,7 @@
                                         <a type="button" class="btn btn-primary btn-sm" <?php if ($process->map_type == 0): ?> onclick = "check_map('<?=$process->sp_id?>')" <?php else: ?> onclick = "redirect_map(<?=$process->sp_id?>,<?=$process->map_type?>)" <?php endif; ?>>Edit</a>
                                     <?php endif; ?>
                                     <?php if ($process->status == 2): ?>
-                                        <a type="button" class="btn btn-primary btn-sm" <?php if ($process->map_type == 0): ?> onclick = "check_map('<?=$process->sp_id?>')" <?php else: ?> onclick = "redirect_map(<?=$process->sp_id?>,<?=$process->map_type?>)" <?php endif; ?>>Check</a>
+                                        <a type="button" class="btn btn-primary btn-sm" <?php if ($process->map_type == 0): ?> onclick = "check_map('<?=$process->sp_id?>')" <?php else: ?> onclick = "redirect_map(<?=$process->sp_id?>,<?=$process->map_type?>)" <?php endif; ?>>Checklist</a>
                                     <?php endif; ?>
                                 </td>
                             </tr>

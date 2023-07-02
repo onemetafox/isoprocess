@@ -1,3 +1,5 @@
 <?php $this->load->view('header');?>
-    <?= $setting->policy?>
+    <div class="container">
+        <?= $setting->policy?>
+    </div>
 <?php $this->load->view('footer');?>

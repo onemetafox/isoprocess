@@ -77,7 +77,8 @@ label {
 }
 
 .navbar-brand img {
-    width: 100%;
+    width: 45%;
+    margin-top: -18px;
 }
 
 .navbar-inverse {

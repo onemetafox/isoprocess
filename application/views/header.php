@@ -38,7 +38,7 @@
 						<a href="mailto:support@qualitycircleint.com"><i class="fas fa-envelope emailiconTop"></i>
 							support@qualitycircleint.com</a>
 						<a href="tel:19037818111"><img src="<?php echo base_url()?>assets/home/Images/united-states.png" class="emailiconTop">1-(430)272-2107</a>
-						<a href="tel:18769601111"><img src="<?php echo base_url()?>assets/home/Images/jamaica.png" class="emailiconTop"> 1-(430)272-2107</a>
+						<a href="tel:18769601111"><img src="<?php echo base_url()?>assets/home/Images/jamaica.png" class="emailiconTop">1-(876)926-2003</a>
 					</div>
 
 

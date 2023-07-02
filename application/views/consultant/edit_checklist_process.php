@@ -208,7 +208,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                 <div class="panel" style="min-height: 60px;">
                     <div style="min-height: 10px;height: 10%;"></div>
                     <div style="height: 80%;padding-left: 1%;padding-right: 1%;">
-                        <a type="button" class="btn btn-primary btn-sm" style="float: right;" onclick = "submit_checklist()">Submit CheckList</a>
+                        <!-- <a type="button" class="btn btn-primary btn-sm" style="float: right;" onclick = "submit_checklist()">Submit CheckList</a> -->
                         &nbsp;
                         <a data-toggle="modal" data-target="#modal_send_message" class="btn btn-primary btn-sm"><i class="icon-mail5"></i> Send Message</a>
                         <a type="button" class="btn btn-info btn-sm" href="<?php echo base_url(); ?>index.php/Consultant/show_process_message/<?=$process_id?>">
