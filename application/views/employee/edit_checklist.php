@@ -354,8 +354,9 @@
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t3').prop('checked')){
-                $('#label-comments').text("Second time");
+                $('#label-comments').text("Opportunity For Improvement (OFI)");
                 $('#notes').attr("readonly", false);
+                $('#notes').text('');
             }
             if($('#a_t4').prop('checked')){
                 $('#label-comments').text("TBD");
