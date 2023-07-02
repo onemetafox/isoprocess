@@ -148,18 +148,18 @@
 
 							</div>
 							<div class="table-responsive">
-								<div class="col-md-1 col-md-offset-11" >
+								<!-- <div class="col-md-1 col-md-offset-11" >
 									<button id="new_item" class="btn btn-primary" style="margin:20px 0">
 									Add New <i class="fa fa-plus"></i>
 									</button>
-								</div>
+								</div> -->
 							    <table class="table datatable-basic">
 							        <thead>
 							            <tr>
 							                <th>Description</th>
 							                <th class="col-sm-1">Tax</th>
 							                <th class="col-sm-1">Amount</th>
-							                <th class="col-sm-1">Action</th>
+							                <th class="col-sm-1"></th>
 							            </tr>
 							        </thead>
 							        <tbody>
@@ -185,9 +185,9 @@
 									                	<input type='number' class='form-control' name='amount[<?php echo $index?>]' min="0" onchange="add_amount(this)" value="<?php echo $item->amount?>" required>
 									                </td>
 									                <td>
-								                		<ul class="icons-list">
+								                		<!-- <ul class="icons-list">
 															<li class="text-danger-600" onclick="delete();"><a title="Remove"　href="#"><i class="icon-trash"></i></a></li>
-														</ul>
+														</ul> -->
 									                </td>
 									            </tr>
 							        	<?php $index++; }?>
@@ -298,32 +298,32 @@
 		            targets: [0,1,2,3]
 		        }],
             });
-            $('#new_item').click(function (e) {
-	            e.preventDefault();
-	            var added_index = oTable.data().length;
-	            var datas = new Array();
-	            datas[0] = "<input type='text' class='form-control' name='description["+added_index+"]' required>";
-	            datas[1] = "<div class='checkbox checkbox-switchery switchery-xs'>"+
-								"<label>"+
-									"<input type='checkbox' class='switchery' name='tax["+added_index+"]' onclick='tax_change()'>"+
-								"</label>"+
-							"</div>";
-	            datas[2] = "<input type='number' class='form-control' name='amount["+added_index+"]' onchange='add_amount()' value='0' required>";
-	            datas[3] = "<ul class='icons-list'>"+
-	            				"<li class='text-danger-600' onclick='delete();'>"+
-									"<a title='Remove'　href='#'><i class='icon-trash'></i></a></li>"+
-							"</ul>";
-	            oTable.row.add(datas);
-	            oTable.draw();
-			    if (Array.prototype.forEach) {
-			        var elems = Array.prototype.slice.call(document.querySelectorAll('.switchery'));
-			        elems.forEach(function(html) {
-			            var switchery = new Switchery(html);
-			        });
-		    	}
-        		$(".switch").bootstrapSwitch();
+            // $('#new_item').click(function (e) {
+	        //     e.preventDefault();
+	        //     var added_index = oTable.data().length;
+	        //     var datas = new Array();
+	        //     datas[0] = "<input type='text' class='form-control' name='description["+added_index+"]' required>";
+	        //     datas[1] = "<div class='checkbox checkbox-switchery switchery-xs'>"+
+			// 					"<label>"+
+			// 						"<input type='checkbox' class='switchery' name='tax["+added_index+"]' onclick='tax_change()'>"+
+			// 					"</label>"+
+			// 				"</div>";
+	        //     datas[2] = "<input type='number' class='form-control' name='amount["+added_index+"]' onchange='add_amount()' value='0' required>";
+	        //     datas[3] = "<ul class='icons-list'>"+
+	        //     				"<li class='text-danger-600' onclick='delete();'>"+
+			// 						"<a title='Remove'　href='#'><i class='icon-trash'></i></a></li>"+
+			// 				"</ul>";
+	        //     oTable.row.add(datas);
+	        //     oTable.draw();
+			//     if (Array.prototype.forEach) {
+			//         var elems = Array.prototype.slice.call(document.querySelectorAll('.switchery'));
+			//         elems.forEach(function(html) {
+			//             var switchery = new Switchery(html);
+			//         });
+		    // 	}
+        	// 	$(".switch").bootstrapSwitch();
 
-        	});
+        	// });
             
             $('.datatable-scroll-y').DataTable({
                 autoWidth: true,

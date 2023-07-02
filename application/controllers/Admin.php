@@ -1006,18 +1006,8 @@ class Admin extends BaseController//CI_Controller
 		if($admin_id){
 			$data['title'] = 'Create Invoice';
 			$data['super'] = $this->db->select('*')->get('admin')->row();
-			$admins = $this->db->select('*')->get('consultant')->result_array();
-			$admin_array = array();
-			// while (list($key,$val) = each($admins)) {
-			while (TRUE) {
-                $key = key($admins);
-                if($key === null)
-                    break;
-                $val = current($admins);
-				$admin_array[$val['consultant_id']] = $val;
-				next($admins);
-			}
-			$data['admins'] = $admin_array;
+			$data['admins'] = $this->consultant->getAll();
+			$data['plans'] = $this->plan->getAll();
 			$this->load->view('Admin/invoice/invoice_add',$data);
 		}else{
 			redirect('Welcome');
