@@ -40,7 +40,7 @@
             $num2 = 1;
             foreach($process_check_list as $check) {
                 $conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Comformity Table'")->result();
-                $opportunity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Second time'")->result();
+                $opportunity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Opportunity for Improvement'")->result();
                 $auditor = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->auditor'")->row();
                 $auditor_name = ($auditor == null) ? "" : $auditor->employee_name;
                 $owner = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->process_owner'")->row();

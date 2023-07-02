@@ -2573,7 +2573,7 @@ class Employee extends BaseController//CI_Controller
 			}else if ($audit_trail == '1'){
 				$status = "Non-Comformity Table";
 			}else if($audit_trail == '0'){
-				$status = "Second time";
+				$status = "Opportunity for Improvement";
 			}
 		}
 		$data = array(
