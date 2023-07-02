@@ -154,7 +154,7 @@
 							                <th>Description</th>
 							                <th class="col-sm-1">Tax</th>
 							                <th class="col-sm-1">Amount</th>
-							                <!-- <th class="col-sm-1">Action</th> -->
+							                <th class="col-sm-1"></th>
 							            </tr>
 							        </thead>
 							        <tbody>
@@ -172,11 +172,11 @@
 							                <td>
 							                	<input type='number' class='form-control' name='amount[0]' id="amount" min="0" onchange="add_amount(this)" value="0" required>
 							                </td>
-							                <!-- <td>
-						                		<ul class="icons-list">
+							                <td>
+						                		<!-- <ul class="icons-list">
 													<li class="text-danger-600" onclick="delete();"><a title="Remove" href="#"><i class="icon-trash"></i></a></li>
-												</ul>
-							                </td> -->
+												</ul> -->
+							                </td>
 							            </tr>
 							        </tbody>
 							    </table>

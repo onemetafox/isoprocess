@@ -1028,7 +1028,7 @@ class Admin extends BaseController//CI_Controller
 				'status' => 'pending',
 				'payment_type' => strtoupper('Manually')
 			];
-			$invoice_id = $this->invoice->save();
+			$invoice_id = $this->invoice->save($invoice_data);
 			if($invoice_id){
 				$item_data = array();
 				$tax = array();
@@ -1069,6 +1069,8 @@ class Admin extends BaseController//CI_Controller
 	public function invoice_paid($id = NULL){
 		$admin_id = $this->session->userdata('admin_id');
 		if($admin_id){
+			$invoice = $this->invoice->getOne($id);
+			$this->consultant->updateOne($invoice->admin_id, array("is_active"=>1));
 			$this->invoice->save(array('status'=>'paid', 'id'=>$id));
 			redirect('admin/invoice');
 		}else{
