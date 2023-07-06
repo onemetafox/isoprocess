@@ -19,7 +19,8 @@ class BaseModel extends CI_Model {
     }
 
     public function deleteOne($id){
-        
+        $this->db->where($this->private_key, $id);
+        return $this->db->delete('plan');
     }
 
     public function updateOne($id, $data){
