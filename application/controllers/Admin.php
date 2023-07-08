@@ -609,8 +609,7 @@ class Admin extends BaseController//CI_Controller
 		$admin_id = $this->session->userdata('admin_id');
 		if ($admin_id) {
 			$data['title'] = "Email Template";
-			$sql = "SELECT * FROM subscription_email_template ORDER BY date_time DESC";
-			$data['Email_template'] = $this->db->query($sql)->result();
+			$data['emails'] = $this->emails->getAll();
 			$this->load->view('Admin/Email_template', $data);
 		} else {
 			redirect('Welcome');
@@ -649,12 +648,10 @@ class Admin extends BaseController//CI_Controller
  /*************Edit Email Template ***********************/
     public function edit_email_template()
     {
-        $pa_id = $_POST['pa_id'];
+        $id = $this->input->post('id');
         $admin_id = $this->session->userdata('admin_id');
         if ($admin_id) {
-            $sql = "SELECT * FROM subscription_email_template WHERE id ='$pa_id'";
-            $data['edit_single_temp'] = $this->db->query($sql)->result();
-            //$this->load->view('employee/select_process', $data);
+            $data = $this->emails->getOne($id);
             echo json_encode($data);
         } else {
             redirect('Welcome');
