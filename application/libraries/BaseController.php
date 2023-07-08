@@ -25,49 +25,6 @@ class BaseController extends CI_Controller {
     {
         parent::__construct();
         $this->settings = $this->db->query("select * from `default_setting` where `id`='1'")->row();
-        //start get company from uri
-//		$prefix = $this->uri->segment(1);
-//		$company_url = $this->uri->segment(2);
-//		if($prefix == "company" && isset($company_url)){
-//			$this->company = array ();
-//			$this->load->model('Company_model');
-//			$result = $this->Company_model->getByUrl($company_url);
-//			if($result){
-//				$result['company_url'] = 'company/'.$result['url'];
-//				$this->company = $result;
-//			}else{
-//				redirect('home');
-//			}
-//		}
-//		//end get company from uri
-//        $isLoggedIn = $this->session->userdata('isLoggedIn');
-//
-//        if(!isset($isLoggedIn) || $isLoggedIn != TRUE)
-//        {
-//
-//        }
-//        else
-//        {
-//
-//            $this->load->model('User_model');
-//            $userid = $this->session->userdata('userId');
-//            $this->User_model->update(array('last_login' => date("Y-m-d H:i:s")), 'id='.$userid);
-//            $user = $this->User_model->getRow('id='.$userid);
-//            $lang = $user->language;
-//        }
-//
-//		if (!$lang) $lang = DEFAULT_LANG;
-//
-//		$where[lang_code] = $lang;
-//		$this->load->model('Translate_model');
-//		$lang_data = $this->Translate_model->getLanguageList($where)[data][0];
-//		$field_term = 'term';	$field_lang_user = $lang_data['field_name'];
-//		$data_rows = $this->Translate_model->getTermList($field_term, $field_lang_user);
-//		$this->term = array();
-//		foreach($data_rows[data] as $key => $value){
-//			$this->term[$value[$field_term]] = $value[$field_lang_user];
-//		}
-
     }
 	public function response($data = NULL) {
 		$this->output->set_status_header ( 200 )->set_content_type ( 'application/json', 'utf-8' )->set_output ( json_encode ( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) )->_display ();
@@ -408,16 +365,11 @@ class BaseController extends CI_Controller {
     }
 
     public function getEmailTemp($action){
-    	$this->load->model('Settings_model');
-    	$email_temp = $this->Settings_model->getEmailTemplate(array('action'=>$action));
-    	return $email_temp;
+    	$email_temp = $this->emails->getAll(array('action'=>$action));
+    	return $email_temp[0];
     }
 #--------------------Email for expired subscription-------------------------------------
-public function getEmailTemp_1($template_name){
-        $this->load->model('Settings_model');
-        $email_temp = $this->Settings_model->getEmailTemplate_1(array('template_name'=>$template_name));
-        return $email_temp;
-    }
+
 #-------------------------End---------------------------------
     public function getEmailAddress($user_id){
         $this->load->model('User_model');

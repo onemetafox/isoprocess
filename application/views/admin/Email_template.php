@@ -105,21 +105,21 @@
 			</div>
 		</div>
 	</div>
-	<div id="email_modal" class="modal modal-lg fade">
-		<div class="modal-dialog">
+	<div id="email_modal" class="modal fade">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h6 class="modal-title"><i class="icon-home2 position-right"></i> Edit Email Template</h6>
 				</div>
 				<div class="modal-body">
-					<form action="<?php echo base_url();?>index.php/Admin/update_email_template"  method="post">
+					<form method="post">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group has-feedback">
 									<label>Template Name: </label>
-									<input type="text" placeholder="Template Name" required  class="form-control" name="action" readonly="readonly">
-									<input type="hidden" placeholder="Process Name" class="form-control" name="id" value="" required>
+									<input type="text" placeholder="Template Name" required  class="form-control" name="action">
+									<input type="hidden" placeholder="Process Name" class="form-control" name="id" required>
 									<div class="form-control-feedback">
 										<i class="icon-list text-muted"></i>
 									</div>
@@ -158,20 +158,43 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		$(document).ready(function () {
+			$("form").submit(function (event) {
+				var formData = {
+					message: CKEDITOR.instances['message'].getData(),
+					id: $("input[name='id']").val(),
+					action: $("input[name='action']").val(),
+					subject: $("input[name='subject']").val(),
+				};
+
+				$.ajax({
+					type: "POST",
+					url: "<?= base_url()?>index.php/Admin/saveEmail",
+					data: formData,
+					dataType: "json",
+					encode: true,
+				}).done(function (data) {
+					if(data.success){
+						toastr.success(data.msg);
+					}else{
+						toastr.error(data.msg);
+					}
+					$("#email_modal").modal('hide');
+				});
+				event.preventDefault();
+			});
+		});
 		function editEmail(id) {
 			$.ajax({
 				type: "POST",
-				url: "<?php echo base_url(); ?>index.php/Admin/edit_email_template",
+				url: "<?php echo base_url(); ?>index.php/Admin/getEmail",
 				data: {'id': id},
-				success: function (res) {
-					data = JSON.parse(res);
+				success: function (data) {
 					$('input[name="action"]').val(data.action);
 					$('input[name="subject"]').val(data.subject);
 					$('input[name=id]').val(data.id);
 					CKEDITOR.instances['message'].setData(data.message);
 					$("#email_modal").modal('show');
-					// var tinyedit = datas.edit_single_temp[0].description;
-					// tinyMCE.activeEditor.setContent(tinyedit);
 				}
 			});
 		}
