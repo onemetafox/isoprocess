@@ -41,7 +41,7 @@ class BaseModel extends CI_Model {
     }
 
     public function save($data){
-        if(isset($data[$this->private_key])){
+        if($data[$this->private_key]){
             return $this->update($data);
         }else{
             return $this->insert($data);

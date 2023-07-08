@@ -600,8 +600,6 @@ class Admin extends BaseController//CI_Controller
 			redirect('Welcome');
 		}
 	}
-	/************************End*******************************/
-	/*************For last login details***********************/
 	public function Email_template()
 	{
 		$data['dd5'] = 'active';
@@ -609,103 +607,41 @@ class Admin extends BaseController//CI_Controller
 		$admin_id = $this->session->userdata('admin_id');
 		if ($admin_id) {
 			$data['title'] = "Email Template";
-			$sql = "SELECT * FROM subscription_email_template ORDER BY date_time DESC";
-			$data['Email_template'] = $this->db->query($sql)->result();
+			$data['emails'] = $this->emails->getAll();
 			$this->load->view('Admin/Email_template', $data);
 		} else {
 			redirect('Welcome');
 		}
 	}
-	/************************End*******************************/
-	/*************For add email template***********************/
-	public function Add_email_template()
+
+	public function saveEmail()
 	{
 		$admin_id = $this->session->userdata('admin_id');
 		if ($admin_id) {
-			$template_name = $this->input->post('template_name');
-			$subject       = $this->input->post('subject');
-			$desc          = $this->input->post('desc');
-			$created_at    = date('Y-m-d H:i:s');
-
-			$data = array(
-				'template_name' => $template_name,
-				'subject' => $subject,
-				'description' => $desc,
-				'date_time' => $created_at
-			);
-			$done = $this->db->insert('subscription_email_template', $data);
+			$data = $this->input->post();
+			$done = $this->emails->save($data);
 			if ($done) {
-				$this->session->set_flashdata('message', 'success');
-				redirect('Admin/Email_template');
+				$result = array('success'=>true, "msg"=>"Successfully saved!");
 			} else {
-				$this->session->set_flashdata('message', 'failed');
-				redirect('Admin/Email_template');
+				$result = array('success'=>false, "msg"=>"Database error!");
 			}
 		} else {
-			redirect('Welcome');
+			$result = array("success" => false, "msg"=>"Authentication failed!");
 		}
+		return $this->response($result);
 	}
-/*****************************End************************************/
- /*************Edit Email Template ***********************/
-    public function edit_email_template()
+
+	public function getEmail()
     {
-        $pa_id = $_POST['pa_id'];
+        $id = $this->input->post('id');
         $admin_id = $this->session->userdata('admin_id');
         if ($admin_id) {
-            $sql = "SELECT * FROM subscription_email_template WHERE id ='$pa_id'";
-            $data['edit_single_temp'] = $this->db->query($sql)->result();
-            //$this->load->view('employee/select_process', $data);
-            echo json_encode($data);
+            $data = $this->emails->getOne($id);
+            return $this->response($data);
         } else {
             redirect('Welcome');
         }
     }
-    /************************End*******************************/
-/************************Update Email Template********************************/
-   public function update_email_template()
-    {
-    	$admin_id = $this->session->userdata('admin_id');
-        $template_name    = $this->input->post('template_name');
-        $subject          = $this->input->post('subject');
-        $desc             = $this->input->post('desc');
-        $email__id             = $this->input->post('email__id');
-        $up = array(
-            'template_name' => $template_name,
-            'subject' => $subject,
-            'description' => $desc,
-        );
-        if ($admin_id) {
-            $this->db->where('id', $email__id);
-            $done = $this->db->update('subscription_email_template', $up);
-            if ($done) {
-                $this->session->set_flashdata('message', 'update_success');
-                redirect('Admin/Email_template'.$pro_id);
-            } 
-        } else {
-            redirect('Welcome');
-        }
-    }
-
-/************************END********************************/
-/**************************Delete Process****************************/
-     public function Del_email_template(){
-       $admin_id = $this->session->userdata('admin_id');
-       $email_id    = $this->input->post('email_id_del');
-        if ($admin_id) {
-            $this->db->where('id', $email_id);
-            $done = $this->db->delete('subscription_email_template');
-            if ($done) {
-                    $this->session->set_flashdata('message', 'success_del');
-                    redirect('Admin/Email_template');
-            } else {
-                $this->session->set_flashdata('message', 'failed');
-                redirect('Admin/Email_template');
-            }
-        } else {
-            redirect('Welcome');
-        }
-    }
-/***************************END**********************************/
 #--------------------------Send Email for expired subscription---------------
 
      public function sendEmail_expired(){
@@ -728,133 +664,15 @@ class Admin extends BaseController//CI_Controller
 		          );
 		     	}
 		     	
-		     	}
-		     
-				/*$finalArray_1 = Array(
-				    0 => Array
-				        (
-				            'username' => 'oglave',
-				            'days' => '28',
-				            'expired' => '2022-08-07',
-				            'email' => 'oglave_13@yahoo.com'
-				        ),
-
-				    1 => Array
-				        (
-				            'username' => 'oglave',
-				            'days' => '27',
-				            'expired' => '2022-09-31',
-				            'email' => 'oglave_13@yahoo.com'
-				        ),
-				   
-				    
-				);*/
-
-              /*  echo "<pre>";
-		     	print_r($finalArray_1);
-		     	echo "</pre>";
-
-		     	echo "<pre>";
-		     	print_r($finalArray);
-		     	echo "</pre>";
-		     	die("test");*/
-			    //echo in_array_r("28", $finalArray) ? 'found' : 'not found';
-				//$this->load->view('Admin/consultant_list', $data);
-				/*	30,23,16,9,7,6,5,4,3,2,1*/
-				/*foreach ($finalArray_1 as $key => $value) {
-					$days = $value['expired'];
-					if($days > $currentdate){
-					$startTimeStamp_1 = strtotime($value['expired']);
-					$endTimeStamp = strtotime($currentdate);
-					$timeDiff = abs($endTimeStamp - $startTimeStamp_1);
-					$days = $timeDiff/86400;  // 86400 seconds in one day
-					//echo "____";
-					if($days == "3"){
-					$email_1 = "solutions.provider.dev@gmail.com";
-					$email_2 = "oglave_13@yahoo.com";
-					$email = $value['email'];
-					$username = $value['username'];
-					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
-					$old = ["{CompanyAdmin}", "{plandate}"];
-	                $new   = [$username, $days];
-					// Replacing part of string
-					$email_temp['message'] = str_replace($old,$new,$email_temp['description']);
-					$this->sendemail_1($email,$email_1,$email_2,$email_temp['subject'], $email_temp['message'], $email_temp['subject']);
-					    echo "Email sent Successfully 3";
-					 } elseif ($days == "2") {
-
-					$email_1 = "solutions.provider.dev@gmail.com";
-					$email_2 = "oglave_13@yahoo.com";
-					$email = $value['email'];
-					$username = $value['username'];
-					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
-					$old = ["{CompanyAdmin}", "{plandate}"];
-	                $new   = [$username, $days];
-					// Replacing part of string
-					$email_temp['message'] = str_replace($old,$new,$email_temp['description']);
-					$this->sendemail_1($email,$email_1,$email_2,$email_temp['subject'], $email_temp['message'], $email_temp['subject']);
-					    echo "Email sent Successfully 2";
-					 } 
-					 elseif ($days == "1") {
-
-					$email_1 = "solutions.provider.dev@gmail.com";
-					$email_2 = "oglave_13@yahoo.com";
-					$email = $value['email'];
-					$username = $value['username'];
-					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
-					$old = ["{CompanyAdmin}", "{plandate}"];
-	                $new   = [$username, $days];
-					// Replacing part of string
-					$email_temp['message'] = str_replace($old,$new,$email_temp['description']);
-					$this->sendemail_1($email,$email_1,$email_2,$email_temp['subject'], $email_temp['message'], $email_temp['subject']);
-					    echo "Email sent Successfully 1";
-					} 
-					elseif ($days == "0") {
-					$email_1 = "solutions.provider.dev@gmail.com";
-					$email_2 = "oglave_13@yahoo.com";
-					$email = $value['email'];
-					$username = $value['username'];
-					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
-					$old = ["{CompanyAdmin}", "{plandate}"];
-	                $new   = [$username, $days];
-					// Replacing part of string
-					$email_temp['message'] = str_replace($old,$new,$email_temp['description']);
-					$this->sendemail_1($email,$email_1,$email_2,$email_temp['subject'], $email_temp['message'], $email_temp['subject']);
-					    echo "Email sent Successfully 0";
-					}
-
-
-					}elseif($days < $currentdate){
-
-						$email_1    = "solutions.provider.dev@gmail.com";
-						$email_2    = "oglave_13@yahoo.com";
-						$email      = $value['email'];
-						$username   = $value['username'];
-						$expired    = $value['expired'];
-		                $email_temp = $this->getEmailTemp_1('Email for already expired subscription');
-						$old        = ["{CompanyAdmin}"];
-		                $new        = [$username];
-						//Replacing part of string
-						$email_temp['message'] = str_replace($old,$new,$email_temp['description']);
-						$this->sendemail_1($email,$email_1,$email_2,$email_temp['subject'], $email_temp['message'], $email_temp['subject']);
-						   echo "Email sent Successfully 3";
-
-					}*/
-
-
+			}
 			foreach ($finalArray as $key => $value) {
 				$days = $value['expired'];
 				if($days > $currentdate){
-
 				  if($days == "30"){
 					$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -865,7 +683,7 @@ class Admin extends BaseController//CI_Controller
 					 	$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -876,7 +694,7 @@ class Admin extends BaseController//CI_Controller
 					 	$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -887,7 +705,7 @@ class Admin extends BaseController//CI_Controller
 					 	$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -897,7 +715,7 @@ class Admin extends BaseController//CI_Controller
 					 	$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -908,7 +726,7 @@ class Admin extends BaseController//CI_Controller
 					 	$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -919,7 +737,7 @@ class Admin extends BaseController//CI_Controller
 					 	$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -930,7 +748,7 @@ class Admin extends BaseController//CI_Controller
 					$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -941,7 +759,7 @@ class Admin extends BaseController//CI_Controller
 					$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -952,7 +770,7 @@ class Admin extends BaseController//CI_Controller
 					$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -963,7 +781,7 @@ class Admin extends BaseController//CI_Controller
 					 	$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -973,7 +791,7 @@ class Admin extends BaseController//CI_Controller
 					$email = $value['email'];
 					$username = $value['username'];
 					$expired = $value['expired'];
-	                $email_temp = $this->getEmailTemp_1('Email for expired subscription');
+	                $email_temp = $this->getEmailTemp('Email for expired subscription');
 					$old = ["{CompanyAdmin}", "{plandate}"];
 	                $new   = [$username, $days];
 					// Replacing part of string
@@ -988,7 +806,7 @@ class Admin extends BaseController//CI_Controller
 						$email      = $value['email'];
 						$username   = $value['username'];
 						$expired    = $value['expired'];
-		                $email_temp = $this->getEmailTemp_1('Email for already expired subscription');
+		                $email_temp = $this->getEmailTemp('Email for already expired subscription');
 						$old        = ["{CompanyAdmin}"];
 		                $new        = [$username];
 						//Replacing part of string
