@@ -200,6 +200,7 @@
 		}
 		function addEmail(){
 			CKEDITOR.instances['message'].setData('');
+			$('input[name=id]').val('');
 			$("form")[0].reset();
 			$("#email_modal").modal('show');
 		}
