@@ -380,92 +380,43 @@ class BaseController extends CI_Controller {
         return $this->User_model->getSuperEmailAddress();
     }
 
-
-//$mail->AddCC($email_1);
     public function sendemail($to , $toname , $content , $title, $type = 0){
         require_once(APPPATH . "third_party/phpmailer/class.phpmailer.php");
 		require_once(APPPATH . "third_party/phpmailer/language/phpmailer.lang-zh.php");
-//		require_once(APPPATH . "third_party/PHPMailer-6.0.7/src/PHPMailer.php");
-//		require_once(APPPATH . "third_party/PHPMailer-6.0.7/src/SMTP.php");
-//		require_once(APPPATH . "third_party/PHPMailer-6.0.7/src/Exception.php");
-//		require_once(APPPATH . "third_party/PHPMailer-6.0.7/src/OAuth.php");
-//		require_once(APPPATH . "third_party/PHPMailer-6.0.7/src/POP3.php");
 
         $mail = new PHPMailer;//\PHPMailer\PHPMailer();
-
-        // Tell PHPMailer to use SMTP
         $mail->isSMTP();
 
-//		$mail->SMTPOptions = array(
-//				'ssl' => array(
-//						'verify_peer' => false,
-//						'verify_peer_name' => false,
-//						'allow_self_signed' => true
-//				)
-//		);
+	    $mail->Host = 'smtp.elasticemail.com';
+	    $mail->setFrom('support@isoprocessbasedauditexperts.com', 'Quality Circle');
+        $mail->Username = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB933BE6A5D7E0C1242BD91B14615FC180285AA';
+        $mail->Password = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB933BE6A5D7E0C1242BD91B14615FC180285AA';
+	    $mail->Port = 2525;
+        
+        // $mail->isSMTP();
+        // $mail->Host = 'localhost';
+        // $mail->SMTPAuth = true;
+        // $mail->Username = 'onemetafox';
+        // $mail->Password = 'KMSkms19940128';
+    
+        // $mail->SMTPSecure = 'tls';
+        // $mail->Port = 25;
+        // $mail->imapHost = '127.0.0.1';
 
-        // Replace sender@example.com with your "From" address.
-        // This address must be verified with Amazon SES.
-        //$mail->setFrom('support@gosmartacademy.com', 'gosmartacademy');
-		//$mail->setFrom('support@isogapauditsoftware.com', 'isogapauditsoftware');
-		//$mail->setFrom('support@fsscverificationsoftware.com', 'fsscverification');
-	$mail->setFrom('support@isoprocessbasedauditexperts.com', 'Quality Circle');
 
-        // Replace recipient@example.com with a "To" address. If your account
-        // is still in the sandbox, this address must be verified.
-        // Also note that you can include several addAddress() lines to send
-        // email to multiple recipients.
-        $mail->addAddress($to, $toname);
-
-        // Replace smtp_username with your Amazon SES SMTP user name.
-        //$mail->Username = 'AKIAIXRRD3HLZ4CW3DWA';
-		//$mail->Username = 'support@isogapauditsoftware.com';
-		//$mail->Username = 'support@fsscverificationsoftware.com';
-$mail->Username = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB933BE6A5D7E0C1242BD91B14615FC180285AA';
-
-        // Replace smtp_password with your Amazon SES SMTP password.
-        //$mail->Password = 'BE6SzEN9R0dYTI2sjTf33YslSfTNdAbYkpeKUJS3/cMu';
-		//$mail->Password = 'Chinamei1111!';
-		//$mail->Password = 'Verification1!';
-$mail->Password = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB933BE6A5D7E0C1242BD91B14615FC180285AA';
-
-        // Specify a configuration set. If you do not want to use a configuration
-        // set, comment or remove the next line.
-        //$mail->addCustomHeader('X-SES-CONFIGURATION-SET', 'ConfigSet');
-
-        // If you're using Amazon SES in a region other than US West (Oregon),
-        // replace email-smtp.us-west-2.amazonaws.com with the Amazon SES SMTP
-        // endpoint in the appropriate region.
-        //$mail->Host = 'email-smtp.us-east-1.amazonaws.com';
-		//$mail->Host = 'mail.fsscverificationsoftware.com';
-//		$mail->Host = 'secure.emailsrvr.com';
-	$mail->Host = 'smtp.elasticemail.com';
-
-        // The subject line of the email
         $mail->Subject =$title;
-
-        // The HTML-formatted body of the email
         $mail->Body = $content;
-
-        // Tells PHPMailer to use SMTP authentication
         $mail->SMTPAuth = true;
-
-        // Enable TLS encryption over port 587
         $mail->SMTPSecure = 'tls';
-        //$mail->Port = 587;
-	$mail->Port = 2525;
 
 
-        // Tells PHPMailer to send HTML-formatted email
         $mail->isHTML(true);
-
-        // The alternative email body; this is only displayed when a recipient
-        // opens the email in a non-HTML email client. The \r\n represents a
-        // line break.
+        
+        $mail->addAddress($to, $toname);
+       
         $mail->AltBody = "Email Test\r\nThis email was sent through the 
             Amazon SES SMTP interface using the PHPMailer class.";
 
-//		$mail->AddEmbeddedImage('assets/home/Images/logo-top_message.png', 'logo');
 		$mail->AddEmbeddedImage('assets/home/Images/images/logo_f.png', 'logo');
 		if($type == 0){
 			$mail->AddEmbeddedImage('assets/home/Images/images/bg_1.jpg', 'bg');
@@ -488,105 +439,33 @@ $mail->Password = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB93
 		}
 
 		return $mail->send();
-
-        // if(!$mail->send()) {
-        //     echo "Email not sent. " , $mail->ErrorInfo , PHP_EOL;
-        // } else {
-
-        //     echo "Email sent!" , PHP_EOL;
-        // }
-
-//		$emailto = $to;
-//		$toname = 'TO NAME';
-//		$emailfrom = 'support@isogapauditsoftware.com';
-//		$fromname = 'FROM NAME';
-//		$subject = $title;
-//		$messagebody = $content;
-//		$headers =
-//				'Return-Path: ' . $emailfrom . "\r\n" .
-//				'From: ' . $fromname . ' <' . $emailfrom . '>' . "\r\n" .
-//				'X-Priority: 3' . "\r\n" .
-//				'X-Mailer: PHP ' . phpversion() .  "\r\n" .
-//				'Reply-To: ' . $toname . ' <' . $emailfrom . '>' . "\r\n" .
-//				'MIME-Version: 1.0' . "\r\n" .
-//				'Content-Transfer-Encoding: 8bit' . "\r\n" .
-//				'Content-Type: text/plain; charset=UTF-8' . "\r\n";
-//		$params = '-f ' . $emailfrom;
-//		$test = mail($emailto, $subject, $messagebody, $headers, $params);
-//		if($test)
-//			die("sent");
-		// $test should be TRUE if the mail function is called correctly
-
     }
 
 
-       public function sendemail_1($to , $toname , $content , $title, $type = 0){
+    public function sendemail_1($to , $toname , $content , $title, $type = 0){
         require_once(APPPATH . "third_party/phpmailer/class.phpmailer.php");
         require_once(APPPATH . "third_party/phpmailer/language/phpmailer.lang-zh.php");
         $mail = new PHPMailer;//\PHPMailer\PHPMailer();
 
-        // Tell PHPMailer to use SMTP
         $mail->isSMTP();
 
-    $mail->setFrom('support@isoprocessbasedauditexperts.com', 'Process Audit Software');
-
-        // Replace recipient@example.com with a "To" address. If your account
-        // is still in the sandbox, this address must be verified.
-        // Also note that you can include several addAddress() lines to send
-        // email to multiple recipients.
+        $mail->setFrom('support@isoprocessbasedauditexperts.com', 'Process Audit Software');
         $mail->addAddress($to, $toname);
-       // $mail->AddCC($email_1);
-        //$mail->AddCC($email_2);
+       
+        $mail->Username = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB933BE6A5D7E0C1242BD91B14615FC180285AA';
+        $mail->Password = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB933BE6A5D7E0C1242BD91B14615FC180285AA';
 
-        // Replace smtp_username with your Amazon SES SMTP user name.
-        //$mail->Username = 'AKIAIXRRD3HLZ4CW3DWA';
-        //$mail->Username = 'support@isogapauditsoftware.com';
-        //$mail->Username = 'support@fsscverificationsoftware.com';
-$mail->Username = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB933BE6A5D7E0C1242BD91B14615FC180285AA';
-
-        // Replace smtp_password with your Amazon SES SMTP password.
-        //$mail->Password = 'BE6SzEN9R0dYTI2sjTf33YslSfTNdAbYkpeKUJS3/cMu';
-        //$mail->Password = 'Chinamei1111!';
-        //$mail->Password = 'Verification1!';
-$mail->Password = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB933BE6A5D7E0C1242BD91B14615FC180285AA';
-
-        // Specify a configuration set. If you do not want to use a configuration
-        // set, comment or remove the next line.
-        //$mail->addCustomHeader('X-SES-CONFIGURATION-SET', 'ConfigSet');
-
-        // If you're using Amazon SES in a region other than US West (Oregon),
-        // replace email-smtp.us-west-2.amazonaws.com with the Amazon SES SMTP
-        // endpoint in the appropriate region.
-        //$mail->Host = 'email-smtp.us-east-1.amazonaws.com';
-        //$mail->Host = 'mail.fsscverificationsoftware.com';
-//      $mail->Host = 'secure.emailsrvr.com';
-    $mail->Host = 'smtp.elasticemail.com';
-
-        // The subject line of the email
+        $mail->Host = 'smtp.elasticemail.com';
         $mail->Subject =$title;
-
-        // The HTML-formatted body of the email
         $mail->Body = $content;
-
-        // Tells PHPMailer to use SMTP authentication
         $mail->SMTPAuth = true;
-
-        // Enable TLS encryption over port 587
         $mail->SMTPSecure = 'tls';
-        //$mail->Port = 587;
-    $mail->Port = 2525;
+        $mail->Port = 2525;
 
-
-        // Tells PHPMailer to send HTML-formatted email
         $mail->isHTML(true);
-
-        // The alternative email body; this is only displayed when a recipient
-        // opens the email in a non-HTML email client. The \r\n represents a
-        // line break.
         $mail->AltBody = "Email Test\r\nThis email was sent through the 
             Amazon SES SMTP interface using the PHPMailer class.";
 
-//      $mail->AddEmbeddedImage('assets/home/Images/logo-top_message.png', 'logo');
         $mail->AddEmbeddedImage('assets/home/Images/images/logo_f.png', 'logo');
         if($type == 0){
             $mail->AddEmbeddedImage('assets/home/Images/images/bg_1.jpg', 'bg');
@@ -607,7 +486,6 @@ $mail->Password = 'E312EFED1C72E1E8787D83377C2BD089D00124E54ACB7A7872CE10985AB93
             $mail->AddEmbeddedImage('assets/home/Images/images/01-bg-5.jpg', 'bg');
             $mail->AddEmbeddedImage('assets/home/Images/images/work-7.jpg', 'work-7');
         }
-
         return $mail->send();
     }
 }

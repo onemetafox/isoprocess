@@ -826,6 +826,7 @@ class Admin extends BaseController//CI_Controller
 			$data['super'] = $this->db->select('*')->get('admin')->row();
 			$data['admins'] = $this->consultant->getAll();
 			$data['plans'] = $this->plan->getAll();
+
 			$this->load->view('Admin/invoice/invoice_add',$data);
 		}else{
 			redirect('Welcome');
