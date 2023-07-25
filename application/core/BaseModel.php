@@ -12,6 +12,13 @@ class BaseModel extends CI_Model {
             $this->db->where($key, $value);
         }
     }
+    public function selectOne ($filters){
+        if($filters)
+            $this->where($filters);
+        $this->db->select($this->table_name.".*");
+        $data = $this->db->get($this->table_name)->result_array();
+        return $data[0];
+    }
     public function getOne($id){
         $this->db->where($this->private_key, $id);
         $data = $this->db->get($this->table_name)->row();

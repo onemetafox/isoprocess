@@ -1155,24 +1155,24 @@ class Consultant extends BaseController //CI_Controller
                 }
                 else {
                     $data['is_brief'] = FALSE;
-                    while($data['audit_brief_array'] == null && $log_id > 1){
-                        $log_id -= 1;
-                        $this->db->where('audit_id', $log_id);
-                        $data['audit_brief_array'] = $this->db->get('audit_brief')->row();
-                        if($data['audit_brief_array'] != null){
-                            $audit_id = $data['audit_brief_array']->audit_id;
-                            $sql = "SELECT type.company_id from type_of_audit type, audit_list audit, audit_log_list log
-                            WHERE type.type_id = audit.audit_type and log.audit_id = audit.pa_id and log.log_id = '$audit_id'";
-                          //  $company_id = $this->db->query($sql)->row()->company_id;
-                            $company_id = $this->db->query($sql)->row('company_id');
-                            if($company_id == $consultant_id){
-                                $data['log_id'] = $log_id;
-                                $data['is_brief'] = TRUE;
-                            }
-                            else
-                                $data['audit_brief_array'] = null;
-                        }
-                    }
+                    // while($data['audit_brief_array'] == null && $log_id > 1){
+                    //     $log_id -= 1;
+                    //     $this->db->where('audit_id', $log_id);
+                    //     $data['audit_brief_array'] = $this->db->get('audit_brief')->row();
+                    //     if($data['audit_brief_array'] != null){
+                    //         $audit_id = $data['audit_brief_array']->audit_id;
+                    //         $sql = "SELECT type.company_id from type_of_audit type, audit_list audit, audit_log_list log
+                    //         WHERE type.type_id = audit.audit_type and log.audit_id = audit.pa_id and log.log_id = '$audit_id'";
+                    //       //  $company_id = $this->db->query($sql)->row()->company_id;
+                    //         $company_id = $this->db->query($sql)->row('company_id');
+                    //         if($company_id == $consultant_id){
+                    //             $data['log_id'] = $log_id;
+                    //             $data['is_brief'] = TRUE;
+                    //         }
+                    //         else
+                    //             $data['audit_brief_array'] = null;
+                    //     }
+                    // }
                 }
                 $this->load->view('consultant/audit_brief', $data);
             }
