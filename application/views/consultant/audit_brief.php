@@ -403,13 +403,14 @@
             singleDatePicker: true,
             minDate:new Date(),
             locale: {
-                format: 'YYYY-MM-DD'
+                format: 'MM/DD/YYYY'
             }
         });
         $('.daterange-single1').daterangepicker({ 
             singleDatePicker: true,
+            minDate:new Date(),
             locale: {
-                format: 'YYYY-MM-DD'
+                format: 'MM/DD/YYYY'
             }
         });
         var schedule = "<?= ($is_brief=='1') ? $audit_brief_array->date_schedule : '' ?>";

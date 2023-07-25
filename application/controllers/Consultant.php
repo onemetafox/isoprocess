@@ -1161,24 +1161,24 @@ class Consultant extends BaseController //CI_Controller
                 }
                 else {
                     $data['is_brief'] = FALSE;
-                    // while($data['audit_brief_array'] == null && $log_id > 1){
-                    //     $log_id -= 1;
-                    //     $this->db->where('audit_id', $log_id);
-                    //     $data['audit_brief_array'] = $this->db->get('audit_brief')->row();
-                    //     if($data['audit_brief_array'] != null){
-                    //         $audit_id = $data['audit_brief_array']->audit_id;
-                    //         $sql = "SELECT type.company_id from type_of_audit type, audit_list audit, audit_log_list log
-                    //         WHERE type.type_id = audit.audit_type and log.audit_id = audit.pa_id and log.log_id = '$audit_id'";
-                    //       //  $company_id = $this->db->query($sql)->row()->company_id;
-                    //         $company_id = $this->db->query($sql)->row('company_id');
-                    //         if($company_id == $consultant_id){
-                    //             $data['log_id'] = $log_id;
-                    //             $data['is_brief'] = TRUE;
-                    //         }
-                    //         else
-                    //             $data['audit_brief_array'] = null;
-                    //     }
-                    // }
+                    while($data['audit_brief_array'] == null && $log_id > 1){
+                        $log_id -= 1;
+                        $this->db->where('audit_id', $log_id);
+                        $data['audit_brief_array'] = $this->db->get('audit_brief')->row();
+                        if($data['audit_brief_array'] != null){
+                            $audit_id = $data['audit_brief_array']->audit_id;
+                            $sql = "SELECT type.company_id from type_of_audit type, audit_list audit, audit_log_list log
+                            WHERE type.type_id = audit.audit_type and log.audit_id = audit.pa_id and log.log_id = '$audit_id'";
+                          //  $company_id = $this->db->query($sql)->row()->company_id;
+                            $company_id = $this->db->query($sql)->row('company_id');
+                            if($company_id == $consultant_id){
+                                $data['log_id'] = $log_id;
+                                $data['is_brief'] = TRUE;
+                            }
+                            else
+                                $data['audit_brief_array'] = null;
+                        }
+                    }
                 }
                 $this->load->view('consultant/audit_brief', $data);
             }
@@ -1274,7 +1274,17 @@ class Consultant extends BaseController //CI_Controller
         $date_schedule = $this->input->post("date_schedule");
         $check_audit_list = $this->input->post("check_audit_list");
         $check_owner_list = $this->input->post("check_owner_list");
-         $summary = $this->input->post("summary");
+        
+        $start_date = $this->input->post("start_date");
+        $temp = strtotime($start_date);
+        $start_date = date('Y-m-d', $temp);
+
+        $end_date = $this->input->post("end_date");
+        $temp = strtotime($end_date);
+        $end_date = date('Y-m-d', $temp);
+
+        $date_schedule = $start_date . " - " . $end_date;
+        $summary = $this->input->post("summary");
         if ($consultant_id) {
             $data['title']  = 'Audit Plan';
             $data['pa_id'] = $pa_id;
@@ -1291,8 +1301,8 @@ class Consultant extends BaseController //CI_Controller
                     'criteria' => $criteria,
                     'objectives' => $objectives,
                     'date_schedule' => $date_schedule,
-                    'start_date' => date('Y-m-d', strtotime( trim(explode('-', $date_schedule)[0]) )),
-                    'end_date' => date('Y-m-d', strtotime( trim(explode('-', $date_schedule)[1]) )),
+                    'start_date' => $start_date,
+                    'end_date' => $end_date,
                     'audit_team' => $check_audit_list,
                     'process_owners' => $check_owner_list,
                       'summary' => $summary
