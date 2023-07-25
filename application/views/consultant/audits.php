@@ -187,16 +187,30 @@
                                       </select>
                                     </div>
                                 </div>
-                              </div>
+                            </div>
                             <div class="form-group col-md-6">
-                                <label style="margin-right:15px">Date Range: </label>
-                                <button type="button" class="btn btn-default daterange-all-company">
+                                <!-- <div class="col-md-2">
+                                    <span style="margin-right:15px">Date Range: </span>
+                                </div> -->
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                        <input type="text" class="form-control daterange-single" name="company_start" value="<?= $filter['company_start']?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                        <input type="text" class="form-control daterange-single1" name="company_end" value="<?= $filter['company_end']?>">
+                                    </div>
+                                </div>
+                                <!-- <button type="button" class="btn btn-default daterange-all-company">
                                     <i class="icon-calendar22 position-left"></i>
                                     <span></span>
                                     <b class="caret"></b>
-                                </button>
-                                <input type="hidden" id="company_end" name="company_end">
-                                <input type="hidden" id="company_start" name="company_start">
+                                </button> -->
+                                <!-- <input type="hidden" id="company_end" name="company_end">
+                                <input type="hidden" id="company_start" name="company_start"> -->
                             </div>
                                 <div class="col-md-1" style="margin-left: 10px;">
                                     <div class="form-group">
@@ -322,60 +336,69 @@
 </style>
 
 <script type="text/javascript">
-    console.clear();
+    $(function(){
+        init_daterange_c();
+    })
 
     function filterleadauditor() {
         document.byaudit_form.submit();
     }
-
-    function init_daterange_c(start,end){
-
-        if (start == '' && end == '') {
-            $('#company_start').val(moment().subtract(1200, 'days').format('YYYY-MM-D'));
-            $('#company_end').val(moment().format('YYYY-MM-D'));
-        } else {
-            $('#company_start').val(start);
-            $('#company_end').val(end);
-        }
-        
-        $('.daterange-all-company').daterangepicker(
-            {
-                startDate: moment().subtract(1200, 'days'),
-                endDate: moment(),
-                maxDate: <?php echo date('d/m/Y')?>,
-                dateLimit: { days: 1000000000 },
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                opens: 'right',
-                applyClass: 'btn-small bg-slate',
-                cancelClass: 'btn-small btn-default'
-            },
-            function(start, end) {
-                $('.daterange-all-company span').html(start.format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + end.format('MMMM D, YYYY'));
-                $("#company_start").val(start.format('YYYY-MM-D'));
-                $("#company_end").val(end.format('YYYY-MM-D'));
+    function init_daterange_c(){
+        $('.daterange-single').daterangepicker({ 
+            singleDatePicker: true,
+            locale: {
+                format: 'YYYY-MM-DD'
             }
-        );
-        if (start != '' && end != '') {
-            $("#company_start").val(start );
-            $("#company_end").val(end);
-            $('.daterange-all-company span').html(start + ' &nbsp; - &nbsp; ' + end);
-        }
-        else
-            $('.daterange-all-company span').html(moment().subtract(1200, 'days').format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + moment().format('MMMM D, YYYY'));
+        });
+        $('.daterange-single1').daterangepicker({ 
+            singleDatePicker: true,
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
     }
+    // function init_daterange_c(start,end){
 
-    $(function() {
-        var company_start = '<?php echo $this->input->post("company_start")?>';
-        var company_end = '<?php echo $this->input->post("company_end")?>';
-        init_daterange_c(company_start, company_end);
-    });
+    //     if (start == '' && end == '') {
+    //         $('#company_start').val(moment().subtract(1200, 'days').format('YYYY-MM-D'));
+    //         $('#company_end').val(moment().format('YYYY-MM-D'));
+    //     } else {
+    //         $('#company_start').val(start);
+    //         $('#company_end').val(end);
+    //     }
+        
+    //     $('.daterange-all-company').daterangepicker(
+    //         {
+    //             startDate: moment().subtract(1200, 'days'),
+    //             endDate: moment(),
+    //             maxDate: <?php echo date('d/m/Y')?>,
+    //             dateLimit: { days: 1000000000 },
+    //             ranges: {
+    //                 'Today': [moment(), moment()],
+    //                 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+    //                 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+    //                 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+    //                 'This Month': [moment().startOf('month'), moment().endOf('month')],
+    //                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    //             },
+    //             opens: 'right',
+    //             applyClass: 'btn-small bg-slate',
+    //             cancelClass: 'btn-small btn-default'
+    //         },
+    //         function(start, end) {
+    //             $('.daterange-all-company span').html(start.format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + end.format('MMMM D, YYYY'));
+    //             $("#company_start").val(start.format('YYYY-MM-D'));
+    //             $("#company_end").val(end.format('YYYY-MM-D'));
+    //         }
+    //     );
+    //     if (start != '' && end != '') {
+    //         $("#company_start").val(start );
+    //         $("#company_end").val(end);
+    //         $('.daterange-all-company span').html(start + ' &nbsp; - &nbsp; ' + end);
+    //     }
+    //     else
+    //         $('.daterange-all-company span').html(moment().subtract(1200, 'days').format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + moment().format('MMMM D, YYYY'));
+    // }
 
 /************Delete Audit*******************/
     function delete_audit(val) {

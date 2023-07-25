@@ -30,69 +30,8 @@
 	<script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/pickers/pickadate/picker.date.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/core/app.js"></script>
     <!--<script src="http://malsup.github.com/jquery.form.js"></script>-->
-	    <script type="text/javascript">
-        $(function() {
-            // Setting datatable defaults
-            $.extend( $.fn.dataTable.defaults, {
-                autoWidth: false,
-                dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-                language: {
-                    search: '<span>Filter:</span> _INPUT_',
-                    searchPlaceholder: 'Type to filter...',
-                    lengthMenu: '<span>Show:</span> _MENU_',
-                    paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
-                },
-                drawCallback: function () {
-                    $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
-                },
-                preDrawCallback: function() {
-                    $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
-                }
-            });
-            // Basic datatable
-            $('.datatable-basic').DataTable({
-                buttons: {
-                    dom: {
-                        button: {
-                            className: 'btn btn-primary'
-                        }
-                    },
-                    buttons: [
-                        {extend: 'csv'}
-                    ]
-                }
-            });
 
-            // Alternative pagination
-            $('.datatable-pagination').DataTable({
-                pagingType: "simple",
-                language: {
-                    paginate: {'next': 'Next &rarr;', 'previous': '&larr; Prev'}
-                }
-            });
-
-            // Datatable with saving state
-            $('.datatable-save-state').DataTable({
-                stateSave: true
-            });
-
-            // Scrollable datatable
-            $('.datatable-scroll-y').DataTable({
-                autoWidth: true,
-                scrollY: 300
-            });
-
-            // External table additions
-            // ------------------------------
-
-            // Enable Select2 select for the length option
-            $('.dataTables_length select').select2({
-                minimumResultsForSearch: Infinity,
-                width: 'auto'
-            });
-        });
-    </script>
-   <style type="text/css">
+   	<style type="text/css">
     	.imlist {
 		    background-color:#26a69a;
 		    color: #fff;
@@ -101,27 +40,15 @@
             display:none;
         }
     </style> 
-
 </head>
 
 
 <body class="navbar-top">
-	<!-- Main navbar -->
 	<?php $this->load->view('consultant/main_header.php'); ?>
-	<!-- /main navbar -->
-
-
-	<!-- Page container -->
 	<div class="page-container">
-
-		<!-- Page content -->
 		<div class="page-content">
-			<!-- Main sidebar -->
 			<?php $this->load->view('consultant/sidebar'); ?>
-			<!-- /main sidebar -->
-			<!-- Main content -->
 			<div class="content-wrapper">
-				<!-- Page header -->
 				<div class="page-header page-header-default">
 					<div class="page-header-content">
 						<div class="page-title">
@@ -129,19 +56,13 @@
 							</h4>
 						</div>
 					</div>
-
 					<div class="breadcrumb-line">
 						<ul class="breadcrumb">
 							<li><a href="<?php echo base_url(); ?>index.php/Welcome/consultantdashboard"><i class="icon-home2 position-left"></i>Home</a></li>
 							<li><a href="#"><?=$title?></a></li>
-						
 						</ul>
 					</div>
 				</div>
-				<!-- /page header -->
-
-
-				<!-- Content area -->
 				<div class="content">
                      <?php
                       
@@ -299,22 +220,64 @@
 		<!-- /page content -->
 	</div>
 	<!-- Primary modal -->
-
-
+>
 	<script type="text/javascript">
+		$(function() {
+			init_daterange_c();
+			$('.daterange-single').val("<?php echo $start_date?>");
+			$('.daterange-single1').val("<?php echo $end_date?>");
+            $.extend( $.fn.dataTable.defaults, {
+                autoWidth: false,
+                dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+                language: {
+                    search: '<span>Filter:</span> _INPUT_',
+                    searchPlaceholder: 'Type to filter...',
+                    lengthMenu: '<span>Show:</span> _MENU_',
+                    paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+                },
+                drawCallback: function () {
+                    $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
+                },
+                preDrawCallback: function() {
+                    $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
+                }
+            });
+            $('.datatable-basic').DataTable({
+                buttons: {
+                    dom: {
+                        button: {
+                            className: 'btn btn-primary'
+                        }
+                    },
+                    buttons: [
+                        {extend: 'csv'}
+                    ]
+                }
+            });
+            $('.datatable-pagination').DataTable({
+                pagingType: "simple",
+                language: {
+                    paginate: {'next': 'Next &rarr;', 'previous': '&larr; Prev'}
+                }
+            });
+            $('.datatable-save-state').DataTable({
+                stateSave: true
+            });
+            $('.datatable-scroll-y').DataTable({
+                autoWidth: true,
+                scrollY: 300
+            });
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+        });
 		function view(val){
 			location.href = "<?php echo base_url('index.php/consultant/invoice_view/')?>"+val;
 		}
 		function pay(val){
 			alert('You must pay!');
 		}
-	</script>
-		<script type="text/javascript">
-		$(function(){
-			init_daterange_c();
-			$('.daterange-single').val("<?php echo $start_date?>");
-			$('.daterange-single1').val("<?php echo $end_date?>");
-		})
         function init_daterange_c(){
 		    $('.daterange-single').daterangepicker({ 
 		        singleDatePicker: true,
@@ -328,11 +291,7 @@
             		format: 'YYYY-MM-DD'
        			}
 		    });
-    }
+    	}
 	</script>
-
 </body>
-
-
-
 </html>
