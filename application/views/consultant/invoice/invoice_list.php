@@ -223,7 +223,18 @@
 >
 	<script type="text/javascript">
 		$(function() {
-			init_daterange_c();
+			$('.daterange-single').daterangepicker({ 
+		        singleDatePicker: true,
+                locale: {
+            		format: 'YYYY-MM-DD'
+       			}
+		    });
+		    $('.daterange-single1').daterangepicker({ 
+		        singleDatePicker: true,
+                locale: {
+            		format: 'YYYY-MM-DD'
+       			}
+		    });
 			$('.daterange-single').val("<?php echo $start_date?>");
 			$('.daterange-single1').val("<?php echo $end_date?>");
             $.extend( $.fn.dataTable.defaults, {
@@ -279,18 +290,7 @@
 			alert('You must pay!');
 		}
         function init_daterange_c(){
-		    $('.daterange-single').daterangepicker({ 
-		        singleDatePicker: true,
-                locale: {
-            		format: 'YYYY-MM-DD'
-       			}
-		    });
-		    $('.daterange-single1').daterangepicker({ 
-		        singleDatePicker: true,
-                locale: {
-            		format: 'YYYY-MM-DD'
-       			}
-		    });
+		    
     	}
 	</script>
 </body>
