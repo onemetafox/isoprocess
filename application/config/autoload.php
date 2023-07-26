@@ -139,5 +139,7 @@ $autoload['model'] = array(
     'InvoiceModel'=> 'invoice',
     'PlanModel' => 'plan',
     'ConsultantModel' => 'consultant',
-    'EmailModel' => 'emails'
+    'EmailModel' => 'emails',
+    'AuditLogModel'=>'audit_log',
+    'AuditBriefModel' => 'audit_brief'
 );
