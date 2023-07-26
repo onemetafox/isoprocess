@@ -196,7 +196,8 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <a type="button" class="btn btn-primary btn-sm" href="<?php echo base_url(); ?>index.php/Employee/add_audit_log/<?=$audit->pa_id?>">Submit</a>
+                                    <!-- <a type="button" class="btn btn-primary btn-sm" href="<?php echo base_url(); ?>index.php/Employee/add_audit_log/<?=$audit->pa_id?>">Submit</a> -->
+                                    <a type="button" class="btn btn-primary btn-sm" href="<?php echo base_url(); ?>index.php/Employee/audit_brief/<?=$audit->pa_id?>">Submit</a>
                                 </td>
                             </tr>
                             <?php $count++;

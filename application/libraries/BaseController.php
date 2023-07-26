@@ -366,7 +366,7 @@ class BaseController extends CI_Controller {
 
     public function getEmailTemp($action){
     	$email_temp = $this->emails->selectOne(array('action'=>$action));
-    	return $email_temp;
+    	return (array)$email_temp;
     }
 #--------------------Email for expired subscription-------------------------------------
 

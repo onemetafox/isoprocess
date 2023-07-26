@@ -16,8 +16,8 @@ class BaseModel extends CI_Model {
         if($filters)
             $this->where($filters);
         $this->db->select($this->table_name.".*");
-        $data = $this->db->get($this->table_name)->result_array();
-        return $data[0];
+        $data = $this->db->get($this->table_name)->row();
+        return $data;
     }
     public function getOne($id){
         $this->db->where($this->private_key, $id);
@@ -48,7 +48,7 @@ class BaseModel extends CI_Model {
     }
 
     public function save($data){
-        if($data[$this->private_key]){
+        if(isset($data[$this->private_key])){
             return $this->update($data);
         }else{
             return $this->insert($data);
@@ -62,6 +62,12 @@ class BaseModel extends CI_Model {
 
     public function update($data){
         $this->db->where($this->private_key, $data[$this->private_key]);
+        $this->db->update($this->table_name, $data);
+        return ($this->db->affected_rows() > 0) ? TRUE : FALSE; 
+    }
+    public function updateWithFilter($data, $filters){
+        if($filters)
+            $this->where($filters);
         $this->db->update($this->table_name, $data);
         return ($this->db->affected_rows() > 0) ? TRUE : FALSE; 
     }

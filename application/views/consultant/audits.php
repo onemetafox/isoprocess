@@ -281,7 +281,8 @@
                                 </td>
                                 <td width="300">
                                     <div class="audits_del_sub">
-                                    <a type="button" class="btn btn-primary btn-sm" href="<?php echo base_url(); ?>index.php/Consultant/add_audit_log/<?=$audit->pa_id?>">Submit</a>
+                                    <!-- <a type="button" class="btn btn-primary btn-sm" href="<?php echo base_url(); ?>index.php/Consultant/add_audit_log/<?=$audit->pa_id?>">Submit</a> -->
+                                    <a type="button" class="btn btn-primary btn-sm" href="<?php echo base_url(); ?>index.php/Consultant/audit_brief/<?=$audit->pa_id?>">Submit</a>
                                     <a type="button" class="btn btn-danger btn-sm" href="#" onclick="delete_audit('<?=$audit->pa_id?>')">Delete</a>
                                      </div>
                                 </td>

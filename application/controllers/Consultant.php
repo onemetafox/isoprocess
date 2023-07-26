@@ -1129,7 +1129,8 @@ class Consultant extends BaseController //CI_Controller
         }
     }
 ///////////////////////End//////////////////    
-    public function audit_brief($log_id = Null)
+    // public function audit_brief($log_id = Null)
+    public function audit_brief($audit_id = Null)
     {
         $data['aa1'] = 'active';
         $data['a1']  = 'act1';
@@ -1137,11 +1138,11 @@ class Consultant extends BaseController //CI_Controller
         if ($consultant_id) {
             $data['title']  = 'Audit Brief';
 
-            $audit_log_list = $this->db->query("SELECT * FROM `audit_log_list` WHERE `log_id`='$log_id'")->row();
+            // $audit_log_list = $this->db->query("SELECT * FROM `audit_log_list` WHERE `log_id`='$log_id'")->row();
 
-            if($log_id == null || $audit_log_list == null) {
-                redirect('Consultant/audits');
-            } else {
+            // if($log_id == null || $audit_log_list == null) {
+            //     redirect('Consultant/audits');
+            // } else {
 
                /* $data['log_id'] = $log_id;
                 $this->db->where('audit_id', $log_id);
@@ -1153,35 +1154,34 @@ class Consultant extends BaseController //CI_Controller
                     $data['is_brief'] = FALSE;
                 }
                 $this->load->view('consultant/audit_brief', $data);*/
-                $data['log_id'] = $log_id;
-                $this->db->where('audit_id', $log_id);
-                $data['audit_brief_array'] = $this->db->get('audit_brief')->row();
+                $data['audit_id'] = $audit_id;
+				$data['audit_brief_array'] = $this->audit_brief->selectOne(array('audit_id'=>$audit_id));
                 if($data['audit_brief_array'] != null) {
                     $data['is_brief'] = TRUE;
                 }
                 else {
                     $data['is_brief'] = FALSE;
-                    while($data['audit_brief_array'] == null && $log_id > 1){
-                        $log_id -= 1;
-                        $this->db->where('audit_id', $log_id);
-                        $data['audit_brief_array'] = $this->db->get('audit_brief')->row();
-                        if($data['audit_brief_array'] != null){
-                            $audit_id = $data['audit_brief_array']->audit_id;
-                            $sql = "SELECT type.company_id from type_of_audit type, audit_list audit, audit_log_list log
-                            WHERE type.type_id = audit.audit_type and log.audit_id = audit.pa_id and log.log_id = '$audit_id'";
-                          //  $company_id = $this->db->query($sql)->row()->company_id;
-                            $company_id = $this->db->query($sql)->row('company_id');
-                            if($company_id == $consultant_id){
-                                $data['log_id'] = $log_id;
-                                $data['is_brief'] = TRUE;
-                            }
-                            else
-                                $data['audit_brief_array'] = null;
-                        }
-                    }
+                    // while($data['audit_brief_array'] == null && $log_id > 1){
+                    //     $log_id -= 1;
+                    //     $this->db->where('audit_id', $log_id);
+                    //     $data['audit_brief_array'] = $this->db->get('audit_brief')->row();
+                    //     if($data['audit_brief_array'] != null){
+                    //         $audit_id = $data['audit_brief_array']->audit_id;
+                    //         $sql = "SELECT type.company_id from type_of_audit type, audit_list audit, audit_log_list log
+                    //         WHERE type.type_id = audit.audit_type and log.audit_id = audit.pa_id and log.log_id = '$audit_id'";
+                    //       //  $company_id = $this->db->query($sql)->row()->company_id;
+                    //         $company_id = $this->db->query($sql)->row('company_id');
+                    //         if($company_id == $consultant_id){
+                    //             $data['log_id'] = $log_id;
+                    //             $data['is_brief'] = TRUE;
+                    //         }
+                    //         else
+                    //             $data['audit_brief_array'] = null;
+                    //     }
+                    // }
                 }
                 $this->load->view('consultant/audit_brief', $data);
-            }
+            // }
 
 
         } else {
@@ -1263,67 +1263,39 @@ class Consultant extends BaseController //CI_Controller
         $data['aa1'] = 'active';
         $data['a1']  = 'act1';
         $consultant_id = $this->session->userdata('consultant_id');
-        $refer_num = $this->input->post("refer_num");
-        $audit_of = $this->input->post("audit_of");
-        $locations = $this->input->post("locations");
-        $purpose = $this->input->post("purpose");
-        $context = $this->input->post("context");
-        $scope = $this->input->post("scope");
-        $criteria = $this->input->post("criteria");
-        $objectives = $this->input->post("objectives");
-        $date_schedule = $this->input->post("date_schedule");
-        $check_audit_list = $this->input->post("check_audit_list");
-        $check_owner_list = $this->input->post("check_owner_list");
+        $params = $this->input->post();
         
-        $start_date = $this->input->post("start_date");
-        $temp = strtotime($start_date);
-        $start_date = date('Y-m-d', $temp);
-
-        $end_date = $this->input->post("end_date");
-        $temp = strtotime($end_date);
-        $end_date = date('Y-m-d', $temp);
+        $start_date = date("Y-m-d", strtotime($this->input->post("start_date")));
+        $end_date = date("Y-m-d", strtotime($this->input->post("end_date")));
 
         $date_schedule = $start_date . " - " . $end_date;
+
+        $params["start_date"] = $start_date;
+        $params["end_date"] = $end_date;
+        $params["date_schedule"] = $date_schedule;
+        $params["audit_id"] = $pa_id;
+        unset($params["auditor__view_length"]);
+        unset($params["owner__view_length"]);
         $summary = $this->input->post("summary");
         if ($consultant_id) {
             $data['title']  = 'Audit Plan';
             $data['pa_id'] = $pa_id;
 
             if($date_schedule != null && $date_schedule != "") {
-                $audit_brief_array = array(
-                    'audit_id' => $pa_id,
-                    'refer_num' => $refer_num,
-                    'audit_of' => $audit_of,
-                    'locations' => $locations,
-                    'purpose' => $purpose,
-                    'context' => $context,
-                    'scope' => $scope,
-                    'criteria' => $criteria,
-                    'objectives' => $objectives,
-                    'date_schedule' => $date_schedule,
-                    'start_date' => $start_date,
-                    'end_date' => $end_date,
-                    'audit_team' => $check_audit_list,
-                    'process_owners' => $check_owner_list,
-                      'summary' => $summary
-                );
 
-                $this->db->where('audit_id', $pa_id);
-                $result = $this->db->get('audit_brief')->row();
+                $result = $this->audit_brief->selectOne(array("audit_id"=>$pa_id));
                 if($result == null) {
-                    $this->db->insert('audit_brief', $audit_brief_array);
+                    $brief_id = $this->audit_brief->save($params);
+                    $this->audit_log->insert(array('log_id'=> $pa_id, "audit_id"=>$pa_id,'brief_id' => $brief_id));
 
-                    $brief_id = $this->db->insert_id();
-                    $this->db->where('log_id', $pa_id);
-                    $this->db->update('audit_log_list', array('brief_id' => $brief_id));
                 } else {
-                    $this->db->where('audit_id', $pa_id);
-                    $this->db->update('audit_brief', $audit_brief_array);
+                    $this->audit_brief->updateWithFilter($params, array('audit_id'=> $pa_id));
+                    $brief_id = $result->brief_id;
+                    $this->audit_log->update(array('log_id'=> $pa_id, "audit_id"=>$pa_id, 'brief_id' => $brief_id));
                 }
             }
 
-            $this->db->where('consultant_id', $consultant_id);
-            $data['employees'] = $this->db->get('employees')->result();
+            $data['employees'] = $this->employee->getAll(array('consultant_id'=> $consultant_id));
 
             $this->db->where('audit_id', $pa_id);
             $audit_plan_array = $this->db->get('audit_plan')->row();
@@ -5663,19 +5635,20 @@ class Consultant extends BaseController //CI_Controller
             echo "<option value='" . $process->process_id . "'>" . $process->process_name . "</option>";
         }
     }
-    public function add_audit_log($pa_id = null) {
-        $audit_list = $this->db->query("SELECT * FROM `audit_list` WHERE `pa_id`='$pa_id'")->row();
-        if($pa_id == null || $audit_list == null) {
-            redirect('Consultant/audits');
-        } else {
-            $data = array(
-                'audit_id' => $pa_id
-            );
-            $this->db->insert('audit_log_list', $data);
-            $log_id = $this->db->insert_id();
-            redirect('Consultant/audit_brief/'. $log_id);
-        }
-    }
+    // public function add_audit_log($pa_id = null) {
+    //     $audit_list = $this->db->query("SELECT * FROM `audit_list` WHERE `pa_id`='$pa_id'")->row();
+    //     if($pa_id == null || $audit_list == null) {
+    //         redirect('Consultant/audits');
+    //     } else {
+    //         $data = array(
+    //             'audit_id' => $pa_id
+    //         );
+    //         $this->db->insert('audit_log_list', $data);
+    //         $log_id = $this->db->insert_id();
+    //         // redirect('Consultant/audit_brief/'. $log_id);
+    //         redirect('Consultant/audit_brief/'. $plan_id);
+    //     }
+    // }
     public function get_root_cause(){
         $data = array();
         $id = $this->input->post('id');

@@ -170,7 +170,9 @@
             <div class="content">
                 <div class="panel panel-flat">
                     <div class="panel-body">
-                        <form class="form-horizontal" method="post" action="<?php echo  base_url(); ?>index.php/Consultant/audit_plan/<?=$log_id?>"
+                        <!-- <form class="form-horizontal" method="post" action="<?php echo  base_url(); ?>index.php/Consultant/audit_plan/<?=$log_id?>"
+                              enctype="multipart/form-data" name="audit_brief_form" id="audit_brief_form"> -->
+                        <form class="form-horizontal" method="post" action="<?php echo  base_url(); ?>index.php/Consultant/audit_plan/<?=$audit_id?>"
                               enctype="multipart/form-data" name="audit_brief_form" id="audit_brief_form">
                             <fieldset>
                                 <div class="form-group">
@@ -313,7 +315,7 @@
 
                                                                     </tbody>
                                                                 </table>
-                                                                <input type="hidden" id="check_audit_list" name="check_audit_list">
+                                                                <input type="hidden" id="check_audit_list" name="audit_team">
                                                             </div>
                                                             <span id="audit_check_err" style="color:red;"></span>
                                                         </div>
@@ -358,7 +360,7 @@
 
                                                                     </tbody>
                                                                 </table>
-                                                                <input type="hidden" id="check_owner_list" name="check_owner_list">
+                                                                <input type="hidden" id="check_owner_list" name="process_owners">
                                                             </div>
                                                             <span id="owner_check_err" style="color:red;"></span>
                                                         </div>
@@ -454,7 +456,7 @@
         if(!val)    val = 1;
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url(); ?>index.php/Consultant/all_auditors/<?=$log_id?>",
+            url: "<?php echo base_url(); ?>index.php/Consultant/all_auditors/<?=$audit_id?>",
             data:{'name' : val},
             success: function(data) {
                 $('#auditor_tbody').html(data);
@@ -473,7 +475,7 @@
         if(!val)    val = 1;
         $.ajax({
             type: "POST",
-            url:  "<?php echo base_url(); ?>index.php/Consultant/all_owners/<?=$log_id?>",
+            url:  "<?php echo base_url(); ?>index.php/Consultant/all_owners/<?=$audit_id?>",
             data:{'name' : val},
             success: function(data) {
                 $('#owner_tbody').html(data);
