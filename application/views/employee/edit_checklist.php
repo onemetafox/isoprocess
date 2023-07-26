@@ -333,9 +333,10 @@
     function page_cancel(){
         window.history.back();
     }
-    function change_status(){
+    function change_status(value){
         var expected_answer = $('#e_a3').prop("checked");
         if (expected_answer == true){
+            $("#e_a4").prop("disabled", false);
             $('#a_t1').prop("disabled", false);
             $('#a_t2').prop("disabled", false);
             $('#a_t3').prop("disabled", false);
@@ -368,6 +369,7 @@
             $('#a_t2').prop("disabled", true);
             $('#a_t3').prop("disabled", true);
             $('#a_t4').prop("disabled", true);
+            $("#e_a3").prop("disabled", false);
         }
         if($('#e_a1').prop('checked')){
             $('#label-comments').text("Conformity table");
