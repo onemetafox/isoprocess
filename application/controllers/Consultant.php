@@ -1155,8 +1155,7 @@ class Consultant extends BaseController //CI_Controller
                 }
                 $this->load->view('consultant/audit_brief', $data);*/
                 $data['audit_id'] = $audit_id;
-                $this->db->where('audit_id', $audit_id);
-                $data['audit_brief_array'] = $this->db->get('audit_brief')->row();
+				$data['audit_brief_array'] = $this->audit_brief->selectOne(array('audit_id'=>$audit_id));
                 if($data['audit_brief_array'] != null) {
                     $data['is_brief'] = TRUE;
                 }
@@ -1291,13 +1290,12 @@ class Consultant extends BaseController //CI_Controller
 
                 } else {
                     $this->audit_brief->updateWithFilter($params, array('audit_id'=> $pa_id));
-                    $brief_id = $result['brief_id'];
+                    $brief_id = $result->brief_id;
                     $this->audit_log->update(array('log_id'=> $pa_id, "audit_id"=>$pa_id, 'brief_id' => $brief_id));
                 }
             }
 
-            $this->db->where('consultant_id', $consultant_id);
-            $data['employees'] = $this->db->get('employees')->result();
+            $data['employees'] = $this->employee->getAll(array('consultant_id'=> $consultant_id));
 
             $this->db->where('audit_id', $pa_id);
             $audit_plan_array = $this->db->get('audit_plan')->row();

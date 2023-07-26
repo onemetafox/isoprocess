@@ -47,7 +47,31 @@
         }
     </style>
        <script type="text/javascript">
-        $(function() {
+            $(function() {
+                $('.daterange-single').daterangepicker({ 
+                singleDatePicker: true,
+                minDate:new Date(),
+                locale: {
+                    format: 'MM/DD/YYYY'
+                }
+            });
+            $('.daterange-single1').daterangepicker({ 
+                singleDatePicker: true,
+                minDate:new Date(),
+                locale: {
+                    format: 'MM/DD/YYYY'
+                }
+            });
+            var schedule = "<?= ($is_brief=='1') ? $audit_brief_array->date_schedule : '' ?>";
+            if(schedule != ""){
+                var temptime = schedule.split(" - ");
+                $('.daterange-single').val(temptime[0]);
+                $('.daterange-single1').val(temptime[1]);
+            }else{
+                $('.daterange-single1').val("");
+                $('.daterange-single').val("");
+
+            }
             // Setting datatable defaults
             $.extend( $.fn.dataTable.defaults, {
                 autoWidth: false,
@@ -171,7 +195,7 @@
             <div class="content">
                 <div class="panel panel-flat">
                     <div class="panel-body">
-                        <form class="form-horizontal" method="post" action="<?php echo  base_url(); ?>index.php/Employee/audit_plan/<?=$log_id?>"
+                        <form class="form-horizontal" method="post" action="<?php echo  base_url(); ?>index.php/Employee/audit_plan/<?=$audit_id?>"
                               enctype="multipart/form-data" name="audit_brief_form" id="audit_brief_form">
                             <fieldset>
                                 <div class="form-group">
@@ -201,10 +225,17 @@
                                                 <div class="col-md-2">
                                                     <span class="help-block">Date Scheduled:</span>
                                                 </div>
-                                                <div class="col-md-6">
+                                               
+                                                <div class="col-md-5">
                                                     <div class="input-group">
-                                                        <input class="form-control daterange-basic" type="text" name="date_schedule" required value="<?= $is_brief ? $audit_brief_array->date_schedule : '' ?>" readonly>
                                                         <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                                        <input type="text" class="form-control daterange-single" name="start_date">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                                        <input type="text" class="form-control daterange-single1" name="end_date">
                                                     </div>
                                                 </div>
                                             </div>
@@ -424,7 +455,7 @@
         if(!val)    val = 1;
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url(); ?>index.php/Consultant/all_auditors/<?=$log_id?>",
+            url: "<?php echo base_url(); ?>index.php/Consultant/all_auditors/<?=$audit_id?>",
             data:{'name' : val},
             success: function(data) {
                 $('#auditor_tbody').html(data);
@@ -444,7 +475,7 @@
         if(!val)    val = 1;
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url(); ?>index.php/Consultant/all_owners/<?=$log_id?>",
+            url: "<?php echo base_url(); ?>index.php/Consultant/all_owners/<?=$audit_id?>",
             data:{'name' : val},
             success: function(data) {
                 $('#owner_tbody').html(data);

@@ -16,11 +16,8 @@ class BaseModel extends CI_Model {
         if($filters)
             $this->where($filters);
         $this->db->select($this->table_name.".*");
-        $data = $this->db->get($this->table_name)->result_array();
-        if($data)
-            return $data[0];
-        else
-            return NULL;
+        $data = $this->db->get($this->table_name)->row();
+        return $data;
     }
     public function getOne($id){
         $this->db->where($this->private_key, $id);
