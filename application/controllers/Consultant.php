@@ -2136,15 +2136,16 @@ class Consultant extends BaseController //CI_Controller
                 $data['is_process'] = FALSE;
             }
 
-            $sql = "SELECT p.* FROM
-							(
-								SELECT * FROM
-									audit_log_list WHERE log_id = " . $pa_id . "
-							) a
-						LEFT JOIN audit_list al ON al.pa_id = a.audit_id
-						LEFT JOIN process_list p ON al.audit_type = p.type_of_audit
-						WHERE p.company_id = " . $consultant_id;
-            $data['processes'] = $this->db->query($sql)->result();
+            // $sql = "SELECT p.* FROM
+			// 				(
+			// 					SELECT * FROM
+			// 						audit_log_list WHERE log_id = " . $pa_id . "
+			// 				) a
+			// 			LEFT JOIN audit_list al ON al.pa_id = a.audit_id
+			// 			LEFT JOIN process_list p ON al.audit_type = p.type_of_audit
+			// 			WHERE p.company_id = " . $consultant_id;
+            // $data['processes'] = $this->db->query($sql)->result();
+            $data['processes'] = $this->process->getAll(array("company_id"=>$consultant_id));
             $this->load->view('consultant/select_process', $data);
         } else {
             redirect('Welcome');

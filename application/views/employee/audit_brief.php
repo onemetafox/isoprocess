@@ -338,7 +338,7 @@
 
                                                                     </tbody>
                                                                 </table>
-                                                                <input type="hidden" id="check_audit_list" name="check_audit_list">
+                                                                <input type="hidden" id="check_audit_list" name="audit_team">
                                                             </div>
                                                             <span id="audit_check_err" style="color:red;"></span>
                                                         </div>
@@ -382,7 +382,7 @@
 
                                                                     </tbody>
                                                                 </table>
-                                                                <input type="hidden" id="check_owner_list" name="check_owner_list">
+                                                                <input type="hidden" id="check_owner_list" name="process_owners">
                                                             </div>
                                                             <span id="owner_check_err" style="color:red;"></span>
                                                         </div>
