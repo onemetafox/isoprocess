@@ -332,6 +332,7 @@
         $('#e_a3').prop("disabled", true);
         $('#e_a4').prop("disabled", true);
         $('textarea[name="evidence[]"]').prop("readonly", true);
+        $('#notes').prop("readonly", true);
     }
     $('#a_t1').prop("disabled", true);
     $('#a_t2').prop("disabled", true);

@@ -344,12 +344,13 @@
 
 <script type="text/javascript">
     var process_id = 0;
-    if( Date.now() >= Date.parse('<?=$start_time?>')){
+    if( Date.now() <= Date.parse('<?=$start_time?>')){
         $('#e_a1').prop("disabled", true);
         $('#e_a2').prop("disabled", true);
         $('#e_a3').prop("disabled", true);
         $('#e_a4').prop("disabled", true);
         $('textarea[name="evidence[]"]').prop("readonly", true);
+        $('#notes').prop("readonly", true);
     }
     $('#a_t1').prop("disabled", true);
     $('#a_t2').prop("disabled", true);
