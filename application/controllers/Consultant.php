@@ -3414,12 +3414,12 @@ class Consultant extends BaseController //CI_Controller
         if ($expected_answer == '2'){
             $status = "NO ISSUE";
         }else if ($expected_answer == '1'){
-            $status = "NON COMFORMITY";
+            $status = "NON CONFORMITY";
         }else if ($expected_answer == '0'){
             if ($audit_trail == '2'){
                 $status = "NO ISSUE";
             }else if ($audit_trail == '1'){
-                $status = "NON COMFORMITY";
+                $status = "NON CONFORMITY";
             }else{
                 $status = "Opportunities";
             }
@@ -3478,12 +3478,12 @@ class Consultant extends BaseController //CI_Controller
         if ($expected_answer == '2'){
             $status = "NO ISSUE";
         }else if ($expected_answer == '1'){
-            $status = "NON COMFORMITY";
+            $status = "NON CONFORMITY";
         }else if ($expected_answer == '0'){
             if ($audit_trail == '2'){
                 $status = "NO ISSUE";
             }else if ($audit_trail == '1'){
-                $status = "NON COMFORMITY";
+                $status = "NON CONFORMITY";
             }else{
                 $status = "Opportunities";
             }

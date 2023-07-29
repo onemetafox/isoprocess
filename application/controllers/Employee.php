@@ -3241,19 +3241,19 @@ WHERE
 
 					//-----------------------------send email------------------------------------
 					$tit = 'Completion sent to Process Owner with Nonconformity';
-					if($status == "NON COMFORMITY")
-						$email_temp = $this->getEmailTemp('Completion sent to Process Owner with Nonconformity');
-					if($status == "Opportunities"){
-						$email_temp = $this->getEmailTemp('Completion sent to Process Owner with Opportunities');
-						$tit = 'Completion sent to Process Owner with Opportunities';
-					}
-					$email_temp['message'] = str_replace("{Process Name}", $process_name, $email_temp['message']);
-					$email_temp['message'] = str_replace("{Process Owner Name}", $process_owner_info->employee_name, $email_temp['message']);
-					$email_temp['message'] = str_replace("{Auditor Name}", $auditor_info->employee_name, $email_temp['message']);
-					$email_temp['message'] = str_replace("{the number for the nonconformities}", $unique_id, $email_temp['message']);
-					$email_temp['message'] = str_replace("{Opportunities For Improvement}", $unique_id, $email_temp['message']);
-					$email_temp['message'] = str_replace("{LOGO}", "<img src='cid:logo'>", $email_temp['message']);
-					$this->sendemail($process_owner_info->employee_email, $tit, $email_temp['message'], $email_temp['subject'], 2);
+					// if($status == "Comformity Table")
+					// 	$email_temp = $this->getEmailTemp('Completion sent to Process Owner with Nonconformity');
+					// if($status == "Opportunity for Improvement"){
+					// 	$email_temp = $this->getEmailTemp('Completion sent to Process Owner with Opportunities');
+					// 	$tit = 'Completion sent to Process Owner with Opportunities';
+					// }
+					// $email_temp['message'] = str_replace("{Process Name}", $process_name, $email_temp['message']);
+					// $email_temp['message'] = str_replace("{Process Owner Name}", $process_owner_info->employee_name, $email_temp['message']);
+					// $email_temp['message'] = str_replace("{Auditor Name}", $auditor_info->employee_name, $email_temp['message']);
+					// $email_temp['message'] = str_replace("{the number for the nonconformities}", $unique_id, $email_temp['message']);
+					// $email_temp['message'] = str_replace("{Opportunities For Improvement}", $unique_id, $email_temp['message']);
+					// $email_temp['message'] = str_replace("{LOGO}", "<img src='cid:logo'>", $email_temp['message']);
+					// $this->sendemail($process_owner_info->employee_email, $tit, $email_temp['message'], $email_temp['subject'], 2);
 					//---------------------------------------------------------------------------
 				}
 
