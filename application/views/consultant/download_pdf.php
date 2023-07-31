@@ -581,7 +581,7 @@
         <?php
                 }
             }
-            $non_conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'NON COMFORMITY'")->result();
+            $non_conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Non-Conformity Table'")->result();
             $num3 = 1;
             if($non_conformity_list != null) {
                 foreach($non_conformity_list as $non_conform_list) {

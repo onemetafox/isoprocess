@@ -3412,18 +3412,18 @@ class Consultant extends BaseController //CI_Controller
         $effectiveness = $this->input->post('effectiveness');
 
         if ($expected_answer == '2'){
-            $status = "NO ISSUE";
-        }else if ($expected_answer == '1'){
-            $status = "NON CONFORMITY";
-        }else if ($expected_answer == '0'){
-            if ($audit_trail == '2'){
-                $status = "NO ISSUE";
-            }else if ($audit_trail == '1'){
-                $status = "NON CONFORMITY";
-            }else{
-                $status = "Opportunities";
-            }
-        }
+			$status = "Conformity Table";
+		}else if ($expected_answer == '1'){
+			$status = "Non-Conformity Table";
+		}else if ($expected_answer == '0'){
+			if ($audit_trail == '2'){
+				$status = "Conformity Table";
+			}else if ($audit_trail == '1'){
+				$status = "Non-Conformity Table";
+			}else if($audit_trail == '0'){
+				$status = "Opportunity For Improvement";
+			}
+		}
         $data = array(
             'process_id' => $process_id,
             'clause_id' => $clause_id,
@@ -3476,18 +3476,18 @@ class Consultant extends BaseController //CI_Controller
         $notes = $this->input->post('notes');
         $effectiveness = $this->input->post('effectiveness');
         if ($expected_answer == '2'){
-            $status = "NO ISSUE";
-        }else if ($expected_answer == '1'){
-            $status = "NON CONFORMITY";
-        }else if ($expected_answer == '0'){
-            if ($audit_trail == '2'){
-                $status = "NO ISSUE";
-            }else if ($audit_trail == '1'){
-                $status = "NON CONFORMITY";
-            }else{
-                $status = "Opportunities";
-            }
-        }
+			$status = "Conformity Table";
+		}else if ($expected_answer == '1'){
+			$status = "Non-Conformity Table";
+		}else if ($expected_answer == '0'){
+			if ($audit_trail == '2'){
+				$status = "Conformity Table";
+			}else if ($audit_trail == '1'){
+				$status = "Non-Conformity Table";
+			}else if($audit_trail == '0'){
+				$status = "Opportunity For Improvement";
+			}
+		}
 
         $data = array(
             'process_id' => $process_id,
@@ -4719,7 +4719,7 @@ class Consultant extends BaseController //CI_Controller
                 $item            = $process_list[$i];
 
                 // noncomformity
-                $nonComformity   = $this->db->query("SELECT COUNT(id) as count FROM `checklist` WHERE `process_id`=$item->process_id && `status`='NON COMFORMITY'")->row()->count;
+                $nonComformity   = $this->db->query("SELECT COUNT(id) as count FROM `checklist` WHERE `process_id`=$item->process_id && `status`='Non-Conformity Table'")->row()->count;
                 $item->noncomformity = $nonComformity;
                 
                 $trigger = $this->db->query("SELECT * FROM `trigger` WHERE `company_id`=$company_id")->result_array();
@@ -4805,7 +4805,7 @@ class Consultant extends BaseController //CI_Controller
                 // noncomformity
                 $nonComformity   = $this->db->query("SELECT COUNT(*) as count FROM `checklist`,`select_process` WHERE 
                     `checklist`.`process_id`=`select_process`.`process_id` && `select_process`.`process_owner`=$item->employee_id &&
-                    `checklist`.`status`='NON COMFORMITY'")->row()->count;
+                    `checklist`.`status`='Non-Conformity Table'")->row()->count;
                 $item->noncomformity = $nonComformity;
                
                 $trigger = $this->db->query("SELECT * FROM `trigger` WHERE `company_id`=$company_id")->result_array();
@@ -4864,7 +4864,7 @@ class Consultant extends BaseController //CI_Controller
                 // noncomformity
                 $nonComformity   = $this->db->query("SELECT COUNT(*) as count FROM `checklist`,`select_process` WHERE 
                     `checklist`.`process_id`=`select_process`.`process_id` && `select_process`.`process_owner`=$item->employee_id &&
-                    `checklist`.`status`='NON COMFORMITY'")->row()->count;
+                    `checklist`.`status`='Non-Conformity Table'")->row()->count;
                 $item->noncomformity = $nonComformity;
                 
                 $trigger = $this->db->query("SELECT * FROM `trigger` WHERE `company_id`=$company_id")->result_array();
@@ -4919,7 +4919,7 @@ class Consultant extends BaseController //CI_Controller
                 $item            = $process_list[$i];
 
                 // noncomformity
-                $nonComformity   = $this->db->query("SELECT COUNT(id) as count FROM `checklist` WHERE `process_id`=$item->process_id and `status`='NON COMFORMITY'")->row()->count;
+                $nonComformity   = $this->db->query("SELECT COUNT(id) as count FROM `checklist` WHERE `process_id`=$item->process_id and `status`='Non-Conformity Table'")->row()->count;
                 $return['noncomformity'][] = $nonComformity;
                 
                 $trigger = $this->db->query("SELECT * FROM `trigger` WHERE `company_id`=$company_id")->result_array();
@@ -4978,7 +4978,7 @@ class Consultant extends BaseController //CI_Controller
                 // noncomformity
                 $nonComformity   = $this->db->query("SELECT COUNT(*) as count FROM `checklist`,`select_process` WHERE 
                     `checklist`.`process_id`=`select_process`.`process_id` and `select_process`.`process_owner`=$item->employee_id and
-                    `checklist`.`status`='NON COMFORMITY'")->row()->count;
+                    `checklist`.`status`='Non-Conformity Table'")->row()->count;
                 $return['noncomformity'][] = $nonComformity;
 
                 $trigger = $this->db->query("SELECT * FROM `trigger` WHERE `company_id`=$company_id")->result_array();
@@ -5031,7 +5031,7 @@ class Consultant extends BaseController //CI_Controller
                 // noncomformity
                 $nonComformity   = $this->db->query("SELECT COUNT(*) as count FROM `checklist`,`select_process` WHERE 
                     `checklist`.`process_id`=`select_process`.`process_id` and `select_process`.`process_owner`=$item->employee_id and
-                    `checklist`.`status`='NON COMFORMITY'")->row()->count;
+                    `checklist`.`status`='Non-Conformity Table'")->row()->count;
                 $return['noncomformity'][] = $nonComformity;
                 
                 $trigger = $this->db->query("SELECT * FROM `trigger` WHERE `company_id`=$company_id")->result_array();
@@ -5316,7 +5316,7 @@ class Consultant extends BaseController //CI_Controller
         LEFT JOIN checklist as c on b.id = c.process_id
         LEFT JOIN process_list AS d ON b.process_id = d.process_id
         where b.checked = 1 and a.log_id = ".$id."
-        and c.status = 'NON COMFORMITY'
+        and c.status = 'Non-Conformity Table'
         group by process_name";
         $data['process_non_list'] = $this->db->query($sql)->result();
         $sql = "SELECT
@@ -5327,7 +5327,7 @@ class Consultant extends BaseController //CI_Controller
         LEFT JOIN checklist as c on b.id = c.process_id
         LEFT JOIN process_list AS d ON b.process_id = d.process_id
         where b.checked = 1 and a.log_id = ".$id."
-        and c.status = 'NO ISSUE'
+        and c.status = 'Conformity Table'
         group by process_name";
         $data['process_conf_list'] = $this->db->query($sql)->result();
         $sql = "SELECT
@@ -5338,7 +5338,7 @@ class Consultant extends BaseController //CI_Controller
         LEFT JOIN checklist as c on b.id = c.process_id
         LEFT JOIN process_list AS d ON b.process_id = d.process_id
         where b.checked = 1 and a.log_id = ".$id."
-        and c.status = 'Opportunities'
+        and c.status = 'Opportunity for Improvement'
         group by process_name";
         $data['process_opp_list'] = $this->db->query($sql)->result();
 

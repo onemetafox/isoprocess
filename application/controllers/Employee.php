@@ -2403,16 +2403,16 @@ class Employee extends BaseController//CI_Controller
 		$notes = $this->input->post('notes');
 		$effectiveness = $this->input->post('effectiveness');
 		if ($expected_answer == '2'){
-			$status = "Comformity Table";
+			$status = "Conformity Table";
 		}else if ($expected_answer == '1'){
-			$status = "Non-Comformity Table";
+			$status = "Non-Conformity Table";
 		}else if ($expected_answer == '0'){
 			if ($audit_trail == '2'){
-				$status = "Comformity Table";
+				$status = "Conformity Table";
 			}else if ($audit_trail == '1'){
-				$status = "Non-Comformity Table";
+				$status = "Non-Conformity Table";
 			}else if($audit_trail == '0'){
-				$status = "Second time";
+				$status = "Opportunity For Improvement";
 			}
 		}
 
@@ -2543,16 +2543,16 @@ class Employee extends BaseController//CI_Controller
 		///////////////////////////////////////////////////////////////////
 
 		if ($expected_answer == '2'){
-			$status = "Comformity Table";
+			$status = "Conformity Table";
 		}else if ($expected_answer == '1'){
-			$status = "Non-Comformity Table";
+			$status = "Non-Conformity Table";
 		}else if ($expected_answer == '0'){
 			if ($audit_trail == '2'){
-				$status = "Comformity Table";
+				$status = "Conformity Table";
 			}else if ($audit_trail == '1'){
-				$status = "Non-Comformity Table";
+				$status = "Non-Conformity Table";
 			}else if($audit_trail == '0'){
-				$status = "Opportunity for Improvement";
+				$status = "Opportunity For Improvement";
 			}
 		}
 		$data = array(
@@ -2683,8 +2683,8 @@ class Employee extends BaseController//CI_Controller
 					$lead_auditor_info = $this->db->where('employee_id', $lead_auditor_id)->get('employees')->row();
 					$auditor_info = $this->db->where('employee_id', $audit_info->auditor)->get('employees')->row();
 					$process_owner_info = $this->db->where('employee_id', $audit_info->process_owner)->get('employees')->row();
-					$nonconformity_count = $this->db->query("SELECT COUNT(*) count FROM checklist WHERE process_id = '$process_id' && status = 'NON COMFORMITY'")->row()->count;
-					$Opportunities_count = $this->db->query("SELECT COUNT(*) count FROM checklist WHERE process_id = '$process_id' && status = 'Opportunities'")->row()->count;
+					$nonconformity_count = $this->db->query("SELECT COUNT(*) count FROM checklist WHERE process_id = '$process_id' && status = 'Non-Conformity Table'")->row()->count;
+					$Opportunities_count = $this->db->query("SELECT COUNT(*) count FROM checklist WHERE process_id = '$process_id' && status = 'Opportunity for Improvement'")->row()->count;
 					//-----------------------------------------------------------------------------
 					//----------------------------------send email----------------------------------
 					$email_temp = $this->getEmailTemp('Completion sent to Lead Auditor');
@@ -2747,25 +2747,25 @@ class Employee extends BaseController//CI_Controller
 			if ($id != '') {
 				$data['checklist_id'] = $id;
 				$sql = "SELECT
-	a.criteria_id,
-	a.note,
-	a.status,
-	e.process_id,
-	d.type_id,
-	e.sme,
-	c.trigger,
-	e.process_owner,
-	b.description,
-	b.process_id as process_name
-FROM
-	checklist AS a
-LEFT JOIN select_process AS e ON a.process_id = e.id
-LEFT JOIN process_list AS b ON e.process_id = b.process_id
-LEFT JOIN audit_log_list AS f ON e.audit_id =f.log_id
-LEFT JOIN audit_list AS c ON f.audit_id = c.pa_id
-LEFT JOIN type_of_audit AS d ON c.audit_type = d.type_id
-WHERE
-	a.id = " . $id;
+					a.criteria_id,
+					a.note,
+					a.status,
+					e.process_id,
+					d.type_id,
+					e.sme,
+					c.trigger,
+					e.process_owner,
+					b.description,
+					b.process_id as process_name
+				FROM
+					checklist AS a
+				LEFT JOIN select_process AS e ON a.process_id = e.id
+				LEFT JOIN process_list AS b ON e.process_id = b.process_id
+				LEFT JOIN audit_log_list AS f ON e.audit_id =f.log_id
+				LEFT JOIN audit_list AS c ON f.audit_id = c.pa_id
+				LEFT JOIN type_of_audit AS d ON c.audit_type = d.type_id
+				WHERE
+					a.id = " . $id;
 				$data['selected_item'] = $this->db->query($sql)->row();
 				$this->db->where('company_id', $consultant_id);
 				$data['audit_type'] = $this->db->get('type_of_audit')->result();
@@ -3308,11 +3308,11 @@ WHERE
 			$data['standalone_data'] = $this->db->get('corrective_action_data')->result();
 			if ($user_type == "Auditor"){
 				$sql = "	Select a.*
-FROM
-	corrective_action_data AS a
-LEFT JOIN checklist AS b ON a.checklist_id = b.id
-LEFT JOIN select_process as c on b.process_id = c.id where a.company_id = ".$company_id."
-and process_status != 'Close' and type != 'OFI' and c.auditor = ".$employee_id;
+						FROM
+							corrective_action_data AS a
+						LEFT JOIN checklist AS b ON a.checklist_id = b.id
+						LEFT JOIN select_process as c on b.process_id = c.id where a.company_id = ".$company_id."
+						and process_status != 'Close' and type != 'OFI' and c.auditor = ".$employee_id;
 				$data['standalone_data'] = $this->db->query($sql)->result();
 			}
 			$this->load->view('employee/resolution_list', $data);
@@ -3342,11 +3342,11 @@ and process_status != 'Close' and type != 'OFI' and c.auditor = ".$employee_id;
 			$data['standalone_data'] = $this->db->get('corrective_action_data')->result();
 			if ($user_type == "Auditor"){
 				$sql = "	Select a.*
-FROM
-	corrective_action_data AS a
-LEFT JOIN checklist AS b ON a.checklist_id = b.id
-LEFT JOIN select_process as c on b.process_id = c.id where a.company_id = ".$company_id."
-and process_status != 'Close' and type = 'OFI' and c.auditor = ".$employee_id;
+					FROM
+						corrective_action_data AS a
+					LEFT JOIN checklist AS b ON a.checklist_id = b.id
+					LEFT JOIN select_process as c on b.process_id = c.id where a.company_id = ".$company_id."
+					and process_status != 'Close' and type = 'OFI' and c.auditor = ".$employee_id;
 				$data['standalone_data'] = $this->db->query($sql)->result();
 			}
 			$this->load->view('employee/resolution_list_ofi', $data);
@@ -3873,10 +3873,10 @@ and process_status != 'Close' and type = 'OFI' and c.auditor = ".$employee_id;
 			$data['standalone_data'] = $this->db->query($query)->result();
 			if ($user_type == "Auditor"){
 				$sql = "	Select a.*
-FROM
-	corrective_action_data AS a
-LEFT JOIN checklist AS b ON a.checklist_id = b.id
-LEFT JOIN select_process as c on b.process_id = c.id where a.company_id = ".$company_id." and process_status='Close' and c.auditor = ".$employee_id;
+					FROM
+						corrective_action_data AS a
+					LEFT JOIN checklist AS b ON a.checklist_id = b.id
+					LEFT JOIN select_process as c on b.process_id = c.id where a.company_id = ".$company_id." and process_status='Close' and c.auditor = ".$employee_id;
 //				if ($type == 'CORRECTION') {
 //					$sql .= " and (type = 'CORRECTION' or trigger_id=" . $trigger_id . ")";
 //				} else {

@@ -295,7 +295,7 @@
                             "bulletBorderThickness": 3,
                             "fillAlphas": 0,
                             "lineAlpha": 1,
-                            "title": "NONCOMFORMITY",
+                            "title": "NON-CONFORMITY",
                             "valueField": "noncomformity"
                         }, {
                             "balloonText": "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>",
@@ -430,7 +430,7 @@
                     labels: process_name,
                     datasets: [
                         {
-                            label:"NONCOMFORMITY",
+                            label:"NON-CONFORMITY",
                             backgroundColor: "#f89a14",
                             hoverBackgroundColor: "#f89a14",
                             data : noncomformity

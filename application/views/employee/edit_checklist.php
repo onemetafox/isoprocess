@@ -360,7 +360,7 @@
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t2').prop('checked')){
-                $('#label-comments').text("Nonconformity");
+                $('#label-comments').text("Non-Conformity");
                 $('#notes').text('');
                 $('#notes').attr("readonly", false);
             }
