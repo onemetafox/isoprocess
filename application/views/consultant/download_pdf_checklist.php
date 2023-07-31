@@ -39,7 +39,7 @@
             $num1 = 0;
             $num2 = 1;
             foreach($process_check_list as $check) {
-                $conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Comformity Table'")->result();
+                $conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Conformity Table'")->result();
                 $opportunity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Opportunity for Improvement'")->result();
                 $auditor = $this->db->query("SELECT * FROM employees WHERE `employee_id`='$check->auditor'")->row();
                 $auditor_name = ($auditor == null) ? "" : $auditor->employee_name;
@@ -134,7 +134,7 @@
             <?php
                 }
             }
-            $non_conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Non-Comformity Table'")->result();
+            $non_conformity_list = $this->db->query("SELECT * FROM checklist WHERE `process_id`='$check->id' AND status = 'Non-Conformity Table'")->result();
             $num3 = 1;
             if($non_conformity_list != null) {
                 foreach($non_conformity_list as $non_conform_list) {

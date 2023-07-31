@@ -332,6 +332,9 @@
         $('#e_a3').prop("disabled", true);
         $('#e_a4').prop("disabled", true);
         $('textarea[name="evidence[]"]').prop("readonly", true);
+        $('#notes').prop("readonly", true);
+    }else{
+        $('textarea[name="evidence[]"]').prop("readonly", false);
     }
     $('#a_t1').prop("disabled", true);
     $('#a_t2').prop("disabled", true);
@@ -357,7 +360,7 @@
                 $('#notes').attr("readonly", false);
             }
             if($('#a_t2').prop('checked')){
-                $('#label-comments').text("Nonconformity");
+                $('#label-comments').text("Non-Conformity");
                 $('#notes').text('');
                 $('#notes').attr("readonly", false);
             }

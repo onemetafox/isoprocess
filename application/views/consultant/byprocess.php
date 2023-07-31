@@ -157,7 +157,7 @@
 								<tr>
 								  <th>NO</th>
 									<th>PROCESS</th>
-                  <th>NONCOMFORMITY</th>
+                  <th>NON-CONFORMITY</th>
 									<th>OPPORTUNITY FOR IMPROVEMENT</th>
 									<th>CORRECTIVE</th>
 								</tr>
