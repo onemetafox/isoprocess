@@ -192,30 +192,29 @@
 							</thead>
 							<tbody>
 								<?php $count=1;
-                                 foreach ($standalone_data as $standalone) { ?>
-<?php 
-$respo=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->process_owner'")->row()->employee_name;
+                                 foreach ($standalone_data as $standalone) {
+                                    $respo=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->process_owner'")->row()->employee_name;
 
-$auditee=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->auditor_id'")->row()->employee_name;
-$auditor_id = $this->db->query("Select c.auditor
-        FROM corrective_action_data AS a
-        LEFT JOIN checklist AS b ON a.checklist_id = b.id
-        LEFT JOIN select_process as c on b.process_id = c.id
-        LEFT JOIN employees as e on c.auditor = e.employee_id
-        where a.checklist_id = '$standalone->checklist_id'")->row()->auditor;
-if($auditor_id == 0)
-    $auditor_id = $standalone->auditor_real_id;
-$auditor = 'TBD';
-if($auditor_id == -1)
-    $auditor = 'N/A';
-else if($auditor_id != 0)
-    $auditor = $this->db->query("SELECT employee_name FROM employees where employee_id = '$auditor_id'")->row()->employee_name;
+                                    $auditee=@$this->db->query("SELECT * FROM `employees` WHERE `employee_id`='$standalone->auditor_id'")->row()->employee_name;
+                                    $auditor_id = $this->db->query("Select c.auditor
+                                            FROM corrective_action_data AS a
+                                            LEFT JOIN checklist AS b ON a.checklist_id = b.id
+                                            LEFT JOIN select_process as c on b.process_id = c.id
+                                            LEFT JOIN employees as e on c.auditor = e.employee_id
+                                            where a.checklist_id = '$standalone->checklist_id'")->row()->auditor;
+                                    if($auditor_id == 0)
+                                        $auditor_id = $standalone->auditor_real_id;
+                                    $auditor = 'TBD';
+                                    if($auditor_id == -1)
+                                        $auditor = 'N/A';
+                                    else if($auditor_id != 0)
+                                        $auditor = $this->db->query("SELECT employee_name FROM employees where employee_id = '$auditor_id'")->row()->employee_name;
 
-$case_name=@$this->db->query("SELECT * FROM `audit_criteria` WHERE `criteria_name`='$standalone->audit_criteria'")->row()->name;
+                                    $case_name=@$this->db->query("SELECT * FROM `audit_criteria` WHERE `criteria_name`='$standalone->audit_criteria'")->row()->name;
 
-$trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$standalone->trigger_id'")->row()->trigger_name;
+                                    $trigger_name=@$this->db->query("SELECT * FROM `trigger` WHERE `trigger_id`='$standalone->trigger_id'")->row()->trigger_name;
 
-?>
+                                ?>
 
 								<tr>
 									<td><?=$standalone->unique_id?></td>

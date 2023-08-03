@@ -4670,7 +4670,8 @@ class Consultant extends BaseController //CI_Controller
             $this->db->where('id', $id)->update('corrective_action_data', array('root_cause'=>$conclusion));
             $this->db->where('corrective_action_data_id', $id);
             $root_cause_data = $this->db->get('root_cause')->row();
-            if (count($root_cause_data) > 0){
+
+            if ($root_cause_data){
                 $this->db->where('corrective_action_data_id', $id);
                 $this->db->update('root_cause', $data);
             }else{
