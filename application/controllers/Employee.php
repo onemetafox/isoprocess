@@ -1945,60 +1945,62 @@ class Employee extends BaseController//CI_Controller
 			}else if ($user_type == "Auditor"){
 				$sql1 = "select * from select_process as a where auditor = ".$employee_id." group by audit_id";
 				$audit_temp = $this->db->query($sql1)->result();
-				if (count($audit_temp) > 0){
-					$sql .= " and (";
-				}else{
-					$sql .= " and ( 1= 0";
-				}
-				$index = 0;
-				foreach ($audit_temp as $item) {
-					$index++;
-					if ($index == count($audit_temp)){
-						$sql .= "g.log_id = ".$item->audit_id;
-					}else{
-						$sql .= "g.log_id = ".$item->audit_id." OR ";
-					}
-				}
-				$sql .= ")";
+				// if (count($audit_temp) > 0){
+				// 	$sql .= " and (";
+				// }else{
+				// 	$sql .= " and ( 1= 0";
+				// }
+				// $index = 0;
+				// // foreach ($audit_temp as $item) {
+				// // 	$index++;
+				// // 	if ($index == count($audit_temp)){
+				// // 		$sql .= "g.log_id = ".$item->audit_id;
+				// // 	}else{
+				// // 		$sql .= "g.log_id = ".$item->audit_id." OR ";
+				// // 	}
+				// // }
+				// $sql .= ")";
 			}else if ($user_type == "Process Owner"){
 				$sql1 = "select * from select_process as a where process_owner = ".$employee_id." group by audit_id";
-				$audit_temp = $this->db->query($sql1)->result();
-				if (count($audit_temp) > 0){
-					$sql .= " and (";
-				}else{
-					$sql .= " and ( 1= 0";
-				}
-				$index = 0;
-				foreach ($audit_temp as $item) {
-					$index++;
-					if ($index == count($audit_temp)){
-						$sql .= "g.log_id = ".$item->audit_id;
-					}else{
-						$sql .= "g.log_id = ".$item->audit_id." OR ";
-					}
-				}
-				$sql .= ")";
+				// $audit_temp = $this->db->query($sql1)->result();
+				// if (count($audit_temp) > 0){
+				// 	$sql .= " and (";
+				// }else{
+				// 	$sql .= " and ( 1= 0";
+				// }
+				// $index = 0;
+				// foreach ($audit_temp as $item) {
+				// 	$index++;
+				// 	if ($index == count($audit_temp)){
+				// 		$sql .= "g.log_id = ".$item->audit_id;
+				// 	}else{
+				// 		$sql .= "g.log_id = ".$item->audit_id." OR ";
+				// 	}
+				// }
+				// $sql .= ")";
 			}
 			else if ($user_type == "Auditee"){
 				$sql1 = "select * from select_process as a where sme = ".$employee_id." group by audit_id";
-				$audit_temp = $this->db->query($sql1)->result();
-				if (count($audit_temp) > 0){
-					$sql .= " and (";
-				}else{
-					$sql .= " and ( 1= 0";
-				}
-				$index = 0;
-				foreach ($audit_temp as $item) {
-					$index++;
-					if ($index == count($audit_temp)){
-						$sql .= "g.log_id = ".$item->audit_id;
-					}else{
-						$sql .= "g.log_id = ".$item->audit_id." OR ";
-					}
-				}
-				$sql .= ")";
+				// $audit_temp = $this->db->query($sql1)->result();
+				// if (count($audit_temp) > 0){
+				// 	$sql .= " and (";
+				// }else{
+				// 	$sql .= " and ( 1= 0";
+				// }
+				// $index = 0;
+				// foreach ($audit_temp as $item) {
+				// 	$index++;
+				// 	if ($index == count($audit_temp)){
+				// 		$sql .= "g.log_id = ".$item->audit_id;
+				// 	}else{
+				// 		$sql .= "g.log_id = ".$item->audit_id." OR ";
+				// 	}
+				// }
+				// $sql .= ")";
 			}
             $sql .= " ORDER BY audit.created_at DESC, pa_id DESC ";
+			// print_r($sql);
+			// die;
 			$data['open_audits'] = $this->db->query($sql)->result();
 			$this->load->view('employee/open_audit', $data);
 		} else {
