@@ -288,7 +288,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         <!-- <?php if ($input_step->status != 'Opportunity for Improvement'): ?>
                                             <a type="button" onclick = "logic_show(<?=$input_step->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
                                         <?php endif;?> -->
-                                        <?php if ($input_step->status != 'Comformity Table'): ?>
+                                        <?php if ($input_step->status != 'Conformity Table'): ?>
                                             <a type="button" onclick = "logic_show(<?=$input_step->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
 
                                             <?php if($input_step->load_status == 0){?>
@@ -390,7 +390,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         ?>
                                     </td>
                                     <td style="width: 19%;">
-                                        <?php if ($activity->status != 'Comformity Table'): ?>
+                                        <?php if ($activity->status != 'Conformity Table'): ?>
                                             <a type="button" onclick = "logic_show(<?=$activity->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
                                             <?php if($activity->load_status == 0){?>
                                                 <a type="button" href = "<?php echo base_url(); ?>index.php/employee/corrective_action_form/<?=$activity->checklist_id?>" class="btn btn-primary btn-sm">Load</a>
@@ -491,7 +491,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         ?>
                                     </td>
                                     <td style="width: 19%;">
-                                        <?php if ($output->status != 'Comformity Table'): ?>
+                                        <?php if ($output->status != 'Conformity Table'): ?>
                                             <a type="button" onclick = "logic_show(<?=$output->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
                                             <?php if($output->load_status == 0){?>
                                                 <a type="button" href = "<?php echo base_url(); ?>index.php/employee/corrective_action_form/<?=$output->checklist_id?>" class="btn btn-primary btn-sm">Load</a>
@@ -592,7 +592,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         ?>
                                     </td>
                                     <td style="width: 19%;">
-                                        <?php if ($control->status != 'Comformity Table'): ?>
+                                        <?php if ($control->status != 'Conformity Table' || $control->status == ""): ?>
                                             <a type="button" onclick = "logic_show(<?=$control->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
                                             <?php if($control->load_status == 0) {?>
                                                 <a type="button" href = "<?php echo base_url(); ?>index.php/employee/corrective_action_form/<?=$control->checklist_id?>" class="btn btn-primary btn-sm">Load</a>
@@ -693,7 +693,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         ?>
                                     </td>
                                     <td style="width: 19%;">
-                                        <?php if ($resource->status != 'Comformity Table'): ?>
+                                        <?php if ($resource->status != 'Conformity Table'): ?>
                                             <a type="button" onclick = "logic_show(<?=$resource->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
                                             <?php if($resource->load_status == 0){?>
                                                 <a type="button" href = "<?php echo base_url(); ?>index.php/employee/corrective_action_form/<?=$resource->checklist_id?>" class="btn btn-primary btn-sm">Load</a>
@@ -780,7 +780,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                             <a type="button" href = "<?php echo base_url(); ?>index.php/employee/resolution/<?=$effectiveness->corrective_id?>" class="btn btn-primary btn-sm">Log</a>
                                         <?php endif; ?> -->
 
-                                        <?php if ($effectiveness->status != 'Comformity Table'): ?>
+                                        <?php if ($effectiveness->status != 'Conformity Table'): ?>
                                             <a type="button" onclick = "logic_show(<?=$effectiveness->checklist_id?>)" class="btn btn-primary btn-sm">Logic</a>
                                             <?php if($effectiveness->load_status == 0){?>
                                                 <a type="button" href = "<?php echo base_url(); ?>index.php/employee/corrective_action_form/<?=$effectiveness->checklist_id?>" class="btn btn-primary btn-sm">Load</a>
