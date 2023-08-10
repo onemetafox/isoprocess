@@ -276,14 +276,10 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </td>
-                                    <td>
-                                        <?php
-                                            if (strlen($input_step->evidence) > 45){
-                                                echo substr($input_step->evidence,0,45)."...";
-                                            }else{
-                                                echo $input_step->evidence;
-                                            }
-                                        ?>
+                                    <td >
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                            <?= implode(",", array_filter(json_decode($input_step->evidence))); ?>
+                                        </p>
                                     </td>
                                     <td>
                                         <?= $input_step->status ?>
@@ -368,14 +364,10 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </td>
-                                    <td>
-                                        <?php
-                                        if (strlen($activity->evidence) > 45){
-                                            echo substr($activity->evidence,0,45)."...";
-                                        }else{
-                                            echo $activity->evidence;
-                                        }
-                                        ?>
+                                    <td >
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                            <?= implode(",", array_filter(json_decode($activity->evidence))); ?>
+                                        </p>
                                     </td>
                                     <td>
                                         <?= $activity->status ?>
@@ -460,14 +452,10 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </td>
-                                    <td>
-                                        <?php
-                                        if (strlen($output->evidence) > 45){
-                                            echo substr($output->evidence,0,45)."...";
-                                        }else{
-                                            echo $output->evidence;
-                                        }
-                                        ?>
+                                    <td >
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                            <?= implode(",", array_filter(json_decode($output->evidence))); ?>
+                                        </p>
                                     </td>
                                     <td>
                                         <?= $output->status ?>
@@ -552,14 +540,10 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </td>
-                                    <td>
-                                        <?php
-                                        if (strlen($control->evidence) > 45){
-                                            echo substr($control->evidence,0,45)."...";
-                                        }else{
-                                            echo $control->evidence;
-                                        }
-                                        ?>
+                                    <td >
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                            <?= implode(",", array_filter(json_decode($control->evidence))); ?>
+                                        </p>
                                     </td>
                                     <td>
                                         <?= $control->status ?>
@@ -644,14 +628,10 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </td>
-                                    <td>
-                                        <?php
-                                        if (strlen($resource->evidence) > 45){
-                                            echo substr($resource->evidence,0,45)."...";
-                                        }else{
-                                            echo $resource->evidence;
-                                        }
-                                        ?>
+                                    <td >
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                            <?= implode(",", array_filter(json_decode($resource->evidence))); ?>
+                                        </p>
                                     </td>
                                     <td>
                                         <?= $resource->status ?>
