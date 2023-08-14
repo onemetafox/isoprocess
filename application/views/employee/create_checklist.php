@@ -155,7 +155,7 @@
                                                         <button type="button" class="btn btn-primary btn-sm pull-right" onclick="TBD_btn('questions')">TBD</button>
                                                     <?php endif; ?>
                                                 </div>
-                                                <textarea placeholder="" class="form-control" name="questions" id="questions" rows="4"></textarea>
+                                                <textarea placeholder="" class="form-control" name="questions" id="questions" rows="4" required></textarea>
                                             </div>
                                             <?php if ($clause_id != '4'): ?>
                                                 <div class="col-md-4">
@@ -185,7 +185,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label>Auditee: </label>
                                                     <select class="form-control" name="edit_auditee[]" multiple id="edit_auditee" required>
-                                                        <option value="0">TBD</option>
+                                                        <option selected value="0">TBD</option>
                                                         <option value="-1">N/A</option>
                                                         <?php foreach ($smes as $sme) { ?>
                                                             <option value="<?= $sme->employee_id ?>" name="sjdfjsdfjk"><?= $sme->role ?></option>

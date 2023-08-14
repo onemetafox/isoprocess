@@ -163,7 +163,7 @@
                                                         <button type="button" class="btn btn-primary btn-sm pull-right" onclick="TBD_btn('questions')">TBD</button>
                                                     <?php endif; ?>
                                                 </div>
-                                                <textarea placeholder="" class="form-control" name="questions" id="questions" rows="4"><?=$checklist->questions?></textarea>
+                                                <textarea placeholder="" class="form-control" name="questions" id="questions" rows="4" required><?=$checklist->questions?></textarea>
                                             </div>
                                             <?php if ($clause_id != '4'): ?>
                                                 <div class="col-md-4">
@@ -195,9 +195,15 @@
                                                     <select class="form-control" name="edit_auditee[]" multiple id="edit_auditee" required>
                                                         <option value="0">TBD</option>
                                                         <option value="-1">N/A</option>
-                                                        <?php foreach ($smes as $sme) { ?>
+                                                        <?php foreach ($smes as $sme) { 
+                                                            if($sme->employee_id == 0) { ?>
+                                                                <option value="0">TBD</option>
+                                                            <?php } else if($sme->employee_id == -1) { ?>
+                                                                <option value="-1">N/A</option>
+                                                            <?php }else {?>
+                                                            
                                                             <option value="<?= $sme->employee_id ?>" name="sjdfjsdfjk"><?= $sme->role ?></option>
-                                                        <?php } ?>
+                                                        <?php } } ?>
                                                     </select>
                                                 </div>
                                             </div>

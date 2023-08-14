@@ -1129,7 +1129,7 @@ class Employee extends BaseController//CI_Controller
 
 			$this->db->join("permision", "employees.employee_id = permision.employee_id", "left");
 			$this->db->where('employees.consultant_id', $consultant_id);
-			$this->db->where('permision.type_id', $auditee);
+			// $this->db->where('permision.type_id', $auditee);
 			$data['smes'] = $this->db->get('employees')->result();
 
 			$this->db->where('log_id', $pa_id);
@@ -2780,7 +2780,7 @@ class Employee extends BaseController//CI_Controller
 				$data['process_owners'] = $this->db->get('employees')->result();
 				$this->db->join("permision","permision.employee_id = employees.employee_id","left");
 				$this->db->where('employees.consultant_id', $consultant_id);
-				$this->db->where('permision.type_id', '4');
+				// $this->db->where('permision.type_id', '4');
 				$data['auditees'] = $this->db->get('employees')->result();
 				$this->db->where('company_id', $consultant_id);
 				$data['triggers'] = $this->db->get('trigger')->result();
@@ -2804,7 +2804,7 @@ class Employee extends BaseController//CI_Controller
 				$data['process_owners'] = $this->db->get('employees')->result();
 				$this->db->join("permision","permision.employee_id = employees.employee_id","left");
 				$this->db->where('employees.consultant_id', $consultant_id);
-				$this->db->where('permision.type_id', '4');
+				// $this->db->where('permision.type_id', '4');
 				$data['auditees'] = $this->db->get('employees')->result();
 				$this->db->where('company_id', $consultant_id);
 				$data['triggers'] = $this->db->get('trigger')->result();
