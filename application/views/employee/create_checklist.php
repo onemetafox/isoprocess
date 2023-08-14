@@ -155,7 +155,7 @@
                                                         <button type="button" class="btn btn-primary btn-sm pull-right" onclick="TBD_btn('questions')">TBD</button>
                                                     <?php endif; ?>
                                                 </div>
-                                                <textarea placeholder="" class="form-control" name="questions" id="questions" rows="4"></textarea>
+                                                <textarea placeholder="" class="form-control" name="questions" id="questions" rows="4" required></textarea>
                                             </div>
                                             <?php if ($clause_id != '4'): ?>
                                                 <div class="col-md-4">
