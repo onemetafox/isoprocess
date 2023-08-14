@@ -277,7 +277,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         <?php endif; ?>
                                     </td>
                                     <td >
-                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width:250px;">
                                             <?= implode(",", array_filter(json_decode($input_step->evidence))); ?>
                                         </p>
                                     </td>
@@ -365,7 +365,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         <?php endif; ?>
                                     </td>
                                     <td >
-                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width:250px;">
                                             <?= implode(",", array_filter(json_decode($activity->evidence))); ?>
                                         </p>
                                     </td>
@@ -453,7 +453,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         <?php endif; ?>
                                     </td>
                                     <td >
-                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width:250px;">
                                             <?= implode(",", array_filter(json_decode($output->evidence))); ?>
                                         </p>
                                     </td>
@@ -541,7 +541,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         <?php endif; ?>
                                     </td>
                                     <td >
-                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width:250px;">
                                             <?= implode(",", array_filter(json_decode($control->evidence))); ?>
                                         </p>
                                     </td>
@@ -629,7 +629,7 @@ function view_criteria($criteria1, $criteria2, $criteria3, $criteria4) {
                                         <?php endif; ?>
                                     </td>
                                     <td >
-                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:250px;">
+                                        <p style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width:250px;">
                                             <?= implode(",", array_filter(json_decode($resource->evidence))); ?>
                                         </p>
                                     </td>
