@@ -2454,11 +2454,12 @@ class Employee extends BaseController//CI_Controller
 		);
 		$this->db->where('id', $checklist_id);
 		$done = $this->db->update('checklist', $data);
-		if ($clause_id < 0){
-			redirect('employee/edit_checklist_process/'.$process_id);
-		}else{
-			redirect('employee/edit_checklist_mind/'.$process_id);
-		}
+		redirect('employee/edit_checklist_process/'.$process_id);
+		// if ($clause_id < 0){
+		// 	redirect('employee/edit_checklist_process/'.$process_id);
+		// }else{
+		// 	redirect('employee/edit_checklist_mind/'.$process_id);
+		// }
 	}
 	public function get_checklist_mind($id = null)
 	{
@@ -2575,12 +2576,12 @@ class Employee extends BaseController//CI_Controller
 			'auditees' => $auditee
 		);
 		$done = $this->db->insert('checklist', $data);
-
-		if ($clause_id < 0){
-			redirect('employee/edit_checklist_process/'.$process_id);
-		}else{
-			redirect('employee/edit_checklist_mind/'.$process_id);
-		}
+		redirect('employee/edit_checklist_process/'.$process_id);
+		// if ($clause_id < 0){
+		// 	redirect('employee/edit_checklist_process/'.$process_id);
+		// }else{
+		// 	redirect('employee/edit_checklist_mind/'.$process_id);
+		// }
 	}
 
 	public function delete_checklist()
