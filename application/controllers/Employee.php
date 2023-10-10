@@ -2834,25 +2834,25 @@ class Employee extends BaseController//CI_Controller
 			if ($id != '') {
 				$data['checklist_id'] = $id;
 				$sql = "SELECT
-	a.criteria_id,
-	a.note,
-	a.status,
-	e.process_id,
-	d.type_id,
-	e.sme,
-	c.trigger,
-	e.process_owner,
-	b.description,
-	b.process_id as process_name
-FROM
-	checklist AS a
-LEFT JOIN select_process AS e ON a.process_id = e.id
-LEFT JOIN process_list AS b ON e.process_id = b.process_id
-LEFT JOIN audit_log_list AS f ON e.audit_id =f.log_id
-LEFT JOIN audit_list AS c ON f.audit_id = c.pa_id
-LEFT JOIN type_of_audit AS d ON c.audit_type = d.type_id
-WHERE
-	a.id = " . $id;
+					a.criteria_id,
+					a.note,
+					a.status,
+					e.process_id,
+					d.type_id,
+					e.sme,
+					c.trigger,
+					e.process_owner,
+					b.description,
+					b.process_id as process_name
+				FROM
+					checklist AS a
+				LEFT JOIN select_process AS e ON a.process_id = e.id
+				LEFT JOIN process_list AS b ON e.process_id = b.process_id
+				LEFT JOIN audit_log_list AS f ON e.audit_id =f.log_id
+				LEFT JOIN audit_list AS c ON f.audit_id = c.pa_id
+				LEFT JOIN type_of_audit AS d ON c.audit_type = d.type_id
+				WHERE
+					a.id = " . $id;
 				$data['selected_item'] = $this->db->query($sql)->row();
 				$this->db->where('company_id', $consultant_id);
 				$data['audit_type'] = $this->db->get('type_of_audit')->result();

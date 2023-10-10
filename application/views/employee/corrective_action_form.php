@@ -134,9 +134,9 @@
 											<span class="help-block">Process:</span>
 
 											<select name="process" id="process" class="form-control">
-												<?php /*foreach ($process as $item) { */?><!--
-													<option  value="<?/*=$item->process_id*/?>"><?/*=$item->process_name*/?></option>
-												--><?php /*} */?>
+												<?php foreach ($process as $item) { ?>
+													<option  value="<?=$item->process_id?>"><?=$item->process_name?></option>
+												<?php } ?>
 											</select>
 										</div>
 									</div>
