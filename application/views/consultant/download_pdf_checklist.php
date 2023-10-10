@@ -68,13 +68,19 @@
                                                 Auditor: <?=$auditor_name?>
                                             </td>
                                             <td style="text-align: left;width: 25%;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                Audit Criteria: <?=$conform_list->criteria_id?>,<?=$conform_list->criteria_id2?>,<?=$conform_list->criteria_id3?>,<?=$conform_list->criteria_id4?>
+                                                Audit Criteria:
+                                                    <?=$conform_list->criteria_id=="N/A"?"":$conform_list->criteria_id?>
+                                                    <?=$conform_list->criteria_id2=="N/A"?"":", ". $conform_list->criteria_id2?>
+                                                    <?=$conform_list->criteria_id3=="N/A"?"":", ". $conform_list->criteria_id3?>
+                                                    <?=$conform_list->criteria_id4=="N/A"?"":", ". $conform_list->criteria_id4?>
                                             </td>
                                             <td style="text-align: left;width: 25%;border-width:1px 1px 1px 1px;padding-left: 5px;">
                                                 Auditees: <?php 
-                                                    foreach( $auditee_array as $kye => $auditee_id){
-                                                        $auditee = $this->employee->getOne($auditee_id);
-                                                        echo($auditee->role . ", ");
+                                                    foreach( $auditee_array as $key => $auditee_id){
+                                                        if($auditee_id != 0){
+                                                            $auditee = $this->employee->getOne($auditee_id);
+                                                            echo($auditee->role . ", ");
+                                                        }
                                                     }
                                                 ?>
                                             </td>
@@ -176,7 +182,10 @@
                                                 Audit of : <?=$check->process_name?>
                                             </td>
                                             <td style="text-align: left;width: 35%;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                Audit Criteria: <?=$non_conform_list->criteria_id?>,<?=$non_conform_list->criteria_id2?>,<?=$non_conform_list->criteria_id3?>,<?=$non_conform_list->criteria_id4?>
+                                                Audit Criteria: <?=$non_conform_list->criteria_id=="N/A"?"":$non_conform_list->criteria_id?>
+                                                    <?=$non_conform_list->criteria_id2=="N/A"?"":", ". $non_conform_list->criteria_id2?>
+                                                    <?=$non_conform_list->criteria_id3=="N/A"?"":", ". $non_conform_list->criteria_id3?>
+                                                    <?=$non_conform_list->criteria_id4=="N/A"?"":", ". $non_conform_list->criteria_id4?>
                                             </td>
                                             <td style="text-align: left;width: 35%;border-width:1px 1px 1px 1px;padding-left: 5px;">
                                             </td>
@@ -272,7 +281,10 @@
                                                     Audit of : <?=$check->process_name?>
                                                 </td>
                                                 <td style="text-align: left;width: 35%;border-width:1px 1px 1px 1px;padding-left: 5px;">
-                                                    Audit Criteria: <?=$opportunity->criteria_id?>,<?=$opportunity->criteria_id2?>,<?=$opportunity->criteria_id3?>,<?=$opportunity->criteria_id4?>
+                                                    Audit Criteria: <?=$opportunity->criteria_id=="N/A"?"":$opportunity->criteria_id?>
+                                                    <?=$opportunity->criteria_id2=="N/A"?"":", ". $opportunity->criteria_id2?>
+                                                    <?=$opportunity->criteria_id3=="N/A"?"":", ". $opportunity->criteria_id3?>
+                                                    <?=$opportunity->criteria_id4=="N/A"?"":", ". $opportunity->criteria_id4?>
                                                 </td>
                                                 <td style="text-align: left;width: 35%;border-width:1px 1px 1px 1px;padding-left: 5px;">
                                                 </td>
