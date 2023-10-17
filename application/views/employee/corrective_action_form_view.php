@@ -777,7 +777,7 @@
   $(document).ready(function () {
 	  var type = "<?php echo $selected_item->status;?>";
 	  var user_type = "<?=$user_type?>";
-	  if(type == "Opportunities") {
+	  if(type == "Opportunity For Improvement") {
 		  $("#type").val("OFI");
 		  var ofi_desc = $("#prob_desc").val();
 		  $("#prob_desc").val("");
