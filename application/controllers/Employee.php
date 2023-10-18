@@ -2205,6 +2205,11 @@ class Employee extends BaseController//CI_Controller
 			redirect('Welcome');
 		}
 	}
+	public function change_process_status($id){
+		$process = $this->select_process->getOne($id);
+		$this->select_process->updateOne($id, array("status"=>2));
+		redirect("employee/edit_audit_plan/".$process->audit_id);
+	}
 
 	public function view_checklist_process($id = null)
 	{

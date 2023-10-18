@@ -264,6 +264,7 @@
                                         <a type="button" class="btn btn-primary btn-sm" onclick = "redirect_view_map(<?=$process->sp_id?>,<?=$process->map_type?>)">View</a>
                                         <?php if($user_type == "Lead Auditor") { ?> 
                                             <a type="button" class="btn btn-primary btn-sm" <?php if ($process->map_type == 0): ?> onclick = "check_map('<?=$process->sp_id?>')" <?php else: ?> onclick = "redirect_map(<?=$process->sp_id?>,<?=$process->map_type?>)" <?php endif; ?>>Edit</a>
+                                            <a type="button" class="btn btn-primary btn-sm" <?php if ($process->map_type == 0): ?> onclick = "check_map('<?=$process->sp_id?>')" <?php else: ?> onclick = "change_status(<?=$process->sp_id?>,<?=$process->map_type?>)" <?php endif; ?>>Reopen</a>
                                         <?php } elseif ($user_type == "Auditor") { ?> 
                                             <a type="button" class="btn btn-default btn-sm">Edit</a>
                                         <?php } ?>
@@ -344,6 +345,11 @@
         }
         if (map_type == 2){
             location.href = "<?php echo base_url(); ?>index.php/Employee/edit_checklist_process/"+id;
+        }
+    }
+    function change_status(id, map_type){
+        if(map_type == 2){
+            location.href = "<?php echo base_url(); ?>index.php/Employee/change_process_status/"+id;
         }
     }
     function redirect_view_map(id,map_type){
