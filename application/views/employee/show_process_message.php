@@ -114,7 +114,7 @@
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>
                                             <span class="">Auditee:
                                             </span>
@@ -132,7 +132,7 @@
                                                 }
                                                 ?>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>
                                             <span class="">Start DateTime:</span>
