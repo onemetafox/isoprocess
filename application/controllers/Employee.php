@@ -2206,9 +2206,29 @@ class Employee extends BaseController//CI_Controller
 		}
 	}
 	public function change_process_status($id){
-		$process = $this->select_process->getOne($id);
+		$select_process = $this->select_process->getOne($id);
+
+		$process = $this->process->getOne($select_process->process_id);
+
 		$this->select_process->updateOne($id, array("status"=>2));
-		redirect("employee/edit_audit_plan/".$process->audit_id);
+
+		$auditor = $this->employee->getOne($select_process->auditor);
+
+		$employee_id = $this->session->userdata('employee_id');
+		$lead_auditor = $this->employee->getOne($employee_id);
+
+		$email_temp = $this->getEmailTemp('Process revert email to auditor');
+
+		$email_temp['message'] = str_replace("{Lead auditor}", $lead_auditor->employee_name, $email_temp['message']);
+		$email_temp['message'] = str_replace("{process step}", $process->process_name, $email_temp['message']);
+		$email_temp['message'] = str_replace("{Auditor}", $auditor->employee_name, $email_temp['message']);
+		$email_temp['message'] = str_replace("{LOGO}", "<img src='cid:logo'>", $email_temp['message']);
+		$href = base_url()."index.php/employee/edit_checklist_process/".$select_process->id;
+		$email_temp['message'] = str_replace("{inbox}", "<a href=".$href.">Click here</a>", $email_temp['message']);
+		
+		$this->sendemail($auditor->employee_email, 'Process Revert', $email_temp['message'], $email_temp['subject'], 2);
+		
+		redirect("employee/edit_audit_plan/".$select_process->audit_id);
 	}
 
 	public function view_checklist_process($id = null)
