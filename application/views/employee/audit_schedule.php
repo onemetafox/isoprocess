@@ -38,23 +38,21 @@
     <script type="text/javascript" src="<?=base_url(); ?>assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="<?=base_url(); ?>assets/js/core/app.js"></script>
     <!--script type="text/javascript" src="<?=base_url(); ?>assets/js/pages/datatables_basic.js"></script-->
-<!--    <script type="text/javascript" src="--><?//= base_url(); ?><!--assets/js/pages/picker_date.js"></script>-->
- <script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
+    <!--<script type="text/javascript" src="--><?//= base_url(); ?><!--assets/js/pages/picker_date.js"></script>-->
+    <script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
     <script type="text/javascript">
         var rangeDemoFormat = "%Y-%m-%d %H:%i:%s";
         var rangeDemoConv = new AnyTime.Converter({format:rangeDemoFormat});
-        $(function() {
-            // Style checkboxes and radios
+        
+        $(function(){
             $(".styled, .multiselect-container input").uniform({
                 radioClass: 'choice'
             });
             $(".file-styled").uniform({
                 fileButtonClass: 'action btn btn-default'
             });
-        });
-        $(function(){
             // On demand picker
             $("#ButtonCreationDemoInput").AnyTime_picker({
                 format: rangeDemoFormat

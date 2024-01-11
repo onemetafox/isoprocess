@@ -15,11 +15,12 @@
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
-    <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/pickers/anytime.min.js"></script>
+    <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/core/libraries/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/loaders/blockui.min.js"></script>
-      <script type="text/javascript" src="<?=base_url(); ?>assets/js/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="<?=base_url(); ?>assets/js/jquery.multiselect.js"></script>
     <!-- /core JS files -->
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="<?= base_url(); ?>assets/js/core/app.js"></script>
@@ -31,7 +32,6 @@
 <!-- Main navbar -->
 <?php $this->load->view('employee/main_header.php'); ?>
 <!-- /main navbar -->
-
 
 <!-- Page container -->
 <div class="page-container">
@@ -95,36 +95,41 @@
                 <?php
                 foreach ($checklist as $checklist) { ?>
                 <div class="panel panel-body text-left" id="main-data">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="panel panel-flat text-left">
-                                    <table class="table table-borderless">
-                                        <tr>
-                                            <td>Process Name</td>
-                                            <td><?=$process_name?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date</td>
-                                            <td><?=$start_time?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Auditor</td>
-                                            <td><?=$auditor?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Process Owner</td>
-                                            <td><?=$process_owner?></td>
-                                        </tr>
-                                    </table>
+                    <form id="save_checklist" action="<?php echo base_url(); ?>index.php/employee/update_checklist" method="post" style="display: inline-block;">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="panel panel-flat text-left">
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <td>Process Name</td>
+                                                <td><?=$process_name?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td><?php if(strtotime($start_time) > strtotime('now')){
+                                                    echo $start_time;
+                                                }else { ?>
+                                                    <input type="text" class="form-control" id="ButtonCreationDemoInput" placeholder="Select a date" name="start_time" value="<?= $start_time?>" required>
+                                                <?php } ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Auditor</td>
+                                                <td><?=$auditor?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Process Owner</td>
+                                                <td><?=$process_owner?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?php   $user_type = $this->session->userdata("user_type"); 
-                            $evidences = json_decode($checklist->evidence);
-                    ?>
-                    <form id="save_checklist" action="<?php echo base_url(); ?>index.php/employee/update_checklist" method="post" style="display: inline-block;">
+                        <?php   $user_type = $this->session->userdata("user_type"); 
+                                $evidences = json_decode($checklist->evidence);
+                        ?>
                         <input type="hidden" id = "process_id" name="process_id" value = "<?=$process_id?>">
                         <input type="hidden" id = "clause_id" name="clause_id" value = "<?=$clause_id?>">
                         <input type="hidden" id = "checklist_id" name="checklist_id" value = "<?=$checklist_id?>">
@@ -410,6 +415,11 @@
 
  /////////////////////////////////////////////////////////////
 $(document).ready(function(){
+    var rangeDemoFormat = "%Y-%m-%d %H:%i:%s";
+    var rangeDemoConv = new AnyTime.Converter({format:rangeDemoFormat});
+    $("#ButtonCreationDemoInput").AnyTime_picker({
+        format: rangeDemoFormat
+    });
     $.ajax({
         type: "POST",
         // url: "<?php echo base_url(); ?>index.php/Employee/findprocess",

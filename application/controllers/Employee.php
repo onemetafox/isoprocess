@@ -301,8 +301,9 @@ class Employee extends BaseController//CI_Controller
 			$id = $this->input->post('id');
 			$pa_id = $this->input->post('pa_id');
 			$this->db->where('process_id', $id);
-			$this->db->where('audit_id', $pa_id);
-			$done = $this->db->get('select_process')->row();
+			// $this->db->where('audit_id', $pa_id);
+			// $done = $this->db->get('select_process')->row();
+			$done = $this->db->get('process_list')->row();
 			echo json_encode($done);
 		} else {
 			redirect('Welcome');
@@ -2415,6 +2416,7 @@ class Employee extends BaseController//CI_Controller
 		}
 	}
 	public function update_checklist(){
+		$process_starttime = $this->input->post('start_time');
 		$process_id = $this->input->post('process_id');
 		$checklist_id = $this->input->post('checklist_id');
 		$clause_id = $this->input->post('clause_id');
@@ -2453,9 +2455,16 @@ class Employee extends BaseController//CI_Controller
 		    $auditee .= $row . ", ";
 		}
 		$auditee = substr($auditee, 0, -2);
-		$array = array(
-			'sme' => $auditee,
-		);
+		if($process_starttime){
+			$array = array(
+				'sme' => $auditee,
+				'start_time' => $process_starttime
+			);
+		}else{
+			$array = array(
+				'sme' => $auditee,
+			);
+		}
 	    $this->db->where('audit_id', $pa_id);
 	    $this->db->where('process_id', $edit_process_id);
 	    $this->db->update('select_process', $array);

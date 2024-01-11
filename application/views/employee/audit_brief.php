@@ -46,9 +46,9 @@
             max-width: 100%;
         }
     </style>
-       <script type="text/javascript">
-            $(function() {
-                $('.daterange-single').daterangepicker({ 
+    <script type="text/javascript">
+        $(function() {
+            $('.daterange-single').daterangepicker({ 
                 singleDatePicker: true,
                 minDate:new Date(),
                 locale: {
