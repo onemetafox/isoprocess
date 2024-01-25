@@ -27,7 +27,7 @@ class Admin extends BaseController//CI_Controller
 		if ($admin_id) {
 			$data['title'] = "Notifications";
 			$data['alerts'] = $this->alerts->getAll();
-			$this->load->view('admin/alert_list', $data);
+			$this->load->view('Admin/alert_list', $data);
 		} else {
 			redirect('Welcome');
 		}
@@ -641,7 +641,7 @@ class Admin extends BaseController//CI_Controller
 		if ($admin_id) {
 			$data['title'] = "Email Template";
 			$data['emails'] = $this->emails->getAll();
-			$this->load->view('Admin/Email_template', $data);
+			$this->load->view('Admin/email_template', $data);
 		} else {
 			redirect('Welcome');
 		}

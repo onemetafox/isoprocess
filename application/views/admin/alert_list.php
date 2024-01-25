@@ -24,10 +24,10 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 	<style type="text/css">
-    	.smlist {
-		    background-color:#26a69a;
-		    color: #fff;
-		}
+		.warning {
+				background-color:#26a69a;
+				color: #fff;
+			}
     </style> 
 </head>
 
