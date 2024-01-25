@@ -143,5 +143,6 @@ $autoload['model'] = array(
     'AuditLogModel'=>'audit_log',
     'AuditBriefModel' => 'audit_brief',
     'ProcessModel' => 'process',
-    'SelectProcessModel'=>'select_process'
+    'SelectProcessModel'=>'select_process',
+    'AlertModel' => 'alerts'
 );

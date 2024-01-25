@@ -26,6 +26,12 @@
 							<li class="<?=$d4?>"><a href="<?php echo base_url(); ?>index.php/Admin/Email_template" >All Template</a></li>
 						</ul> -->
 					</li>
+					<li>
+						<a href="<?php echo base_url(); ?>index.php/Admin/alert" class="email_1"><i class="icon-warning"></i>Notification Management</a>
+						<!-- <ul>
+							<li class="<?=$d4?>"><a href="<?php echo base_url(); ?>index.php/Admin/Email_template" >All Template</a></li>
+						</ul> -->
+					</li>
 					<li class="">
 						<a href="<?php echo base_url(); ?>index.php/Admin/login_history" class="paylist_1"><i class="icon-history"></i>Login History</a>
 						<!-- <ul>
