@@ -2417,6 +2417,7 @@ class Employee extends BaseController//CI_Controller
 	}
 	public function update_checklist(){
 		$process_starttime = $this->input->post('start_time');
+		$process_endtime = $this->input->post('end_time');
 		$process_id = $this->input->post('process_id');
 		$checklist_id = $this->input->post('checklist_id');
 		$clause_id = $this->input->post('clause_id');
@@ -2458,7 +2459,8 @@ class Employee extends BaseController//CI_Controller
 		if($process_starttime){
 			$array = array(
 				'sme' => $auditee,
-				'start_time' => $process_starttime
+				'start_time' => $process_starttime,
+				'end_time' => $process_endtime
 			);
 		}else{
 			$array = array(
@@ -2674,10 +2676,95 @@ class Employee extends BaseController//CI_Controller
 				$data['clause_id'] = $clause_id;
 				$data['process__id'] = $process[0]->process_id;
                 $data['audit_id'] = $process[0]->audit_id;
-				$this->db->where('id', $checklist_id);
-				$checklist = $this->db->get('checklist')->result();
 				$data['checklist_id'] = $checklist_id;
+				$checklist = $this->checklist->getOne($checklist_id);
 				$data['checklist'] = $checklist;
+				
+				$msg = $this->alerts->selectOne(array("key"=> "no-au-c"));
+				$data['no_community'] = $msg->content;
+
+				$msg =  $this->alerts->selectOne(array("key"=>'ph-au-c'));
+				$content = str_replace("{Process Step}", $checklist->process_step, $msg->content);
+				$content = str_replace("{Process Name}", $process[0]->process_name, $content);
+				
+				$evidences = json_decode($checklist->evidence);
+				foreach($evidences as $index => $evidence){
+					if($evidence == ""){
+						$content = str_replace(" {Evidence". $index+1 ."},", "", $content);
+					}else{
+						$content = str_replace("{Evidence". $index+1 ."}", $evidence, $content);
+					}
+				}
+				if($checklist->criteria_id == "N/A"){
+					$content = str_replace(" {Audit Criteria1},", "", $content);
+				}else{
+					$content = str_replace("{Audit Criteria1}", $checklist->criteria_id, $content);
+				}
+				if($checklist->criteria_id2 == "N/A"){
+					$content = str_replace(" {Audit Criteria2},", "", $content);
+				}else{
+					$content = str_replace("{Audit Criteria2}", $checklist->criteria_id2, $content);
+				}
+				if($checklist->criteria_id3 == "N/A"){
+					$content = str_replace(" {Audit Criteria3},", "", $content);
+				}else{
+					$content = str_replace("{Audit Criteria3}", $checklist->criteria_id3, $content);
+				}
+				if($checklist->criteria_id4 == "N/A"){
+					$content = str_replace(" {Audit Criteria4},", "", $content);
+				}else{
+					$content = str_replace("{Audit Criteria4},", $checklist->criteria_id4, $content);
+				}
+				$data['ph_community'] = trim($content);
+
+				$msg = $this->alerts->selectOne(array("key"=> "no-au-nc"));
+				$data['no_noncommunity'] = $msg->content;
+
+				$msg =  $this->alerts->selectOne(array("key"=>'ph-au-nc'));
+				$content = str_replace("{Process Step}", $checklist->process_step, $msg->content);
+				$content = str_replace("{Process Name}", $process[0]->process_name, $content);
+				
+				$evidences = json_decode($checklist->evidence);
+				foreach($evidences as $index => $evidence){
+					if($evidence == ""){
+						$content = str_replace(" {Evidence". $index+1 ."},", "", $content);
+					}else{
+						$content = str_replace("{Evidence". $index+1 ."}", $evidence, $content);
+					}
+				}
+				if($checklist->criteria_id == "N/A"){
+					$content = str_replace(" {Audit Criteria1},", "", $content);
+				}else{
+					$content = str_replace("{Audit Criteria1}", $checklist->criteria_id, $content);
+				}
+				if($checklist->criteria_id2 == "N/A"){
+					$content = str_replace(" {Audit Criteria2},", "", $content);
+				}else{
+					$content = str_replace("{Audit Criteria2}", $checklist->criteria_id2, $content);
+				}
+				if($checklist->criteria_id3 == "N/A"){
+					$content = str_replace(" {Audit Criteria3},", "", $content);
+				}else{
+					$content = str_replace("{Audit Criteria3}", $checklist->criteria_id3, $content);
+				}
+				if($checklist->criteria_id4 == "N/A"){
+					$content = str_replace(" {Audit Criteria4},", "", $content);
+				}else{
+					$content = str_replace("{Audit Criteria4},", $checklist->criteria_id4, $content);
+				}
+				$data['ph_noncommunity'] = trim($content);
+
+				$msg = $this->alerts->selectOne(array("key"=>"no-au-f-of"));
+				$data["first_notsure"] = trim($msg->content);
+				
+				$msg = $this->alerts->selectOne(array("key"=> "ph-au-o"));
+				$content = str_replace("{Process Owner}", $process[0]->process_owner_name, $msg->content);
+				$content = str_replace("{Process Name}", $process[0]->process_name, $content);
+				$data['ph_oppotunity'] = $content;
+				
+				$msg = $this->alerts->selectOne(array("key"=> "no-au-s-of"));
+				$data['no_oppotunity'] = $msg->content;
+
 				$this->db->join("permision", "employees.employee_id = permision.employee_id", "left");
 				$this->db->where('employees.consultant_id', $consultant_id);
 				// $this->db->where('permision.type_id', $auditee);

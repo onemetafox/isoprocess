@@ -92,8 +92,6 @@
             <!-- Content area -->
             <div class="content">
                 <!-- Basic datatable -->
-                <?php
-                foreach ($checklist as $checklist) { ?>
                 <div class="panel panel-body text-left" id="main-data">
                     <form id="save_checklist" action="<?php echo base_url(); ?>index.php/employee/update_checklist" method="post" style="display: inline-block;">
                         <div class="col-md-12">
@@ -110,7 +108,10 @@
                                                 <td><?php if(strtotime($start_time) > strtotime('now')){
                                                     echo $start_time;
                                                 }else { ?>
-                                                    <input type="text" class="form-control" id="ButtonCreationDemoInput" placeholder="Select a date" name="start_time" value="<?= $start_time?>" required>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="ButtonCreationDemoInput" placeholder="Select a date" name="start_time" value="<?= $start_time?>" required>
+                                                        <input type="text" class="form-control" id="ButtonCreationDemoInput1" placeholder="Select a date" name="end_time" value="<?= $end_time?>" required>
+                                                    </div>
                                                 <?php } ?>
                                                 </td>
                                             </tr>
@@ -318,8 +319,7 @@
                         </div>
                     </form>
                 </div>
-                <?php
-                } ?>
+                
                 <!-- /basic datatable -->
 
                 <!-- Footer -->
@@ -336,6 +336,13 @@
 <!-- /page container -->
 
 <script type="text/javascript">
+    var ph_community = "<?= $ph_community?>";
+    var no_community = "<?= $no_community?>";
+    var ph_noncommunity = "<?= $ph_noncommunity?>";
+    var no_noncommunity = "<?= $no_noncommunity?>";
+    var first_notsure = "<?= $first_notsure?>";
+    var ph_oppotunity =  "<?= $ph_oppotunity ?>";
+    var no_oppotunity = "<?= $no_oppotunity ?>";
     var process_id = 0;
     if( Date.now() <= Date.parse('<?=$start_time?>')){
         $('#e_a1').prop("disabled", true);
@@ -355,8 +362,11 @@
         window.history.back();
     }
     function change_status(value){
+        var ofi = false;
         var expected_answer = $('#e_a3').prop("checked");
         if (expected_answer == true){
+            // bootbox.alert(first_notsure);
+            $("#notes").attr("placeholder", "");
             $("#e_a4").prop("disabled", false);
             $('#a_t1').prop("disabled", false);
             $('#a_t2').prop("disabled", false);
@@ -366,19 +376,29 @@
                 $('#a_t4').prop("checked", true);
             }
             if($('#a_t1').prop('checked')){
+                ofi = false
+                bootbox.alert(no_community);
                 $('#label-comments').text("Conformity table");
                 $('#notes').text('');
                 $('#notes').attr("readonly", false);
+                $('#notes').attr("placeholder", ph_community);
             }
             if($('#a_t2').prop('checked')){
+                ofi = false
+                bootbox.alert(no_noncommunity);
                 $('#label-comments').text("Non-Conformity");
                 $('#notes').text('');
                 $('#notes').attr("readonly", false);
+                $("#notes").attr("placeholder",ph_noncommunity);
             }
             if($('#a_t3').prop('checked')){
+                ofi = true
+                bootbox.alert(no_oppotunity);
+
                 $('#label-comments').text("Opportunity For Improvement (OFI)");
                 $('#notes').attr("readonly", false);
                 $('#notes').text('');
+                $("#notes").attr("placeholder",ph_oppotunity);
             }
             if($('#a_t4').prop('checked')){
                 $('#label-comments').text("TBD");
@@ -386,6 +406,7 @@
                 $('#notes').attr("readonly", true);
             }
         }else{
+            
             $('#a_t1').prop("disabled", true);
             $('#a_t2').prop("disabled", true);
             $('#a_t3').prop("disabled", true);
@@ -393,19 +414,23 @@
             $("#e_a3").prop("disabled", false);
         }
         if($('#e_a1').prop('checked')){
+            bootbox.alert(no_community);
             $('#label-comments').text("Conformity table");
             $('#notes').text('');
             $('#notes').attr("readonly", false);
+            $('#notes').attr("placeholder", ph_community);
         }
         if($('#e_a2').prop('checked')){
+            bootbox.alert(no_noncommunity);
             $('#label-comments').text("Nonconformity");
             $('#notes').text('');
             $('#notes').attr("readonly", false);
+            $("#notes").attr("placeholder",ph_noncommunity);
         }
         
         if($('#e_a4').prop('checked')){
             $('#label-comments').text("TBD");
-            $('#notes').text('This table is locked until you search for evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you are still not sure you need to input an "Opportunity for Improvement" OFI')
+            // $('#notes').text('This table is locked until you search for evidence to determine if there is "conformity" select "yes" "nonconformity" select "No" or if you are still not sure you need to input an "Opportunity for Improvement" OFI')
             $('#notes').attr("readonly", true);
         }
     }
@@ -418,6 +443,9 @@ $(document).ready(function(){
     var rangeDemoFormat = "%Y-%m-%d %H:%i:%s";
     var rangeDemoConv = new AnyTime.Converter({format:rangeDemoFormat});
     $("#ButtonCreationDemoInput").AnyTime_picker({
+        format: rangeDemoFormat
+    });
+    $("#ButtonCreationDemoInput1").AnyTime_picker({
         format: rangeDemoFormat
     });
     $.ajax({

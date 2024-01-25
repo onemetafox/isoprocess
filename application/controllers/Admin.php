@@ -21,6 +21,39 @@ class Admin extends BaseController//CI_Controller
 			redirect('Welcome');
 		}
 	}
+
+	public function alert(){
+		$admin_id = $this->session->userdata('admin_id');
+		if ($admin_id) {
+			$data['title'] = "Notifications";
+			$data['alerts'] = $this->alerts->getAll();
+			$this->load->view('admin/alert_list', $data);
+		} else {
+			redirect('Welcome');
+		}
+	}
+	public function delete_alert($id){
+		$this->alerts->deleteOne($id);
+		$data['alerts'] = $this->alerts->getAll();
+		redirect('admin/alert');
+	}
+	public function save_alert(){
+		$data = $this->input->post();
+		$this->alerts->save($data);
+		$result = array("success"=>true, "msg"=> "Notification saved correclty");
+		echo json_encode($result);
+	}
+	public function find_alert(){
+		$admin_id = $this->session->userdata('admin_id');
+		if ($admin_id) {
+			$id = $this->input->post('id');
+			$this->db->where('id', $id);
+			$done = $this->db->get('alerts')->row();
+			echo json_encode($done);
+		} else {
+			redirect('Welcome');
+		}
+	}
 	public function add_plan()
 	{
 		$admin_id = $this->session->userdata('admin_id');
