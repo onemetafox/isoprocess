@@ -285,7 +285,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" id="type_sel_id" name="type_sel_id" value="<?=$this->input->post('audit_type_sel')?>">
+                    <input type="hidden" id="type_sel_id" name="type_sel_id" value="<?=$audit_type_sel?>">
                 </div>
 
                 <div class="modal-footer">

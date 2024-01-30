@@ -241,7 +241,7 @@ class Employee extends BaseController//CI_Controller
 
 			$this->db->where('company_id', $consultant_id);
 			$data['type_of_audits'] = $this->db->get('type_of_audit')->result();
-
+			
 			if($audit_type_sel == null) {
 				$this->db->where('company_id', $consultant_id);
 				$audit_type_sel = $this->db->get('type_of_audit')->first_row()->type_id;
@@ -251,7 +251,6 @@ class Employee extends BaseController//CI_Controller
 			}
 			$this->db->where('company_id', $consultant_id);
 			$data['processes'] = $this->db->get('process_list')->result();
-
 			$data['audit_type_sel'] = $audit_type_sel;
 			$this->load->view('employee/process_manage', $data);
 		} else {
